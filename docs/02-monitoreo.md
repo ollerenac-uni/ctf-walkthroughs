@@ -287,5 +287,3 @@ tshark -r air.pcap -Y 'http.request.method == "POST"' -T fields -e http.file_dat
 
 `bettercap`, `airodump-ng` + `hcxdumptool`, `kismet`. Todas llegan a lo mismo: capturar el login
 HTTP del bot. Cambia la *técnica*, no la *conclusión*.
-
-**Siguiente:** [Táctica 3 · Exploitation](03-exploitation.md)
