@@ -32,10 +32,12 @@ no solo *qué* comandos se corrieron. El foco es el razonamiento: cada etapa sig
 - **0 · [Setup](etapa0-setup.md)** — VPN, servicios expuestos y acceso por RDP
 - **1 · [Discovery](01-discovery.md)** — descubrir la red `10.13.37.0/24`
 - **2 · [Network Sniffing](02-monitoreo.md)** — capturar `jenny`
+- **🎯 [Tarea](tarea.md)** — crea tu blog en GitHub Pages y documenta tu avance (0 → 2)
 
-!!! note "Etapas 3–6 no publicadas"
-    La cadena de explotación (RCE → credenciales → movimiento lateral → privesc a root)
-    no se publica en este sitio para no dar la solución completa.
+!!! note "Tácticas 3–6: no publicadas"
+    La cadena de explotación (Execution → Credential Access → Lateral Movement → Privesc a root)
+    **no** se publica, para no dar la solución. Tu trabajo está en la **[Tarea](tarea.md)**: montar
+    tu propio blog MkDocs y documentar con capturas tu recorrido de la Etapa 0 a la Táctica 2.
 
 !!! tip "La pregunta de oro para el re-run"
     En cada táctica pregúntate: *¿era esta la única forma de llegar a la misma conclusión,

@@ -31,6 +31,80 @@ sudo openvpn machines_us-4.ovpn
     resolvió cambiando a otro servidor / a **TCP 443** (443 es HTTPS: ninguna red lo bloquea).
     Detalle en `logs/vpn_connectivity.md`.
 
+??? bug "Troubleshooting real: la VPN dice *Completed* pero NO llego a la máquina"
+    **Síntoma.** La VPN conecta sin error (`Initialization Sequence Completed`), pero RDP falla:
+
+    ```
+    xfreerdp ... /v:10.129.247.82 ...
+    [ERROR][com.freerdp.core] - freerdp_tcp_connect: ERRCONNECT_CONNECT_FAILED [0x00020006]
+    [ERROR][com.freerdp.core] - failed to connect to 10.129.247.82
+    ```
+
+    **Trampa mental.** El log de OpenVPN está impecable —hasta instala la ruta correcta—:
+    ```
+    PUSH_REPLY,... route 10.129.0.0 255.255.0.0 ...
+    net_route_v4_add: 10.129.0.0/16 via 10.10.16.1 dev tun1
+    Initialization Sequence Completed
+    ```
+    Tentación: culpar a la VPN. **Pero la VPN no es el problema** — el túnel está arriba. Hay que
+    bajar un nivel y mirar el **enrutamiento**.
+
+    **El reflejo de diagnóstico** (de fuera hacia dentro):
+
+    ```bash
+    pgrep -a openvpn            # ¿cuántas VPN hay corriendo?
+    ip -br link show type tun   # ¿hay túneles colgados (tun0, tun1, ...)?
+    ip route get 10.129.247.82  # ¿por QUÉ túnel sale el tráfico a la máquina?
+    ping -c3 10.129.247.82      # ¿llega el host?
+    nc -zv 10.129.247.82 3389   # ¿está arriba el puerto RDP?
+    ```
+
+    **Lo que encontramos:** dos OpenVPN vivos a la vez, de servidores **distintos**:
+
+    ```
+    openvpn machines_us-5.ovpn   → tun0   (zombi de una sesión anterior, ~4 h)
+    openvpn machines_us-4.ovpn   → tun1   (el nuevo, el de Layover)
+    ```
+
+    Las dos instalaron la **misma** ruta a `10.129.0.0/16`, y solo una puede ganar:
+
+    ```
+    ip route get 10.129.247.82
+    → 10.129.247.82 via 10.10.16.1 dev tun0   ← ¡sale por el VIEJO (us-5)!
+    ```
+
+    Tus paquetes RDP se iban por el túnel equivocado, hacia un servidor que **no** tiene enrutada tu
+    máquina → `ping` 0/3, puerto `3389` cerrado, `CONNECT_FAILED`.
+
+    **La causa (dos cosas a la vez):**
+
+    1. **Técnica:** a un mismo destino (`10.129.0.0/16`) solo puede apuntar **una** ruta efectiva; el
+       túnel zombi la robó.
+    2. **De HTB:** solo admite **una** sesión VPN activa por cuenta.
+
+    **El arreglo — dejar UNA sola VPN limpia:**
+
+    ```bash
+    sudo pkill -f openvpn               # 1) matar TODAS las VPN
+    ip -br link show type tun           #    verificar: tun0/tun1 deben desaparecer
+    pgrep -a openvpn || echo "sin openvpn: OK"
+    sudo openvpn .../machines_us-4.ovpn # 2) reconectar SOLO la de Layover
+    ping -c3 10.129.247.82 && nc -zv 10.129.247.82 3389   # 3) re-test antes de RDP
+    ```
+
+    Con una sola VPN, la ruta a `10.129.x` apunta al servidor correcto y la máquina aparece:
+
+    ```
+    64 bytes from 10.129.247.82: icmp_seq=1 ttl=63 time=99.4 ms   ← ping OK
+    3389 ABIERTO ✓                                                 ← RDP escuchando
+    ```
+
+    **Lección:** *antes* de conectar la VPN, comprueba que no haya otra colgada (`pgrep -a openvpn`,
+    `ip -br link show type tun`). Un **túnel zombi** de una sesión previa es un clásico de
+    "la VPN dice *Completed* pero no llego a la máquina". Y si tras limpiar sigue sin responder, el
+    problema ya no es red sino la **máquina**: apagada, o con **IP nueva** tras un respawn (HTB rota
+    la IP) — verifícalo en el panel.
+
 ---
 
 ## 0.2 · Los dos servicios expuestos

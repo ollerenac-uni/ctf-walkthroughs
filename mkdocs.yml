@@ -68,3 +68,4 @@ nav:
   - Tácticas:
       - "1 · Discovery": 01-discovery.md
       - "2 · Network Sniffing": 02-monitoreo.md
+  - "Tarea · Tu blog del walkthrough": tarea.md
