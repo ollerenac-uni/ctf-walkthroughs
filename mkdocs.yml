@@ -1,0 +1,66 @@
+site_name: "Layover — Manufactura del Walkthrough"
+site_description: "Solución de la máquina HackTheBox 'Layover' por tácticas MITRE ATT&CK."
+site_url: https://ollerenac-uni.github.io/layover-walkthrough/
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  language: es
+  font:
+    text: JetBrains Mono
+    code: JetBrains Mono
+  features:
+    - navigation.tabs
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Cambiar a modo oscuro
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Cambiar a modo claro
+
+plugins:
+  - search:
+      lang: es
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - toc:
+      permalink: true
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Inicio: index.md
+  - "Etapa 0 · Setup": etapa0-setup.md
+  - Tácticas:
+      - "1 · Discovery": 01-discovery.md
+      - "2 · Network Sniffing": 02-monitoreo.md
+      - "3 · Exploitation (RCE)": 03-exploitation.md
+      - "4 · Credenciales": 04-credenciales.md
+      - "5 · Lateral Movement": 05-lateral.md
+      - "6 · Privesc (CUPS)": 06-privesc.md

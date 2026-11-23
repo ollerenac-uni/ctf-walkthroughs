@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 320" font-family="system-ui, sans-serif">
+  <rect width="820" height="320" fill="#ffffff"/>
+  <text x="30" y="40" font-size="22" font-weight="700" fill="#0f172a">Los dos servicios expuestos</text>
+  <text x="30" y="64" font-size="14" fill="#64748b">Mismas credenciales, distinto resultado. La clave está en cómo autentica cada uno.</text>
+
+  <!-- SSH box -->
+  <rect x="30" y="90" width="360" height="190" rx="12" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="50" y="124" font-size="18" font-weight="700" fill="#991b1b">22/tcp — SSH</text>
+  <text x="50" y="148" font-size="13" fill="#64748b" font-family="ui-monospace, monospace">OpenSSH 9.6p1 (Ubuntu)</text>
+  <text x="50" y="184" font-size="14" fill="#1e293b">Config: </text>
+  <text x="50" y="204" font-size="13" fill="#b91c1c" font-family="ui-monospace, monospace">PasswordAuthentication no</text>
+  <text x="50" y="224" font-size="13" fill="#64748b">(en sshd_config.d/60-cloudimg…)</text>
+  <rect x="50" y="240" width="300" height="28" rx="6" fill="#dc2626"/>
+  <text x="64" y="259" font-size="14" font-weight="700" fill="#ffffff">✗ login con contraseña BLOQUEADO</text>
+
+  <!-- RDP box -->
+  <rect x="430" y="90" width="360" height="190" rx="12" fill="#f0fdf4" stroke="#059669" stroke-width="2"/>
+  <text x="450" y="124" font-size="18" font-weight="700" fill="#065f46">3389/tcp — RDP (xrdp)</text>
+  <text x="450" y="148" font-size="13" fill="#64748b" font-family="ui-monospace, monospace">ms-wbt-server</text>
+  <text x="450" y="184" font-size="14" fill="#1e293b">Autentica vía <tspan font-weight="700">PAM</tspan>,</text>
+  <text x="450" y="204" font-size="14" fill="#1e293b">que NO depende de esa directiva.</text>
+  <text x="450" y="224" font-size="13" fill="#64748b">→ la puerta que sí abre.</text>
+  <rect x="450" y="240" width="300" height="28" rx="6" fill="#059669"/>
+  <text x="464" y="259" font-size="14" font-weight="700" fill="#ffffff">✓ entra con las credenciales dadas</text>
+</svg>

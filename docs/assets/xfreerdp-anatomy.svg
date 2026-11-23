@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" font-family="system-ui, sans-serif">
+  <rect width="880" height="520" fill="#ffffff"/>
+  <text x="30" y="40" font-size="22" font-weight="700" fill="#0f172a">Anatomía del comando xfreerdp</text>
+  <text x="30" y="64" font-size="14" fill="#64748b">Cada bandera se construye, no se memoriza. El prefijo <tspan font-weight="700">/</tspan> configura y <tspan font-weight="700">+</tspan> activa.</text>
+
+  <!-- rows -->
+  <g font-family="ui-monospace, Menlo, monospace">
+    <!-- 1 -->
+    <rect x="30" y="90" width="300" height="44" rx="8" fill="#334155"/>
+    <text x="48" y="118" font-size="18" fill="#ffffff">xfreerdp</text>
+    <text x="350" y="117" font-size="15" fill="#1e293b" font-family="system-ui, sans-serif">El cliente RDP de FreeRDP (abre el escritorio remoto).</text>
+    <!-- 2 -->
+    <rect x="30" y="148" width="300" height="44" rx="8" fill="#2563eb"/>
+    <text x="48" y="176" font-size="18" fill="#ffffff">/u:contractor</text>
+    <text x="350" y="175" font-size="15" fill="#1e293b" font-family="system-ui, sans-serif">Usuario con el que te autenticas.</text>
+    <!-- 3 -->
+    <rect x="30" y="206" width="300" height="44" rx="8" fill="#dc2626"/>
+    <text x="48" y="234" font-size="16" fill="#ffffff">/p:'Contractor2026!'</text>
+    <text x="350" y="227" font-size="15" fill="#1e293b" font-family="system-ui, sans-serif">Contraseña. Comillas simples porque el</text>
+    <text x="350" y="247" font-size="15" fill="#1e293b" font-family="system-ui, sans-serif"><tspan font-family="ui-monospace, monospace" font-weight="700">!</tspan> es especial para el shell.</text>
+    <!-- 4 -->
+    <rect x="30" y="264" width="300" height="44" rx="8" fill="#059669"/>
+    <text x="48" y="292" font-size="17" fill="#ffffff">/v:10.129.247.82</text>
+    <text x="350" y="285" font-size="15" fill="#1e293b" font-family="system-ui, sans-serif">Víctima / destino. El <tspan font-family="ui-monospace, monospace">:3389</tspan> es implícito</text>
+    <text x="350" y="305" font-size="15" fill="#1e293b" font-family="system-ui, sans-serif">(puerto RDP por defecto).</text>
+    <!-- 5 -->
+    <rect x="30" y="322" width="300" height="44" rx="8" fill="#d97706"/>
+    <text x="48" y="350" font-size="18" fill="#ffffff">/cert:ignore</text>
+    <text x="350" y="349" font-size="15" fill="#1e293b" font-family="system-ui, sans-serif">Acepta el certificado autofirmado de xrdp sin preguntar.</text>
+    <!-- 6 -->
+    <rect x="30" y="380" width="300" height="44" rx="8" fill="#0d9488"/>
+    <text x="48" y="408" font-size="18" fill="#ffffff">+clipboard</text>
+    <text x="350" y="407" font-size="15" fill="#1e293b" font-family="system-ui, sans-serif">Portapapeles compartido host⇄remoto.</text>
+    <!-- 7 -->
+    <rect x="30" y="438" width="300" height="44" rx="8" fill="#7c3aed"/>
+    <text x="48" y="466" font-size="16" fill="#ffffff">/dynamic-resolution</text>
+    <text x="350" y="465" font-size="15" fill="#1e293b" font-family="system-ui, sans-serif">La ventana se adapta al redimensionar (opcional).</text>
+  </g>
+</svg>

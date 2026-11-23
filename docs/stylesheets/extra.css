@@ -1,0 +1,46 @@
+/* Ajustes sobre Material for MkDocs — estética coder/hacker */
+
+/* Imágenes y diagramas SVG con marco suave; fondo blanco para que los SVG
+   claros sigan legibles también en modo oscuro. */
+/* Imágenes inline (fuera de <figure>): acotadas, sin forzar tamaño */
+.md-typeset img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Directiva: TODA figura ocupa el ancho completo disponible */
+.md-typeset figure { width: 100%; margin: 1.6rem auto; }
+.md-typeset figure img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 10px;
+  background: #ffffff;
+}
+.md-typeset figcaption {
+  font-size: 0.8rem;
+  color: var(--md-default-fg-color--light);
+  font-style: italic;
+}
+
+/* Ritmo de lectura: separar secciones */
+.md-typeset h2 {
+  border-bottom: 2px solid var(--md-default-fg-color--lightest);
+  padding-bottom: 0.3rem;
+  margin-top: 2.2rem;
+}
+
+/* Tablas un poco más compactas (la mono ocupa más) */
+.md-typeset table:not([class]) { font-size: 0.78rem; }
+
+/* Toque de terminal: código en línea con un leve tinte */
+.md-typeset code {
+  font-size: 0.82em;
+}
+
+/* La fuente mono hace los títulos pesados; afinamos tracking */
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  letter-spacing: -0.01em;
+}
