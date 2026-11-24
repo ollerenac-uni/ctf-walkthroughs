@@ -31,7 +31,7 @@ Cada entrada documenta una CTF por su **cadena de deducciones**.
 
 | Clase | Categoría | Enfoque | Estado |
 |---|---|---|---|
-| C2 | **Web** | SQLi, XSS, APIs (JWT/IDOR) | 🔜 próximamente |
+| C2 | **[Web](c2-web/index.md)** | SQLi, XSS, APIs (JWT/IDOR) | 🛠 conceptos + mini-labs listos |
 | C3 | **Criptografía** | RSA con fallas, AES ECB, hashes | 🔜 próximamente |
 | C4 | **Forense** | PCAP, memoria (Volatility), estego | 🔜 próximamente |
 | C5 | **Reversing** | Ghidra, ASM x86-64, crackmes | 🔜 próximamente |

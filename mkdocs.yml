@@ -72,3 +72,7 @@ nav:
           - "1 · Discovery": layover/01-discovery.md
           - "2 · Network Sniffing": layover/02-monitoreo.md
       - "Tarea · Tu blog del walkthrough": layover/tarea.md
+  - "C2 · Web":
+      - c2-web/index.md
+      - "Conceptos (30 min)": c2-web/conceptos.md
+      - "Mini-labs": c2-web/mini-labs.md
