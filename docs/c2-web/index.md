@@ -9,8 +9,8 @@ robar una cookie con **XSS** y abusar de una **API** mal protegida (**JWT / IDOR
 |---|---|---|
 | **Conceptos (embudo)** | 30 min | [Conceptos](conceptos.md) + [mini-labs](mini-labs.md) de apoyo |
 | **CTF1 · Easy** | 45 min | **OWASP Juice Shop** (1–2⭐) · SQLi/XSS/JWT/IDOR |
-| **CTF2 · intermedio** | 45 min | **HTB GoodGames** (retirada) · SQLi→IDOR→SSTI |
-| **Tarea** | casa | CTF3 Easy · *por fijar* |
+| **CTF2 · intermedio** | 45 min | **OWASP WebGoat** · JWT/IDOR/SQLi/XSS |
+| **Tarea** | casa | **picoCTF — Cookies** (Easy) · mini-writeup |
 
 ## Retos
 
@@ -26,21 +26,22 @@ robar una cookie con **XSS** y abusar de una **API** mal protegida (**JWT / IDOR
     **Cubre:** SQLi · XSS · JWT · IDOR
     **Plataforma:** self-host (Docker), con modo CTF.
 
--   :material-server-network: **CTF2 · [HTB GoodGames](https://www.hackthebox.com/machines/goodgames)** · intermedio
+-   :material-shield-bug: **CTF2 · [OWASP WebGoat](https://owasp.org/www-project-webgoat/)** · intermedio
 
     ---
 
-    Máquina **retirada** de HackTheBox. Cadena web real: **SQLi** (bypass + extraer y crackear hashes)
-    → **IDOR** → **SSTI** → fuga de Docker. Sube el listón al *encadenar* fallos.
+    App OWASP self-host con lecciones guiadas. Cubre **a fondo** lo que Juice Shop toca ligero:
+    **JWT**, **control de acceso / IDOR**, **SQLi avanzada** y **XSS**. Gratis y documentable.
 
-    **Cubre:** SQLi · IDOR · SSTI + escape
-    **Plataforma:** HackTheBox (retirada, documentable).
+    **Cubre:** JWT · IDOR · SQLi · XSS
+    **Plataforma:** self-host (Docker).
 
 </div>
 
-!!! note "Tarea (CTF3) — por fijar"
-    El reto de casa (Easy) se fija aparte. Idea: otra Easy que refuerce lo menos tocado en clase
-    (p. ej. **XSS almacenado** o una **API JWT**).
+!!! note "Tarea (CTF3) · picoCTF — Cookies (Easy)"
+    Reto autocontenido de [picoGym](https://play.picoctf.org/) (manipular una **cookie** para volverte
+    admin): refuerza *input del cliente = no confiable* y prepara el terreno de JWT/IDOR. Se entrega un
+    **mini-writeup**. *(Cualquier web Easy de picoGym sirve si prefieres otra — p. ej. `SQLiLite`.)*
 
 ## Temas
 
