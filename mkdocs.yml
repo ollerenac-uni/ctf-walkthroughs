@@ -66,6 +66,7 @@ nav:
   - Inicio: index.md
   - "Layover · HTB":
       - layover/index.md
+      - "Conceptos necesarios": layover/conceptos.md
       - "Etapa 0 · Setup": layover/etapa0-setup.md
       - Tácticas:
           - "1 · Discovery": layover/01-discovery.md

@@ -22,15 +22,15 @@ Cada entrada documenta una CTF por su **cadena de deducciones**.
 
     **Estado:** ✅ Setup → Táctica 2 · 🧩 Tarea (montar tu propio blog + resolver 3–6)
 
+    [:material-book-open-variant: Conceptos necesarios](layover/conceptos.md) ·
+    [:material-play: Walkthrough](layover/index.md)
+
 </div>
 
-## En camino — una CTF por categoría
-
-El curso avanza por **categorías** de CTF. A medida que publiquemos cada walkthrough, aparecerá aquí.
+## Ejercicios CTF
 
 | Clase | Categoría | Enfoque | Estado |
 |---|---|---|---|
-| — | **Máquina HTB** | cadena completa boot2root (Layover) | ✅ publicada (parcial) |
 | C2 | **Web** | SQLi, XSS, APIs (JWT/IDOR) | 🔜 próximamente |
 | C3 | **Criptografía** | RSA con fallas, AES ECB, hashes | 🔜 próximamente |
 | C4 | **Forense** | PCAP, memoria (Volatility), estego | 🔜 próximamente |
