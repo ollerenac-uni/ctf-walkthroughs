@@ -8,13 +8,39 @@ robar una cookie con **XSS** y abusar de una **API** mal protegida (**JWT / IDOR
 | Tramo | Tiempo | Contenido |
 |---|---|---|
 | **Conceptos (embudo)** | 30 min | [Conceptos](conceptos.md) + [mini-labs](mini-labs.md) de apoyo |
-| **CTF1 · Easy** | 45 min | *por fijar — candidato: OWASP Juice Shop (1–2⭐)* |
-| **CTF2 · intermedio** | 45 min | *por fijar — candidato: HTB GoodGames (retirada)* |
-| **Tarea** | casa | CTF3 Easy *por fijar* |
+| **CTF1 · Easy** | 45 min | **OWASP Juice Shop** (1–2⭐) · SQLi/XSS/JWT/IDOR |
+| **CTF2 · intermedio** | 45 min | **HTB GoodGames** (retirada) · SQLi→IDOR→SSTI |
+| **Tarea** | casa | CTF3 Easy · *por fijar* |
 
-!!! note "CTFs por confirmar"
-    Los retos (CTF1/2/3) se fijan aparte. Los conceptos y mini-labs de esta sección **no dependen**
-    de cuáles sean: cubren las familias (SQLi, XSS, JWT, IDOR) que luego aparecen en los retos.
+## Retos
+
+<div class="grid cards" markdown>
+
+-   :material-fruit-citrus: **CTF1 · [OWASP Juice Shop](https://owasp.org/www-project-juice-shop/)** · Easy
+
+    ---
+
+    App OWASP deliberadamente vulnerable; cubre **las cuatro familias** de la clase. En clase se juega
+    el tier **1–2⭐**: SQLi de login, XSS en el buscador, IDOR de la cesta y un primer JWT.
+
+    **Cubre:** SQLi · XSS · JWT · IDOR
+    **Plataforma:** self-host (Docker), con modo CTF.
+
+-   :material-server-network: **CTF2 · [HTB GoodGames](https://www.hackthebox.com/machines/goodgames)** · intermedio
+
+    ---
+
+    Máquina **retirada** de HackTheBox. Cadena web real: **SQLi** (bypass + extraer y crackear hashes)
+    → **IDOR** → **SSTI** → fuga de Docker. Sube el listón al *encadenar* fallos.
+
+    **Cubre:** SQLi · IDOR · SSTI + escape
+    **Plataforma:** HackTheBox (retirada, documentable).
+
+</div>
+
+!!! note "Tarea (CTF3) — por fijar"
+    El reto de casa (Easy) se fija aparte. Idea: otra Easy que refuerce lo menos tocado en clase
+    (p. ej. **XSS almacenado** o una **API JWT**).
 
 ## Temas
 
