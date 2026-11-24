@@ -2,7 +2,7 @@
 
 **Objetivo:** descubrir que existe la red WiFi `10.13.37.0/24` y qué hosts viven en ella.
 
-## 1.1 · Orientación: conoce tu foothold primero
+## 1.1 · Orientación
 
 Acabas de ganar un shell en una máquina de la que no sabes nada. Antes de mirar la red, oriéntate.
 Tres preguntas, lo mínimo imprescindible:
@@ -141,13 +141,13 @@ y la máquina **no tiene internet** →
       confirma que están `curl wget python3 nc ssh scp tcpdump tshark git` y que **faltan**
       `nmap gobuster ffuf` → por eso toca vivir de la tierra o pivotar.
 
-## 1.2 · Cómo pensamos
+## 1.2 · Enfoque
 
 > *"No tengo escáneres. ¿Qué sabe la máquina de la red **sin preguntarle a nadie**?"*
 
 La propia máquina ya está **conectada** a la red objetivo. Su configuración te lo revela gratis.
 
-## 1.3 · Lo que hicimos (ruta primaria)
+## 1.3 · Procedimiento
 
 **Estado inicial — enumeramos lo que hay:**
 
@@ -255,7 +255,7 @@ revelado el objetivo**: `portal.international.htb/miles/` (el portal Miles de HT
   <figcaption>Topología resultante: infra por `eth0`, y el segmento WiFi `10.13.37.0/24` con el portal.</figcaption>
 </figure>
 
-## 1.5 · Consolidar la plataforma: root en el workstation
+## 1.5 · Root en el workstation
 
 Antes de capturar tráfico necesitamos privilegios. El workstation nos los **regala**:
 
@@ -269,7 +269,7 @@ sudo -i          # uid=0(root)
     te entregan**, no un objetivo que hayas tenido que ganar. Tenerlo te permitirá hacer cosas que
     requieren privilegios en los pasos siguientes — no lo confundas con una escalada conseguida por ti.
 
-## 1.6 · Rutas alternativas (para el re-run)
+## 1.6 · Rutas alternativas
 
 - `ip neigh` / `cat /proc/net/arp` — equivalentes a `arp -a`.
 - `ip route` — qué redes alcanza la máquina.

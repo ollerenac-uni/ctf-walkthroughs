@@ -2,7 +2,7 @@
 
 **Objetivo:** de `aporter` (usuario normal, sin sudo) a **root**.
 
-## 6.1 · Cómo pensamos
+## 6.1 · Enfoque
 
 Primer reflejo como `aporter`: **¿puedo usar `sudo`?**
 
@@ -61,7 +61,7 @@ dpkg -s cups-daemon | grep Version   # → Version: 2.4.16-...
 > **Hallazgo (ya justificado):** **CUPS 2.4.16**, demonio de impresión **corriendo como root**,
 > activo en local **y al que puedes hablarle**. → ahora, igual que con Craft: **versión → CVE**.
 
-## 6.2 · Lo que hicimos — CVE-2026-34990
+## 6.2 · Procedimiento · CVE-2026-34990
 
 1. Capturar/forjar un token **`Authorization: Local`** de CUPS (confía en peticiones locales).
 2. Con él, crear una **impresora persistente** cuyo destino es un **`file://`**:
@@ -77,7 +77,7 @@ dpkg -s cups-daemon | grep Version   # → Version: 2.4.16-...
    cat /root/root.txt   # ROOT FLAG
    ```
 
-## 6.3 · El patrón: *confused deputy* (el diputado confundido)
+## 6.3 · Patrón: *confused deputy*
 
 !!! info "Por qué funciona"
     Un proceso privilegiado (cupsd root) hace una acción (escribir un archivo) **en tu nombre**,
@@ -92,7 +92,7 @@ dpkg -s cups-daemon | grep Version   # → Version: 2.4.16-...
 
 **ROOT FLAG** ✅
 
-## 6.5 · Rutas alternativas (re-run)
+## 6.5 · Rutas alternativas
 
 Correr `linpeas` para ver qué *otros* vectores marca (SUID, cron, capabilities, kernel) y responder
 la pregunta de oro: *¿era CUPS la única vía, o solo la primera?*

@@ -7,7 +7,7 @@
 
 **Objetivo:** obtener credenciales de alguien que use la red (concluimos: `jenny / Fl1ghtDeck2026!`).
 
-## 2.1 · ¿Qué nos empuja a MIRAR el tráfico?
+## 2.1 · Motivación
 
 Premisas que **sí** teníamos de antemano:
 
@@ -28,12 +28,12 @@ Monitoreamos justamente para **comprobarlo**.
 
     El *bot + HTTP* es el **hallazgo** del monitoreo, **no** la razón para monitorear.
 
-## 2.2 · Managed vs Monitor (por qué hace falta el modo monitor)
+## 2.2 · Managed vs Monitor
 
 - **Managed** (modo normal): la tarjeta te entrega **solo** las tramas dirigidas a **tu** MAC. Inútil para espiar.
 - **Monitor**: la tarjeta te entrega **todas** las tramas del canal, de cualquier emisor. Ese es el punto.
 
-## 2.3 · Lo que hicimos
+## 2.3 · Procedimiento
 
 **Capturar — `wlan3` en modo monitor**
 
@@ -283,7 +283,7 @@ tshark -r air.pcap -Y 'http.request.method == "POST"' -T fields -e http.file_dat
 
 **`jenny / Fl1ghtDeck2026!`** — resultó ser usuaria del Control Panel de Craft.
 
-## 2.5 · Rutas alternativas (re-run)
+## 2.5 · Rutas alternativas
 
 `bettercap`, `airodump-ng` + `hcxdumptool`, `kismet`. Todas llegan a lo mismo: capturar el login
 HTTP del bot. Cambia la *técnica*, no la *conclusión*.

@@ -8,7 +8,7 @@
 
 **Objetivo:** un shell interactivo como usuario real → user flag.
 
-## 5.1 · Lo que hicimos
+## 5.1 · Procedimiento
 
 **¿Por qué SSH, y a esa máquina?** El razonamiento encadenado:
 

@@ -1,4 +1,4 @@
-# Etapa 0 · Setup (la línea de salida, no el reto)
+# Etapa 0 · Setup
 
 Aquí **no hay deducción**: la máquina te lo entrega. Es cómo llegas a tener un shell en el
 workstation —VPN, los servicios expuestos y el comando de entrada—. El verdadero juego empieza
@@ -6,7 +6,7 @@ después, en [Discovery](01-discovery.md).
 
 ---
 
-## 0.1 · La VPN (tender el cable)
+## 0.1 · La VPN
 
 OpenVPN levanta la interfaz `tun0` y **enruta** tu tráfico hacia la red del laboratorio. Sin
 esto, tus paquetes nunca alcanzan `10.129.x.x`. No es atacar nada: es conectar tu máquina a la red.
@@ -133,7 +133,7 @@ Intentemos con otro servicio: RDP.
 
 ---
 
-## 0.3 · Construcción del comando xfreerdp
+## 0.3 · El comando xfreerdp
 
 El comando con el que entramos:
 

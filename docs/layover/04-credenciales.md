@@ -2,13 +2,13 @@
 
 **Objetivo:** conseguir una credencial *reutilizable* de un usuario real (resultó ser `aporter`).
 
-## 4.1 · Cómo pensamos
+## 4.1 · Enfoque
 
 `www-data` es un usuario de servicio sin shell útil; necesitamos escalar a un usuario **humano**.
 
 > *"¿Dónde guarda una app web sus secretos?"* → archivos de configuración y base de datos.
 
-## 4.2 · Lo que hicimos (razonar → deducir → testear → concluir)
+## 4.2 · Procedimiento
 
 !!! info "Todo corre a través del RCE de la Táctica 3"
     No hay shell interactivo: **cada comando lo lanzamos con el exploit**, que ejecuta **uno** y
@@ -87,7 +87,7 @@
 
 4. Resultado: **`aporter : Skyp0rt_Relay!26`**.
 
-## 4.3 · Conclusión + lección
+## 4.3 · Conclusión y lección
 
 !!! warning "La lección central"
     Guardar el dato cifrado **junto a** la llave que lo abre no es seguridad, es **ofuscación**.
