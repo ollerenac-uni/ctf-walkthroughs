@@ -12,7 +12,7 @@ Cada entrada documenta una CTF por su **cadena de deducciones**.
 
 <div class="grid cards" markdown>
 
--   :material-server-network: **[Layover](layover/)** · Máquina HackTheBox
+-   :material-server-network: **[Layover](layover/index.md)** · Máquina HackTheBox
 
     ---
 
