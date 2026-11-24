@@ -36,6 +36,7 @@ robar una cookie con **XSS** y abusar de una **API** mal protegida (**JWT / IDOR
 
     **Cubre:** JWT · IDOR · SQLi · XSS
     **Plataforma:** self-host (Docker).
+    **Walkthrough:** [resolverlo paso a paso](ctf2-webgoat.md)
 
 </div>
 
