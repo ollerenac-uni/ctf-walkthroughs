@@ -1,44 +1,44 @@
-# Layover — la manufactura del walkthrough
+# CTF Walkthroughs — la manufactura
 
-Este sitio documenta **cómo se construyó** la solución de la máquina HackTheBox **Layover**,
-no solo *qué* comandos se corrieron. El foco es el razonamiento: cada etapa sigue el ciclo
-**razonar → deducir → testear → concluir → re-iterar**.
+Colección de walkthroughs centrados en **cómo se construye** la solución de una CTF: el
+*razonamiento* —razonar → deducir → testear → concluir → re-iterar—, no solo la lista de comandos.
+Cada entrada documenta una CTF por su **cadena de deducciones**.
 
-!!! info "Cómo está organizado"
-    Separamos el **Setup** (cómo recibes tu plataforma de ataque: VPN, RDP) del **CTF real**
-    (el juego deductivo, que empieza con un shell en el workstation). Cada página es una
-    **táctica MITRE ATT&CK**: un *objetivo* al que se puede llegar por varias *técnicas*.
+!!! info "Cómo leer este sitio"
+    Cada CTF vive en su propia sección (menú de arriba). Dentro, el **Setup** (cómo recibes tu
+    plataforma de ataque) se separa del **juego deductivo**, organizado por **tácticas MITRE ATT&CK**.
 
-## La cadena completa
+## Walkthroughs publicados
 
-<figure>
-  <img src="assets/kill-chain.svg" alt="Cadena de ataque por táctica MITRE">
-</figure>
+<div class="grid cards" markdown>
 
-## Datos de la máquina
+-   :material-server-network: **[Layover](layover/)** · Máquina HackTheBox
 
-| Campo | Valor |
-|---|---|
-| Plataforma | HackTheBox |
-| Nombre | Layover |
-| IP de entrada | `10.129.247.82` |
-| Credenciales dadas | `contractor : Contractor2026!` |
-| Acceso inicial | RDP (3389) → `airside-ws01` |
-| Red objetivo | WiFi abierta `10.13.37.0/24` |
-| Flags | User (SSH `aporter`) · Root (CUPS) |
+    ---
 
-## Índice de tácticas
+    Boot2root que cruza varias categorías: recon, **network sniffing**, RCE web, acceso a
+    credenciales, movimiento lateral y privesc. Publicado hasta *Network Sniffing*; el resto es
+    **[tu tarea](layover/tarea.md)**.
 
-- **0 · [Setup](etapa0-setup.md)** — VPN, servicios expuestos y acceso por RDP
-- **1 · [Discovery](01-discovery.md)** — descubrir la red `10.13.37.0/24`
-- **2 · [Network Sniffing](02-monitoreo.md)** — capturar `jenny`
-- **🎯 [Tarea](tarea.md)** — crea tu blog en GitHub Pages y documenta tu avance (0 → 2)
+    **Estado:** ✅ Setup → Táctica 2 · 🧩 Tarea (montar tu propio blog + resolver 3–6)
 
-!!! note "Tácticas 3–6: no publicadas"
-    La cadena de explotación (Execution → Credential Access → Lateral Movement → Privesc a root)
-    **no** se publica, para no dar la solución. Tu trabajo está en la **[Tarea](tarea.md)**: montar
-    tu propio blog MkDocs y documentar con capturas tu recorrido de la Etapa 0 a la Táctica 2.
+</div>
 
-!!! tip "La pregunta de oro para el re-run"
-    En cada táctica pregúntate: *¿era esta la única forma de llegar a la misma conclusión,
-    o solo la primera que encontré?* Ahí está el aprendizaje.
+## En camino — una CTF por categoría
+
+El curso avanza por **categorías** de CTF. A medida que publiquemos cada walkthrough, aparecerá aquí.
+
+| Clase | Categoría | Enfoque | Estado |
+|---|---|---|---|
+| — | **Máquina HTB** | cadena completa boot2root (Layover) | ✅ publicada (parcial) |
+| C2 | **Web** | SQLi, XSS, APIs (JWT/IDOR) | 🔜 próximamente |
+| C3 | **Criptografía** | RSA con fallas, AES ECB, hashes | 🔜 próximamente |
+| C4 | **Forense** | PCAP, memoria (Volatility), estego | 🔜 próximamente |
+| C5 | **Reversing** | Ghidra, ASM x86-64, crackmes | 🔜 próximamente |
+| C6 | **Pwn** | buffer overflow, ret2win, ROP | 🔜 próximamente |
+| C7 | **Hardware** | firmware, UART, analizador lógico | 🔜 próximamente |
+| C8 | **Simulacro** | CTF interno por equipos, 6 categorías | 🔜 próximamente |
+
+!!! tip "La pregunta de oro (vale para toda CTF)"
+    En cada táctica pregúntate: *¿era esta la única forma de llegar a la misma conclusión, o solo la
+    primera que encontré?* Ahí está el aprendizaje.

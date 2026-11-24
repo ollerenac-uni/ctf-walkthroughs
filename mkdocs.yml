@@ -1,16 +1,16 @@
-site_name: "Layover — Manufactura del Walkthrough"
-site_description: "Solución de la máquina HackTheBox 'Layover' por tácticas MITRE ATT&CK."
-site_url: https://ollerenac-uni.github.io/layover-walkthrough/
+site_name: "CTF Walkthroughs — la manufactura"
+site_description: "Colección de walkthroughs de CTF centrados en el razonamiento, por tácticas MITRE ATT&CK."
+site_url: https://ollerenac-uni.github.io/ctf-walkthroughs/
 docs_dir: docs
 site_dir: site
 
 # Estas páginas (la cadena de explotación hasta root) no se publican en el sitio.
 # Se quedan en el repo pero MkDocs NO las construye: sus URLs devuelven 404 online.
 exclude_docs: |
-  03-exploitation.md
-  04-credenciales.md
-  05-lateral.md
-  06-privesc.md
+  layover/03-exploitation.md
+  layover/04-credenciales.md
+  layover/05-lateral.md
+  layover/06-privesc.md
 
 theme:
   name: material
@@ -64,8 +64,10 @@ extra_css:
 
 nav:
   - Inicio: index.md
-  - "Etapa 0 · Setup": etapa0-setup.md
-  - Tácticas:
-      - "1 · Discovery": 01-discovery.md
-      - "2 · Network Sniffing": 02-monitoreo.md
-  - "Tarea · Tu blog del walkthrough": tarea.md
+  - "Layover · HTB":
+      - layover/index.md
+      - "Etapa 0 · Setup": layover/etapa0-setup.md
+      - Tácticas:
+          - "1 · Discovery": layover/01-discovery.md
+          - "2 · Network Sniffing": layover/02-monitoreo.md
+      - "Tarea · Tu blog del walkthrough": layover/tarea.md
