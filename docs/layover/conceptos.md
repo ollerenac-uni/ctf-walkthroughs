@@ -163,6 +163,11 @@ Pieza por pieza (se construye, no se memoriza):
 - **`-p-`** *(opcional)* → escanea **los 65535 puertos**, no solo los 1000 comunes: más lento, más completo.
 - **`-Pn`** *(opcional)* → **no** hagas ping previo (úsalo si el host ignora ICMP pero sabes que está vivo).
 
+<figure>
+  <img src="../assets/nmap-scan.svg" alt="nmap clasifica un puerto como abierto, cerrado o filtrado según la respuesta">
+  <figcaption>nmap manda un paquete a cada puerto y lo clasifica según la respuesta.</figcaption>
+</figure>
+
 ### Leer el resultado: servicios comunes
 
 Un escaneo te dice **qué habla** la máquina. Los que verás una y otra vez:
@@ -184,6 +189,12 @@ credenciales en mano, SSH se rechaza y acabas entrando por **RDP** — el *cómo
     ```
     10.129.x.x   international.htb portal.international.htb
     ```
+
+!!! tip "Practicar y profundizar en nmap"
+    - Objetivo que puedes escanear legalmente: **`scanme.nmap.org`**. El proyecto Nmap autoriza
+      escanearlo (solo con nmap, sin exploits ni DoS). Pruébalo con `nmap -sV scanme.nmap.org`.
+    - Sala guiada gratis: [Nmap en TryHackMe](https://tryhackme.com/room/furthernmap).
+    - Referencia completa de opciones: [guía de referencia de Nmap](https://nmap.org/book/man.html).
 
 ## Prerrequisitos (nivelación)
 
