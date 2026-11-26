@@ -38,6 +38,13 @@
   font-size: 0.82em;
 }
 
+/* Clases del curso aún no publicadas: visibles pero desactivadas */
+.md-typeset .coming-soon {
+  color: var(--md-default-fg-color--light);
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 /* La fuente mono hace los títulos pesados; afinamos tracking */
 .md-typeset h1,
 .md-typeset h2,

@@ -33,12 +33,12 @@ una CTF por su cadena de deducciones.
 |---|---|---|---|
 | C1 | **[Introducción](layover/index.md)** | CTF, VPN, nmap, recon, network sniffing · *Layover (HTB)* | ✅ Setup → Táctica 2 · 🧩 tarea |
 | C2 | **[Web](c2-web/index.md)** | SQLi, XSS, APIs (JWT/IDOR) | 🛠 conceptos, mini-labs y CTFs fijados |
-| C3 | **Criptografía** | RSA con fallas, AES ECB, hashes | 🔜 próximamente |
-| C4 | **Forense** | PCAP, memoria (Volatility), estego | 🔜 próximamente |
-| C5 | **Reversing** | Ghidra, ASM x86-64, crackmes | 🔜 próximamente |
-| C6 | **Pwn** | buffer overflow, ret2win, ROP | 🔜 próximamente |
-| C7 | **Hardware** | firmware, UART, analizador lógico | 🔜 próximamente |
-| C8 | **Simulacro** | CTF interno por equipos, 6 categorías | 🔜 próximamente |
+| C3 | <span class="coming-soon">Criptografía</span> | RSA con fallas, AES ECB, hashes | 🔜 próximamente |
+| C4 | <span class="coming-soon">Forense</span> | PCAP, memoria (Volatility), estego | 🔜 próximamente |
+| C5 | <span class="coming-soon">Reversing</span> | Ghidra, ASM x86-64, crackmes | 🔜 próximamente |
+| C6 | <span class="coming-soon">Pwn</span> | buffer overflow, ret2win, ROP | 🔜 próximamente |
+| C7 | <span class="coming-soon">Hardware</span> | firmware, UART, analizador lógico | 🔜 próximamente |
+| C8 | <span class="coming-soon">Simulacro</span> | CTF interno por equipos, 6 categorías | 🔜 próximamente |
 
 !!! tip "Al terminar cada táctica"
     Pregúntate si esa era la única forma de llegar a la conclusión, o solo la primera que encontraste.
