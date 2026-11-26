@@ -55,6 +55,20 @@ En esta clase usamos **HackTheBox** porque Layover vive ahí. Para practicar por
     (VirtualBox o VMware; KVM/QEMU en Linux). En VirtualBox se importa con *Archivo → Importar servicio
     virtualizado*. Suele convenir poner su red en modo *host-only* para no exponer una VM vulnerable.
 
+??? tip "Videos: instalar un hipervisor y abrir un `.ova`"
+    **VirtualBox** (gratis, código abierto):
+
+    - Instalarlo: [Cómo instalar VirtualBox paso a paso](https://www.youtube.com/watch?v=BfmClJx8lXo)
+    - Abrir un `.ova`: [Cómo instalar un archivo .OVA en VirtualBox](https://www.youtube.com/watch?v=mAJoJ9rjTJM)
+
+    **VMware Workstation Pro** (gratis para uso personal; descárgalo del sitio oficial de Broadcom.
+    Evita los videos que ofrezcan "activadores" o versiones "FULL": eso es software pirateado):
+
+    - Instalarlo: [Descargar e instalar VMware Workstation Pro, gratis y legal](https://www.youtube.com/watch?v=Ry7elcmogPo)
+    - Abrir un `.ova`: [Cómo instalar un archivo .OVA en VMware](https://www.youtube.com/watch?v=V9G-8mZGOL0)
+
+    Los enlaces de YouTube pueden cambiar o dejar de estar disponibles con el tiempo.
+
 ## HackTheBox: cómo moverte y encontrar Layover
 
 HTB ([hackthebox.com](https://www.hackthebox.com/)) es una plataforma de laboratorios. Lo mínimo para
