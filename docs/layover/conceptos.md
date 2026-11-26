@@ -41,11 +41,19 @@ explotación → credenciales → lateral → privesc) hasta el control total. S
 | **[HackTheBox](https://www.hackthebox.com/)** | boot2root + jeopardy | ✅ máquinas **activas** y *Starting Point* gratis; las **retiradas** (con walkthrough oficial) → **VIP** |
 | **[TryHackMe](https://tryhackme.com/)** | guiado, principiante | ✅ mucho contenido gratis; *rooms* premium de pago |
 | **[OverTheWire](https://overthewire.org/wargames/)** | *wargames* de Linux/bash | ✅ gratis |
-| **[Root-Me](https://www.root-me.org/)** / **[VulnHub](https://www.vulnhub.com/)** | retos online / VMs descargables | ✅ gratis |
+| **[Root-Me](https://www.root-me.org/)** | retos online (navegador / SSH) | ✅ gratis |
+| **[VulnHub](https://www.vulnhub.com/)** | VMs vulnerables para descargar (`.ova`) | ✅ gratis; necesitas un hipervisor |
 | **[PortSwigger Web Security Academy](https://portswigger.net/web-security)** | labs web guiados | ✅ gratis (teoría + labs) |
 
 En esta clase usamos **HackTheBox** porque Layover vive ahí. Para practicar por tu cuenta,
 **picoCTF** y **TryHackMe** son los más amables para empezar.
+
+!!! note "Dos formas de acceder al objetivo"
+    En casi todas (picoCTF, HackTheBox, TryHackMe, Root-Me, PortSwigger) el objetivo está **alojado**:
+    conectas por navegador, por VPN o por SSH. VulnHub funciona distinto: descargas la máquina como
+    archivo **`.ova`** y la ejecutas en tu propio equipo. Para eso necesitas un **hipervisor**
+    (VirtualBox o VMware; KVM/QEMU en Linux). En VirtualBox se importa con *Archivo → Importar servicio
+    virtualizado*. Suele convenir poner su red en modo *host-only* para no exponer una VM vulnerable.
 
 ## HackTheBox: cómo moverte y encontrar Layover
 
