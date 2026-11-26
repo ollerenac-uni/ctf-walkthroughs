@@ -20,7 +20,7 @@ uname -a             # kernel → relevante para privesc
 
 ```bash
 id                   # uid, gid y grupos de un vistazo
-groups               # ← ojo al grupo `wireshark`: pista enorme
+groups               # grupo `wireshark`: relevante para capturar tráfico
 sudo -l              # ¿qué puedo ejecutar como root?
 ```
 
@@ -61,7 +61,7 @@ sudo -l              # ¿qué puedo ejecutar como root?
 
     ⚠️ Root aquí es **parte de la plataforma que te entregan**, no una escalada que hayas ganado.
 
-**¿Dónde estoy?** (interfaces y rutas) — y aquí ya empieza el discovery de red
+**¿Dónde estoy?** (interfaces y rutas). Aquí ya empieza el discovery de red.
 
 ```bash
 ip a                 # interfaces e IPs
@@ -118,7 +118,7 @@ arp -a               # vecinos ya conocidos
     iw dev               # interfaces inalámbricas y su modo
     ```
 
-    `mac80211_hwsim` = WiFi **simulada**. Eso sí es señal; CPU/RAM/disco, ruido.
+    `mac80211_hwsim` = WiFi **simulada**. Eso es lo relevante; CPU, RAM y disco no aportan aquí.
 
 Dos cosas a retener de esta orientación: estás en el grupo **`wireshark`** (puedes capturar tráfico)
 y la máquina **no tiene internet** →
@@ -175,7 +175,7 @@ iw dev wlan2 scan | grep SSID
 #   SSID: HTB International WiFi      ← hay una red a la vista
 ```
 
-Intentamos asociarla a mano… y los **errores nos enseñan algo**:
+Intentamos asociarla a mano. Los errores dicen algo:
 
 ```bash
 iw dev wlan2 connect "HTB International WiFi"
@@ -189,8 +189,8 @@ dhclient wlan2
 - **`dhclient` no está** (y sin internet no se puede instalar) → tampoco necesitas pedir DHCP
   manualmente: ese mismo gestor obtiene la IP.
 
-Moraleja: **bastó con subir la interfaz** — el sistema la asocia a la red abierta y toma el lease
-solo. Lo confirma el `ip a` de más abajo.
+En resumen: bastó con subir la interfaz. El sistema la asocia a la red abierta y toma el lease solo.
+Lo confirma el `ip a` de abajo.
 
 Ahora la WiFi aparece **conectada** a una red:
 
@@ -199,7 +199,7 @@ Ahora la WiFi aparece **conectada** a una red:
   <figcaption>Bandeja del sistema: WiFi conectada.</figcaption>
 </figure>
 
-**La página de bienvenida te revela el objetivo** — ni bien coges conexión con esa red, `wifi.international.htb` abre automáticamente una página:
+**La página de bienvenida revela el objetivo.** Al conectar con esa red, `wifi.international.htb` abre una página automáticamente:
 
 <figure>
   <img src="../assets/captive-portal.png" alt="Página de bienvenida de HTB International WiFi">
@@ -213,7 +213,7 @@ Ahora la WiFi aparece **conectada** a una red:
 - **Página de bienvenida:** `wifi.international.htb`.
 - **Objetivo revelado por la propia página:** **`portal.international.htb/miles/`**.
 
-`ip a` confirma dónde has aterrizado — `wlan2` pasó de caída a **`UP`** con IP en el segmento WiFi:
+`ip a` confirma el resultado: `wlan2` pasó de caída a **`UP`** con IP en el segmento WiFi:
 
 ```text
 6: wlan2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
@@ -234,7 +234,7 @@ Ahora la WiFi aparece **conectada** a una red:
 - **`eth0`**: sin cambios (la red de infra).
 
 Ya en el segmento WiFi, podrías **enumerarlo** (el portal, otros hosts) antes de nada. Pero hay una
-observación que abre una vía más jugosa:
+observación que abre una vía mejor:
 
 !!! question "Conjetura: el puente hacia la captura de tráfico"
     - La WiFi es **abierta** (sin cifrado) → cualquiera en el canal ve el tráfico de todos.
@@ -264,10 +264,10 @@ sudo -l          # (ALL : ALL) ALL
 sudo -i          # uid=0(root)
 ```
 
-???+ danger "Esto NO es el privesc del reto"
+???+ danger "Esto no es el privesc del reto"
     El workstation te concede **sudo total de entrada**: root aquí es **parte de la plataforma que
     te entregan**, no un objetivo que hayas tenido que ganar. Tenerlo te permitirá hacer cosas que
-    requieren privilegios en los pasos siguientes — no lo confundas con una escalada conseguida por ti.
+    requieren privilegios en los pasos siguientes. No lo confundas con una escalada conseguida por ti.
 
 ## 1.6 · Rutas alternativas
 

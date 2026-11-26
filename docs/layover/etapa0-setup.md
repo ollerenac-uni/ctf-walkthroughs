@@ -1,7 +1,7 @@
 # Etapa 0 · Setup
 
-Aquí **no hay deducción**: la máquina te lo entrega. Es cómo llegas a tener un shell en el
-workstation —VPN, los servicios expuestos y el comando de entrada—. El verdadero juego empieza
+En esta etapa no hay deducción: la máquina te lo entrega. Cubre cómo llegas a tener un shell en el
+workstation: la VPN, los servicios expuestos y el comando de entrada. El juego deductivo empieza
 después, en [Discovery](01-discovery.md).
 
 ---
@@ -20,7 +20,7 @@ sudo openvpn machines_us-4.ovpn
     ```
     Initialization Sequence Completed
     ```
-    Mientras no esté, NO estás conectado aunque el proceso siga vivo. Verifica siempre:
+    Mientras no esté, no estás conectado aunque el proceso siga vivo. Verifica siempre:
     ```bash
     ip a            # interfaz tun0 con IP 10.10.x.x
     ping -c3 10.129.247.82
@@ -31,7 +31,7 @@ sudo openvpn machines_us-4.ovpn
     resolvió cambiando a otro servidor / a **TCP 443** (443 es HTTPS: ninguna red lo bloquea).
     Detalle en `logs/vpn_connectivity.md`.
 
-??? bug "Troubleshooting real: la VPN dice *Completed* pero NO llego a la máquina"
+??? bug "Diagnóstico real: la VPN dice *Completed* pero no llego a la máquina"
     **Síntoma.** La VPN conecta sin error (`Initialization Sequence Completed`), pero RDP falla:
 
     ```
@@ -40,14 +40,14 @@ sudo openvpn machines_us-4.ovpn
     [ERROR][com.freerdp.core] - failed to connect to 10.129.247.82
     ```
 
-    **Trampa mental.** El log de OpenVPN está impecable —hasta instala la ruta correcta—:
+    **Trampa mental.** El log de OpenVPN está impecable, incluso instala la ruta correcta:
     ```
     PUSH_REPLY,... route 10.129.0.0 255.255.0.0 ...
     net_route_v4_add: 10.129.0.0/16 via 10.10.16.1 dev tun1
     Initialization Sequence Completed
     ```
-    Tentación: culpar a la VPN. **Pero la VPN no es el problema** — el túnel está arriba. Hay que
-    bajar un nivel y mirar el **enrutamiento**.
+    La tentación es culpar a la VPN, pero no es el problema: el túnel está arriba. Hay que bajar un
+    nivel y mirar el **enrutamiento**.
 
     **El reflejo de diagnóstico** (de fuera hacia dentro):
 
@@ -102,8 +102,8 @@ sudo openvpn machines_us-4.ovpn
     **Lección:** *antes* de conectar la VPN, comprueba que no haya otra colgada (`pgrep -a openvpn`,
     `ip -br link show type tun`). Un **túnel zombi** de una sesión previa es un clásico de
     "la VPN dice *Completed* pero no llego a la máquina". Y si tras limpiar sigue sin responder, el
-    problema ya no es red sino la **máquina**: apagada, o con **IP nueva** tras un respawn (HTB rota
-    la IP) — verifícalo en el panel.
+    problema ya no es la red sino la **máquina**: apagada, o con **IP nueva** tras un respawn (HTB
+    rota la IP). Verifícalo en el panel.
 
 ---
 
@@ -159,7 +159,7 @@ xfreerdp /u:contractor /p:'Contractor2026!' /v:10.129.247.82 \
          /cert:ignore +clipboard /dynamic-resolution
 ```
 
-Pieza por pieza (se construye, no se memoriza):
+Pieza por pieza:
 
 - `xfreerdp` — el cliente RDP de FreeRDP (abre el escritorio remoto).
 - `/u:contractor` — **usuario** con el que te autenticas.
@@ -195,10 +195,9 @@ Pieza por pieza (se construye, no se memoriza):
 <figure>
   <img src="../assets/airside-desktop.png" alt="Escritorio XFCE de airside-ws01 vía FreeRDP">
   <figcaption>Sesión RDP establecida: el escritorio XFCE de <code>airside-ws01</code> como
-  <code>contractor</code>. Ya estamos dentro — aquí empieza el trabajo real.</figcaption>
+  <code>contractor</code>.</figcaption>
 </figure>
 
 ---
 
-**Siguiente:** ya conectados, empieza el verdadero juego: descubrir la red donde vive el objetivo
-→ [Táctica 1 · Discovery](01-discovery.md)
+**Siguiente:** [Táctica 1 · Discovery](01-discovery.md): descubrir la red del objetivo.

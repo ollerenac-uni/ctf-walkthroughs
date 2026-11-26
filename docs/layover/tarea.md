@@ -1,8 +1,8 @@
 # Tarea · Tu propio blog del walkthrough
 
-Ya seguiste el camino guiado de **Setup** a **Network Sniffing**. Ahora te toca **documentarlo tú**,
-como este mismo sitio: vas a montar **tu blog personal** en GitHub (estilo MkDocs, publicado en
-GitHub Pages) y a contar en él **tu** avance, etapa por etapa, con **capturas de pantalla** reales.
+Ya seguiste el camino guiado de Setup a Network Sniffing. Ahora vas a documentarlo tú: montar tu
+blog personal en GitHub (estilo MkDocs, publicado en GitHub Pages) y contar en él tu avance, etapa
+por etapa, con capturas de pantalla reales.
 
 !!! info "Qué se evalúa"
     Dos cosas: **(1)** que tu blog **esté publicado y se vea** en GitHub Pages, y **(2)** que

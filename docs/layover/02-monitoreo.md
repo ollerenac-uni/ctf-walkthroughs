@@ -11,18 +11,18 @@
 
 Premisas que **sí** teníamos de antemano:
 
-1. **¿Por qué el box te da DOS interfaces WiFi?** Con `wlan2` ya te mantienes conectado a la red;
-   `wlan3` (simulada, libre) **sobra** para eso. ¿Para qué querrías una segunda tarjeta WiFi? Para
-   **escuchar el aire** sin sacrificar tu conexión. Por eso la máquina da dos tarjetas.
+1. **¿Por qué el box da dos interfaces WiFi?** Con `wlan2` ya te mantienes conectado a la red;
+   `wlan3` (simulada, libre) sobra para eso. La segunda tarjeta sirve para **escuchar el canal** sin
+   perder tu conexión. Por eso la máquina da dos.
 2. Estás en el grupo **`wireshark`** y tienes **`sudo`** (+ `tshark` preinstalado) → el box te dio
-   **justo los permisos para capturar tráfico**. Invitación, no coincidencia.
-3. La red es **WiFi abierta** (sin cifrado) → *cualquiera en el canal* ve el tráfico de *todos*.
-4. **No tenemos** credenciales del portal → hay que conseguirlas de algún lado.
+   los permisos necesarios para capturar tráfico.
+3. La red es **WiFi abierta** (sin cifrado): cualquiera en el canal ve el tráfico de todos.
+4. No tenemos credenciales del portal, hay que conseguirlas de algún lado.
 
 → **Hipótesis** (no certeza): *"si alguien más usa esta red abierta, puedo leer lo que manda."*
 Monitoreamos justamente para **comprobarlo**.
 
-!!! warning "Lo que AVERIGUAMOS al analizar la captura (no se sabía antes)"
+!!! warning "Lo que averiguamos al analizar la captura (no se sabía antes)"
     - que hay un **bot** que se loguea periódicamente a `portal.international.htb/miles/login.php`, y
     - que lo hace por **HTTP en claro** (sin TLS).
 
@@ -127,7 +127,7 @@ tshark -r air.pcap -q -z io,phs           # protocol hierarchy statistics
     - **`http` = 12**, y dentro **`urlencoded-form` = 3**: **3 envíos de
       formulario** por HTTP. Esos son los logins.
 
-→ El objetivo se concreta: hay **HTTP sin TLS** con **formularios `POST`**. Vamos a por ellos.
+→ El objetivo se concreta: hay **HTTP sin TLS** con **formularios `POST`**.
 
 *3) Momento deductivo: ¿dónde viajan las credenciales?*
 
@@ -137,7 +137,7 @@ tshark -r air.pcap -q -z io,phs           # protocol hierarchy statistics
     STARTTLS, **SNMP**, **LDAP**… todo lo que **no** vaya envuelto en TLS.
 
     Y ya sabemos dos cosas de antes: **la página tiene login** y el portal se sirve por **HTTP** (lo
-    vimos en la página de bienvenida). → El premio es un **`POST` HTTP** con el formulario.
+    vimos en la página de bienvenida). → Lo que buscamos es un **`POST` HTTP** con el formulario.
 
 **Extraer las credenciales**
 
@@ -180,7 +180,7 @@ Dos lecturas:
 
 - **No está el HTML del formulario de login.** El bot nunca hizo `GET /miles/login.php`, así que su
   `<form>` no viajó por el aire → `grep '<form'` **no lo encuentra**. Tu grep vacío estaba en lo cierto.
-- **Pero los ficheros de 39 B SON el cuerpo del POST** → atajo directo a las credenciales:
+- **Pero los ficheros de 39 B son el cuerpo del POST** → atajo directo a las credenciales:
   ```bash
   cat ./http_obj/login.php        # el de 39 bytes
   # username=jenny&password=Fl1ghtDeck2026!
@@ -227,7 +227,7 @@ HTML Form URL Encoded: application/x-www-form-urlencoded
       **etiqueta que tshark/Wireshark** le ponen a ese cuerpo en su disección. Pertenece al
       *namespace de Wireshark*, no al protocolo.
 
-    **¿Hace falta irse a internet?** No para *entenderlo* —el propio `-O http` te lo enseña—, pero si
+    **¿Hace falta irse a internet?** No para entenderlo (el propio `-O http` te lo enseña), pero si
     quieres la **fuente autoritativa de cada capa**:
 
     - el **campo** → pregúntaselo a la herramienta: `tshark -G fields | grep http.file_data` (su
@@ -276,12 +276,12 @@ tshark -r air.pcap -Y 'http.request.method == "POST"' -T fields -e http.file_dat
     `xxd -r -p` = *"toma esta tira de hex plana y devuélvemela como bytes"* →
     `username=jenny&password=Fl1ghtDeck2026!`.
 
-    💡 Atajo: `tshark … -e http.file_data | xxd -r -p` es el idiom; también podrías añadir
+    Atajo: `tshark … -e http.file_data | xxd -r -p` es la forma habitual; también podrías añadir
     `| tr '&' '\n'` para ver cada campo en su línea.
 
 ## 2.4 · Conclusión
 
-**`jenny / Fl1ghtDeck2026!`** — resultó ser usuaria del Control Panel de Craft.
+**`jenny / Fl1ghtDeck2026!`**: resultó ser usuaria del Control Panel de Craft.
 
 ## 2.5 · Rutas alternativas
 

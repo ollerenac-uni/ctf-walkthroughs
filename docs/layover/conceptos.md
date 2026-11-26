@@ -1,9 +1,9 @@
 # Conceptos necesarios · Layover (C1 · Introducción a CTFs)
 
-Esta es la clase **introductoria** del curso. Antes de resolver tu primer boot2root —**Layover**, en
-HackTheBox— conviene tener claro **qué es un CTF**, **dónde se juega** y, sobre todo, **cómo conectas
-tu máquina de ataque al laboratorio**. No es la solución del reto: es el terreno sobre el que todo lo
-demás se apoya.
+Esta es la clase **introductoria** del curso. Antes de resolver tu primer boot2root (**Layover**, en
+HackTheBox) conviene tener claro qué es un CTF, dónde se juega y, sobre todo, cómo conectas tu
+máquina de ataque al laboratorio. No es la solución del reto: es la base sobre la que se apoya todo
+lo demás.
 
 !!! info "Cómo usar esta página"
     La primera vez, léela completa. Después úsala como referencia: si no entiendes un término en una
@@ -13,8 +13,8 @@ demás se apoya.
 ## 1 · ¿Qué es un CTF?
 
 **Capture The Flag**: un juego de seguridad donde resuelves retos y, al lograrlo, obtienes una
-**flag** (una cadena, p. ej. `HTB{...}`, o el contenido de un archivo `user.txt`) que **demuestra**
-que lo conseguiste. La flag es la *prueba*; el verdadero premio es el **razonamiento** del camino.
+**flag** (una cadena, p. ej. `HTB{...}`, o el contenido de un archivo `user.txt`) que demuestra que
+lo conseguiste. La flag es la prueba; lo que importa es el razonamiento del camino.
 
 Tres formatos que te encontrarás:
 
@@ -28,10 +28,10 @@ Layover es **boot2root**: entras con pocas pistas y vas encadenando **tácticas*
 explotación → credenciales → lateral → privesc) hasta el control total. Suele haber **dos flags**:
 `user.txt` (usuario sin privilegios) y `root.txt` (control total).
 
-!!! warning "Regla de oro — legalidad"
+!!! warning "Legalidad"
     Solo atacas máquinas que te **autorizan** explícitamente (el laboratorio de HTB, tu propio
-    equipo). Lanzar estas técnicas contra sistemas ajenos es **ilegal**. El CTF es tu campo de tiro
-    autorizado: ahí puedes romper sin consecuencias.
+    equipo). Lanzar estas técnicas contra sistemas ajenos es **ilegal**. El CTF es el entorno
+    autorizado para practicarlas.
 
 ## 2 · Plataformas de CTF (y cuáles son gratis)
 
@@ -78,9 +78,9 @@ ubicarte:
 2. Entra a **Machines** (menú *Labs → Machines*): el catálogo de boot2root. Hay **activas** (puntúan)
    y **retiradas** (con walkthrough oficial; requieren VIP).
 3. **Busca "Layover"** en el buscador de máquinas y abre su ficha.
-4. **Spawn / Join**: arranca tu instancia. HTB te asigna una **IP objetivo** (tipo `10.129.x.x`) —
-   apúntala, la necesitas para todo lo demás.
-5. **Connection pack**: en el panel **Connect / Access** descargas tu archivo **`.ovpn`** — es tu
+4. **Spawn / Join**: arranca tu instancia. HTB te asigna una **IP objetivo** (tipo `10.129.x.x`).
+   Apúntala, la necesitas para todo lo demás.
+5. **Connection pack**: en el panel **Connect / Access** descargas tu archivo **`.ovpn`**: es tu
    llave para entrar a la red del lab (siguiente sección).
 
 !!! note "Alternativa sin VPN: Pwnbox"
@@ -103,7 +103,7 @@ público.
 
 Mecánicamente, al conectar con tu `.ovpn`:
 
-- Se levanta una **interfaz de red virtual** `tun0` (un "cable" virtual hacia HTB).
+- Se levanta una **interfaz de red virtual** `tun0` hacia HTB.
 - El cliente **instala rutas**: *"para llegar a `10.129.0.0/16`, manda el tráfico por `tun0`"*.
 - Desde ahí, un `ping 10.129.x.x` sale por el túnel y alcanza tu máquina objetivo.
 
@@ -142,8 +142,8 @@ sudo openvpn tu_pack.ovpn
 | `Completed` pero el box no responde | máquina **apagada** o con **IP nueva** tras *respawn* | revisar el panel de HTB |
 | `Permission denied` al conectar | falta `sudo` | `openvpn` necesita privilegios para crear `tun0` |
 
-El caso del **túnel zombi** —el más frustrante, y el que vivimos en esta máquina— está documentado
-paso a paso (síntoma → diagnóstico → arreglo) en **[Etapa 0 · Setup](etapa0-setup.md)**.
+El caso del **túnel zombi**, que vivimos en esta máquina, está documentado paso a paso (síntoma,
+diagnóstico y arreglo) en **[Etapa 0 · Setup](etapa0-setup.md)**.
 
 ## 5 · Conectar al box y escanear puertos (`nmap`)
 
@@ -194,7 +194,7 @@ Un escaneo te dice **qué habla** la máquina. Los que verás una y otra vez:
 | **443** | **HTTPS** | web **cifrada** con TLS | navegador · `curl -k https://IP` |
 
 En **Layover**, el escaneo inicial del box revela exactamente **22 (SSH)** y **3389 (RDP)**. Con
-credenciales en mano, SSH se rechaza y acabas entrando por **RDP** — el *cómo* y el *porqué* están en
+credenciales en mano, SSH se rechaza y acabas entrando por **RDP**. El cómo y el porqué están en
 **[Etapa 0 · Setup](etapa0-setup.md)**.
 
 !!! tip "Nombres de host (`/etc/hosts`)"
@@ -235,16 +235,15 @@ Lo mínimo para no perderte. Si algo de esto es nuevo, repásalo primero.
 
 ## 8 · Conceptos de la parte no publicada 🔒
 
-Lo que **explorarás en la [Tarea](tarea.md)**. A nivel de idea, para que sepas qué terreno pisarás
-—sin el *cómo*—:
+Lo que **explorarás en la [Tarea](tarea.md)**. A nivel de idea, sin el procedimiento:
 
-- **Fingerprinting de aplicaciones web** 🔒 — identificar qué software y **qué versión** corre, y de
-  ahí buscar su fallo conocido (CVE) en la fuente correcta.
-- **Ejecución de código** 🔒 — pasar de "tengo sesión en una app" a "ejecuto comandos en el servidor".
-- **Criptografía aplicada** 🔒 — distinguir un valor **cifrado** (reversible con su llave) de un
-  **hash** (no); recuperar secretos de la configuración de una app.
-- **Movimiento lateral** 🔒 — reutilizar una credencial recuperada para volverte un **usuario real**.
-- **Escalada de privilegios** 🔒 — abusar algo que **ya corre con privilegios** para llegar a `root`.
+- **Fingerprinting de aplicaciones web** 🔒: identificar qué software y qué versión corre, y de ahí
+  buscar su fallo conocido (CVE) en la fuente correcta.
+- **Ejecución de código** 🔒: pasar de "tengo sesión en una app" a "ejecuto comandos en el servidor".
+- **Criptografía aplicada** 🔒: distinguir un valor **cifrado** (reversible con su llave) de un
+  **hash** (no lo es); recuperar secretos de la configuración de una app.
+- **Movimiento lateral** 🔒: reutilizar una credencial recuperada para volverte un usuario real.
+- **Escalada de privilegios** 🔒: abusar algo que ya corre con privilegios para llegar a `root`.
 
 !!! tip "Dónde reforzar cada tema"
     Estos conceptos son justo las **categorías del curso** (Web, Cripto, Forense, Pwn…). El plan de
@@ -252,4 +251,4 @@ Lo que **explorarás en la [Tarea](tarea.md)**. A nivel de idea, para que sepas 
 
 ---
 
-¿Listo? Entra al walkthrough: **[Etapa 0 · Setup](etapa0-setup.md)**.
+Entra al walkthrough: **[Etapa 0 · Setup](etapa0-setup.md)**.

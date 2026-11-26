@@ -37,8 +37,8 @@ www-data   515  php-fpm: pool www            ┐ NO root → inútiles para subi
 mysql      507  mariadbd                     ┘
 ```
 
-Del montón, el que cumple **root + te escucha + superficie gorda (con historial de CVEs)** es
-**`cupsd`** (★). Los demás o son núcleo mudo, o están endurecidos, o no son root.
+De todos, el que cumple **root + te escucha + superficie amplia (con historial de CVEs)** es
+**`cupsd`** (★). Los demás son del núcleo, están endurecidos o no corren como root.
 
 **2) ¿Está activo?**
 
