@@ -4,9 +4,13 @@ Sitio de walkthroughs de CTF en español, hecho con MkDocs Material. El contenid
 fuente está en `docs/`; la salida (`site/`) la genera MkDocs, está ignorada por git
 y no se edita a mano.
 
-## Rama de trabajo
+## Rama de trabajo y publicación
 
-Desarrolla en `claude/adoring-babbage-0xtzqi`. No empujes a `main` sin permiso explícito.
+Desarrolla en `claude/adoring-babbage-0xtzqi`. Al hacer push a esa rama, un workflow
+de GitHub Actions (`.github/workflows/deploy.yml`) construye el sitio y lo publica en
+`gh-pages`. El sitio público refleja esta rama en uno o dos minutos.
+
+`main` es una instantánea estable opcional. No empujes a `main` sin permiso explícito.
 
 ## Verificación antes de commitear
 
