@@ -6,7 +6,7 @@ quedó ligero: **JWT** (a fondo) y **control de acceso / IDOR**. Todo sobre una 
 ## Montaje
 
 ```bash
-docker run -d -p 8088:8080 -p 9091:9090 webgoat/webgoat
+docker run -d --name webgoat -p 8088:8080 -p 9091:9090 webgoat/webgoat
 ```
 
 !!! note "Puerto"

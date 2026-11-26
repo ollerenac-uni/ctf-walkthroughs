@@ -7,7 +7,7 @@ que toca las familias del día: **SQLi**, **XSS** e **IDOR** (y vemos por qué e
 ## Montaje
 
 ```bash
-docker run -d -p 3000:3000 bkimminich/juice-shop
+docker run -d --name juiceshop -p 3000:3000 bkimminich/juice-shop
 ```
 
 Abre **http://localhost:3000**, cierra el diálogo de bienvenida y el banner de cookies.
@@ -109,7 +109,7 @@ Reto **View Basket** resuelto (arriba se ven las cuatro familias ya marcadas).
 
 Juice Shop **sí** tiene retos de JWT, pero son **forjar un token firmado con RSA** (4–5⭐):
 demasiado para la franja Easy. El token que recibiste al loguearte **es** un JWT — su explotación a
-fondo (clave débil, `alg:none`, re-firmado) la trabajamos en **[CTF2 · WebGoat](index.md)**.
+fondo (clave débil, `alg:none`, re-firmado) la trabajamos en **[CTF2 · WebGoat](ctf2-webgoat.md)**.
 
 ## Mapa familia → reto
 
@@ -128,4 +128,4 @@ docker rm -f juiceshop
 
 ---
 
-**Siguiente:** [CTF2 · WebGoat](index.md) — JWT e IDOR a fondo.
+**Siguiente:** [CTF2 · WebGoat](ctf2-webgoat.md) — JWT e IDOR a fondo.
