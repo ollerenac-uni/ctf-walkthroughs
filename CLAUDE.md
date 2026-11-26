@@ -16,6 +16,13 @@ Para cambios de contenido, comprueba que el sitio construye sin enlaces rotos:
 NO_MKDOCS_2_WARNING=1 mkdocs build --strict
 ```
 
+## Estructura de las páginas (obligatorio)
+
+En las páginas de `docs/`, las subsecciones van numeradas. Sigue el formato que ya
+usan las páginas de Layover: `## 0.1 · La VPN`, `## 1.2 · Enfoque`. Si una
+subsección tiene apartados propios, se numeran un nivel más: `### 0.1.1 · ...`.
+El título de la página (`#`) no lleva número de subsección.
+
 ## Estilo de redacción (obligatorio)
 
 Español, registro neutro y sobrio, tono técnico. El objetivo es que el texto no
