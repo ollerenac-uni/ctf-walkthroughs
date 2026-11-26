@@ -37,12 +37,12 @@ explotación → credenciales → lateral → privesc) hasta el control total. S
 
 | Plataforma | Tipo | Gratis |
 |---|---|---|
-| **picoCTF** | jeopardy, principiante | ✅ 100% gratis (picoGym siempre disponible) |
-| **HackTheBox** | boot2root + jeopardy | ✅ máquinas **activas** y *Starting Point* gratis; las **retiradas** (con walkthrough oficial) → **VIP** |
-| **TryHackMe** | guiado, principiante | ✅ mucho contenido gratis; *rooms* premium de pago |
-| **OverTheWire** | *wargames* de Linux/bash | ✅ gratis |
-| **Root-Me / VulnHub** | retos online / VMs descargables | ✅ gratis |
-| **PortSwigger Web Security Academy** | labs web guiados | ✅ gratis (teoría + labs) |
+| **[picoCTF](https://picoctf.org/)** | jeopardy, principiante | ✅ 100% gratis ([picoGym](https://play.picoctf.org/practice) siempre disponible) |
+| **[HackTheBox](https://www.hackthebox.com/)** | boot2root + jeopardy | ✅ máquinas **activas** y *Starting Point* gratis; las **retiradas** (con walkthrough oficial) → **VIP** |
+| **[TryHackMe](https://tryhackme.com/)** | guiado, principiante | ✅ mucho contenido gratis; *rooms* premium de pago |
+| **[OverTheWire](https://overthewire.org/wargames/)** | *wargames* de Linux/bash | ✅ gratis |
+| **[Root-Me](https://www.root-me.org/)** / **[VulnHub](https://www.vulnhub.com/)** | retos online / VMs descargables | ✅ gratis |
+| **[PortSwigger Web Security Academy](https://portswigger.net/web-security)** | labs web guiados | ✅ gratis (teoría + labs) |
 
 En esta clase usamos **HackTheBox** porque Layover vive ahí. Para practicar por tu cuenta,
 **picoCTF** y **TryHackMe** son los más amables para empezar.
