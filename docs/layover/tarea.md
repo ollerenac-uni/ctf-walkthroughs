@@ -143,4 +143,4 @@ de *qué hiciste y cómo lo supiste* (el razonamiento, no solo el comando).
 
 ---
 
-Cuando lo tengas, me pasas el **link de tu GitHub Pages** y lo revisamos. **Suerte.**
+Cuando lo tengas, pásame el enlace de tu GitHub Pages y lo revisamos.

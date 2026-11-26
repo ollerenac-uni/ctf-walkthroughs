@@ -56,4 +56,4 @@ Juice Shop.
 
 ---
 
-Hechos los cuatro, ya tienes el reflejo de cada familia. **A los CTFs.**
+Con los cuatro labs hechos, ya has practicado una vez cada familia antes de los CTFs.

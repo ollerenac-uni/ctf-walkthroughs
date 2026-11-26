@@ -46,7 +46,7 @@ El servidor responde **200 a un perfil ajeno** → **IDOR** confirmado (lección
 
 !!! tip "Lección"
     El id es **predecible** y el servidor **no comprueba propiedad**. Es el mismo fallo que la cesta
-    de Juice Shop, pero aquí ves la **referencia directa** (`userId`) a plena vista en la URL.
+    de Juice Shop, pero aquí ves la **referencia directa** (`userId`) directamente en la URL.
 
 ## JWT · clave débil
 

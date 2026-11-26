@@ -1,8 +1,8 @@
 # CTF Walkthroughs — la manufactura
 
-Colección de walkthroughs centrados en **cómo se construye** la solución de una CTF: el
-*razonamiento* —razonar → deducir → testear → concluir → re-iterar—, no solo la lista de comandos.
-Cada entrada documenta una CTF por su **cadena de deducciones**.
+Colección de walkthroughs centrados en cómo se construye la solución de una CTF: el razonamiento
+(razonar, deducir, probar, concluir, repetir), no solo la lista de comandos. Cada entrada documenta
+una CTF por su cadena de deducciones.
 
 !!! info "Cómo leer este sitio"
     Cada CTF vive en su propia sección (menú de arriba). Dentro, el **Setup** (cómo recibes tu
@@ -40,6 +40,6 @@ Cada entrada documenta una CTF por su **cadena de deducciones**.
 | C7 | **Hardware** | firmware, UART, analizador lógico | 🔜 próximamente |
 | C8 | **Simulacro** | CTF interno por equipos, 6 categorías | 🔜 próximamente |
 
-!!! tip "La pregunta de oro (vale para toda CTF)"
-    En cada táctica pregúntate: *¿era esta la única forma de llegar a la misma conclusión, o solo la
-    primera que encontré?* Ahí está el aprendizaje.
+!!! tip "Al terminar cada táctica"
+    Pregúntate si esa era la única forma de llegar a la conclusión, o solo la primera que encontraste.
+    Buscar rutas alternativas suele enseñar más que la solución en sí.

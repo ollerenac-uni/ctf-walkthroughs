@@ -1,8 +1,8 @@
 # Layover — la manufactura del walkthrough
 
 Este sitio documenta **cómo se construyó** la solución de la máquina HackTheBox **Layover**,
-no solo *qué* comandos se corrieron. El foco es el razonamiento: cada etapa sigue el ciclo
-**razonar → deducir → testear → concluir → re-iterar**.
+no solo qué comandos se corrieron. El foco es el razonamiento: cada etapa sigue el ciclo de razonar,
+deducir, probar, concluir y repetir.
 
 !!! info "Cómo está organizado"
     Separamos el **Setup** (cómo recibes tu plataforma de ataque: VPN, RDP) del **CTF real**
@@ -39,6 +39,6 @@ no solo *qué* comandos se corrieron. El foco es el razonamiento: cada etapa sig
     **no** se publica, para no dar la solución. Tu trabajo está en la **[Tarea](tarea.md)**: montar
     tu propio blog MkDocs y documentar con capturas tu recorrido de la Etapa 0 a la Táctica 2.
 
-!!! tip "La pregunta de oro para el re-run"
-    En cada táctica pregúntate: *¿era esta la única forma de llegar a la misma conclusión,
-    o solo la primera que encontré?* Ahí está el aprendizaje.
+!!! tip "Al terminar cada táctica"
+    Pregúntate si esa era la única forma de llegar a la conclusión, o solo la primera que encontraste.
+    Buscar rutas alternativas suele enseñar más que la solución en sí.

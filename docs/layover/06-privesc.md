@@ -94,8 +94,8 @@ dpkg -s cups-daemon | grep Version   # → Version: 2.4.16-...
 
 ## 6.5 · Rutas alternativas
 
-Correr `linpeas` para ver qué *otros* vectores marca (SUID, cron, capabilities, kernel) y responder
-la pregunta de oro: *¿era CUPS la única vía, o solo la primera?*
+Correr `linpeas` para ver qué otros vectores marca (SUID, cron, capabilities, kernel) y comprobar si
+CUPS era la única vía o solo la primera.
 
 !!! note "📸 Captura"
     *(Espacio para `id` mostrando `uid=0(root)` y la root flag.)*

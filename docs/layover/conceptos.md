@@ -6,9 +6,9 @@ tu máquina de ataque al laboratorio**. No es la solución del reto: es el terre
 demás se apoya.
 
 !!! info "Cómo usar esta página"
-    Léela de arriba abajo la primera vez (es tu *onboarding*). Después vuelve a ella como
-    **referencia**: si un término te suena a chino en una táctica, búscalo aquí. Lo marcado con 🔒
-    pertenece a la parte **no publicada** (es tu [Tarea](tarea.md)): se queda a nivel de *concepto*.
+    La primera vez, léela completa. Después úsala como referencia: si no entiendes un término en una
+    táctica, búscalo aquí. Lo marcado con 🔒 corresponde a la parte no publicada ([Tarea](tarea.md)):
+    solo se describe el concepto, no el procedimiento.
 
 ## ¿Qué es un CTF?
 

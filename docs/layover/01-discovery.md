@@ -125,7 +125,7 @@ y la máquina **no tiene internet** →
 
 ???+ danger "Restricción del entorno (clave)"
     `airside-ws01` **no tiene salida a internet** (`apt` devuelve `Ign:`). → **no se puede instalar
-    nada**: ni `nmap`, ni `netdiscover`, ni `ffuf`. Hay que *vivir de la tierra* con lo ya presente.
+    nada**: ni `nmap`, ni `netdiscover`, ni `ffuf`. Hay que usar solo lo que ya está instalado.
 
     ¿Y qué hay "presente"? Dos formas de averiguarlo:
 
@@ -139,7 +139,7 @@ y la máquina **no tiene internet** →
     - `compgen -c` → **todos** los comandos que el shell puede ejecutar.
     - `command -v <lista>` → **busca aplicaciones concretas** e imprime solo las que existen. Aquí
       confirma que están `curl wget python3 nc ssh scp tcpdump tshark git` y que **faltan**
-      `nmap gobuster ffuf` → por eso toca vivir de la tierra o pivotar.
+      `nmap gobuster ffuf` → por eso toca usar solo lo instalado o pivotar.
 
 ## 1.2 · Enfoque
 

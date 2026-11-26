@@ -13,7 +13,7 @@ Premisas que **sí** teníamos de antemano:
 
 1. **¿Por qué el box te da DOS interfaces WiFi?** Con `wlan2` ya te mantienes conectado a la red;
    `wlan3` (simulada, libre) **sobra** para eso. ¿Para qué querrías una segunda tarjeta WiFi? Para
-   **escuchar el aire** sin sacrificar tu conexión. Es un guiño fuerte del diseñador.
+   **escuchar el aire** sin sacrificar tu conexión. Por eso la máquina da dos tarjetas.
 2. Estás en el grupo **`wireshark`** y tienes **`sudo`** (+ `tshark` preinstalado) → el box te dio
    **justo los permisos para capturar tráfico**. Invitación, no coincidencia.
 3. La red es **WiFi abierta** (sin cifrado) → *cualquiera en el canal* ve el tráfico de *todos*.
@@ -124,7 +124,7 @@ tshark -r air.pcap -q -z io,phs           # protocol hierarchy statistics
     - **`wlan.mgt` = 1385** (de 1649) → los **beacons dominan** la captura, como en cualquier WiFi
       real. Es el ruido que esperabas.
     - **`arp` = 20** → ARP es **escaso** en esta red pequeña: nada de inundación.
-    - **`http` = 12**, y dentro **`urlencoded-form` = 3** → ahí está la aguja: **3 envíos de
+    - **`http` = 12**, y dentro **`urlencoded-form` = 3**: **3 envíos de
       formulario** por HTTP. Esos son los logins.
 
 → El objetivo se concreta: hay **HTTP sin TLS** con **formularios `POST`**. Vamos a por ellos.

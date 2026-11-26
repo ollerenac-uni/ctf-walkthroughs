@@ -30,7 +30,7 @@
 - Herramientas para *ver y tocar* el canal:
     - **DevTools (F12)** → pestañas *Network* y *Storage*.
     - **`curl`** → repetir y modificar una petición desde la terminal.
-    - **Burp Suite** → proxy que intercepta y edita el tráfico (el bisturí).
+    - **Burp Suite** → proxy que intercepta y edita el tráfico.
 
 ??? note "Anatomía de una petición"
     ```http
