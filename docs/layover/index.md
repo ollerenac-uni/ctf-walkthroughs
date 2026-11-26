@@ -32,7 +32,7 @@ deducir, probar, concluir y repetir.
 - **0 · [Setup](etapa0-setup.md)** — VPN, servicios expuestos y acceso por RDP
 - **1 · [Discovery](01-discovery.md)** — descubrir la red `10.13.37.0/24`
 - **2 · [Network Sniffing](02-monitoreo.md)** — capturar `jenny`
-- **🎯 [Tarea](tarea.md)** — crea tu blog en GitHub Pages y documenta tu avance (0 → 2)
+- **[Tarea](tarea.md)** — crea tu blog en GitHub Pages y documenta tu avance (0 → 2)
 
 !!! note "Tácticas 3–6: no publicadas"
     La cadena de explotación (Execution → Credential Access → Lateral Movement → Privesc a root)

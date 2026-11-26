@@ -53,7 +53,9 @@ suene a IA. Reglas:
 - Evita la cadencia de "regla de tres" (tres adjetivos o cláusulas seguidas).
 - Frases cortas y declarativas. Si una oración pasa de unas 25 palabras, pártela.
 - No cierres secciones con frases-resumen inspiradoras ni con emoji decorativo. El
-  emoji funcional (p. ej. 🔒 para marcar contenido no publicado) sí se permite.
+  emoji funcional (p. ej. 🔒 para marcar contenido no publicado) sí se permite. Las
+  columnas de estado y las tablas usan texto, no emoji de estado (nada de ✅, 🔜,
+  🧩, 🛠, 🎯).
 
 Ninguna regla elimina el tono por completo: revisa el resultado antes de dar algo
 por terminado.

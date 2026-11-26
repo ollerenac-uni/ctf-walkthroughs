@@ -90,7 +90,7 @@ dpkg -s cups-daemon | grep Version   # → Version: 2.4.16-...
 
 ## 6.4 · Conclusión
 
-**ROOT FLAG** ✅
+**ROOT FLAG**
 
 ## 6.5 · Rutas alternativas
 
