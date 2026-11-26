@@ -147,26 +147,40 @@ paso a paso (síntoma → diagnóstico → arreglo) en **[Etapa 0 · Setup](etap
 
 ## Conectar al box y escanear puertos (`nmap`)
 
-Con la VPN arriba y la máquina *spawneada*, el primer reflejo **no** es entrar: es **enumerar**.
-¿Qué puertas tiene esta casa?
-
-```bash
-ping -c3 10.129.x.x                     # ¿está viva?
-nmap -sC -sV -oN scan.txt 10.129.x.x    # servicios + scripts por defecto, guardando la salida
-```
-
-Pieza por pieza (se construye, no se memoriza):
-
-- **`-sV`** → detecta la **versión** de cada servicio (clave para buscar su CVE más tarde).
-- **`-sC`** → corre los **scripts por defecto** de nmap (información extra barata).
-- **`-oN scan.txt`** → **guarda** la salida (documenta siempre lo que ves).
-- **`-p-`** *(opcional)* → escanea **los 65535 puertos**, no solo los 1000 comunes: más lento, más completo.
-- **`-Pn`** *(opcional)* → **no** hagas ping previo (úsalo si el host ignora ICMP pero sabes que está vivo).
+Con la VPN activa y la máquina iniciada, el primer paso es **enumerar**: saber qué servicios expone
+el objetivo antes de intentar entrar. La herramienta habitual es nmap.
 
 <figure>
-  <img src="../assets/nmap-scan.svg" alt="nmap clasifica un puerto como abierto, cerrado o filtrado según la respuesta">
-  <figcaption>nmap manda un paquete a cada puerto y lo clasifica según la respuesta.</figcaption>
+  <img src="../assets/nmap-sondas.png" alt="Nmap envía sondas a los puertos del equipo objetivo y, a partir de las respuestas, deduce equipos encendidos, puertos abiertos, servicio y versión, y sistema operativo estimado">
+  <figcaption>Fuente: <a href="https://esgeeks.com/como-usar-nmap-con-comandos/">EsGeeks, «Cómo usar Nmap: comandos para escanear tu red y puertos»</a>.</figcaption>
 </figure>
+
+nmap envía sondas (paquetes) a los puertos del equipo objetivo y analiza las respuestas. De ellas
+deduce cuatro cosas:
+
+| Qué deduce | Cómo lo sabe | Opción |
+|---|---|---|
+| Equipos encendidos | el equipo responde a alguna sonda | `-sn` (solo descubre equipos, no escanea puertos) |
+| Puertos abiertos | el puerto acepta la conexión | por defecto revisa los 1000 más comunes; `-p-` revisa los 65535 |
+| Servicio y versión | compara lo que contesta el servicio con su base de firmas | `-sV` |
+| Sistema operativo estimado | compara detalles de las respuestas TCP/IP con huellas conocidas | `-O` (requiere root) |
+
+El escaneo que usarás casi siempre al empezar una máquina:
+
+```bash
+ping -c3 10.129.x.x                     # comprobar que responde
+nmap -sC -sV -oN scan.txt 10.129.x.x
+```
+
+- `-sV`: detecta la versión de cada servicio. Sirve después para buscar sus vulnerabilidades conocidas.
+- `-sC`: ejecuta los scripts por defecto de nmap, que añaden información de cada servicio.
+- `-oN scan.txt`: guarda la salida en un archivo.
+- `-Pn`: omite la comprobación previa de equipo encendido. Úsala si el equipo no responde al ping.
+
+??? note "Cómo decide nmap el estado de un puerto"
+    <figure>
+      <img src="../assets/nmap-scan.svg" alt="nmap clasifica un puerto como abierto, cerrado o filtrado según la respuesta">
+    </figure>
 
 ### Leer el resultado: servicios comunes
 

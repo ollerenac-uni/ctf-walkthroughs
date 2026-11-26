@@ -109,15 +109,32 @@ sudo openvpn machines_us-4.ovpn
 
 ## 0.2 · Los dos servicios expuestos
 
-Lo único que encuentra un escaneo de puertos:
+Con la VPN activa, se escanea el box con nmap:
+
+```bash
+nmap -sC -sV -oN scan.txt 10.129.247.82
+```
+
+`-sV` detecta la versión de cada servicio, `-sC` ejecuta los scripts por defecto y `-oN` guarda la
+salida en `scan.txt`. El detalle de cada opción está en
+[Conceptos necesarios](conceptos.md#conectar-al-box-y-escanear-puertos-nmap).
+
+Líneas relevantes del resultado:
 
 ```
+PORT     STATE SERVICE       VERSION
 22/tcp   open  ssh           OpenSSH 9.6p1 (Ubuntu)
 3389/tcp open  ms-wbt-server xrdp
 ```
 
+Cada fila es un puerto. `STATE open` indica que hay un servicio escuchando, `SERVICE` es el
+protocolo que nmap reconoce y `VERSION` es el programa que lo atiende.
+
 - **22 (SSH):** acceso por línea de comandos.
-- **3389 (RDP / xrdp):** escritorio remoto gráfico.
+- **3389 (RDP / xrdp):** escritorio remoto gráfico. nmap lo nombra `ms-wbt-server`.
+
+Este escaneo revisa los 1000 puertos más comunes. Para confirmar que no hay otros servicios en
+puertos altos, se repite con `-p-`, que revisa los 65535.
 
 Con credenciales en mano, el reflejo es SSH. Pero el intento es **rechazado**:
 
