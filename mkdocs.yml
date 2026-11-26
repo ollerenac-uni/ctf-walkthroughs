@@ -1,4 +1,4 @@
-site_name: "CTF Walkthroughs — la manufactura"
+site_name: "CTF Walkthroughs"
 site_description: "Colección de walkthroughs de CTF centrados en el razonamiento, por tácticas MITRE ATT&CK."
 site_url: https://ollerenac-uni.github.io/ctf-walkthroughs/
 docs_dir: docs

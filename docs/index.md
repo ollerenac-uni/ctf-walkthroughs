@@ -1,4 +1,4 @@
-# CTF Walkthroughs — la manufactura
+# CTF Walkthroughs
 
 Colección de walkthroughs centrados en cómo se construye la solución de una CTF: el razonamiento
 (razonar, deducir, probar, concluir, repetir), no solo la lista de comandos. Cada entrada documenta

@@ -1,4 +1,4 @@
-# Layover — la manufactura del walkthrough
+# Layover
 
 Este sitio documenta **cómo se construyó** la solución de la máquina HackTheBox **Layover**,
 no solo qué comandos se corrieron. El foco es el razonamiento: cada etapa sigue el ciclo de razonar,
