@@ -3,7 +3,7 @@
 App OWASP de **lecciones guiadas**, un paso por encima de Juice Shop. En CTF2 atacamos lo que allí
 quedó ligero: **JWT** (a fondo) y **control de acceso / IDOR**. Todo sobre una **instancia real**.
 
-## Montaje
+## 1 · Montaje
 
 ```bash
 docker run -d --name webgoat -p 8088:8080 -p 9091:9090 webgoat/webgoat
@@ -16,7 +16,7 @@ Abre **http://localhost:8088/WebGoat**, **regístrate** (usuario de ≥6 caracte
 organizado por categorías OWASP: *(A1) Control de Acceso Roto*, *(A3) Inyección*, *(A7) Fallos de
 Autenticación*, etc.
 
-## IDOR · referencia directa
+## 2 · IDOR: referencia directa
 
 Lección **(A1) → Insecure Direct Object References**. Primero te autenticas en la mini-app
 (`tom` / `cat`); luego abusas de la autorización.
@@ -48,7 +48,7 @@ El servidor responde **200 a un perfil ajeno** → **IDOR** confirmado (lección
     El id es **predecible** y el servidor **no comprueba propiedad**. Es el mismo fallo que la cesta
     de Juice Shop, pero aquí ves la **referencia directa** (`userId`) directamente en la URL.
 
-## JWT · clave débil
+## 3 · JWT: clave débil
 
 Lección **(A7) → JWT tokens**. Un JWT es `header.payload.signature`: el payload va en **base64**
 (cualquiera lo lee) y la seguridad depende **solo de la firma**. Con HS256, la firma usa un
@@ -86,7 +86,7 @@ no valida el algoritmo.
     aceptar `alg:none`) convierte la identidad en **falsificable** — te vuelves `admin` sin tocar
     ninguna contraseña.
 
-## Mapa familia → lección
+## 4 · Mapa familia → lección
 
 | Familia | Lección WebGoat | Técnica |
 |---|---|---|
@@ -96,7 +96,7 @@ no valida el algoritmo.
 WebGoat también trae **SQL Injection (advanced)** y **XSS** si quieres reforzar lo de CTF1 a mayor
 dificultad.
 
-## Limpieza
+## 5 · Limpieza
 
 ```bash
 docker rm -f webgoat

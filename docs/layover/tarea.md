@@ -11,7 +11,7 @@ GitHub Pages) y a contar en él **tu** avance, etapa por etapa, con **capturas d
 
 ---
 
-## Parte 1 · Crea tu blog (MkDocs + GitHub Pages)
+## 1 · Crea tu blog (MkDocs + GitHub Pages)
 
 Son pocos pasos. Necesitas una **cuenta de GitHub**, y en tu máquina **git** y **Python 3 (pip)**.
 
@@ -94,7 +94,7 @@ https://<tu-usuario>.github.io/mi-blog-htb/
 
 ---
 
-## Parte 2 · Documenta tu avance con capturas (Etapa 0 → Táctica 2)
+## 2 · Documenta tu avance con capturas (Etapa 0 → Táctica 2)
 
 Una página (o sección) por etapa. En cada una, **capturas de tu propia sesión** + un párrafo breve
 de *qué hiciste y cómo lo supiste* (el razonamiento, no solo el comando).
@@ -126,7 +126,7 @@ de *qué hiciste y cómo lo supiste* (el razonamiento, no solo el comando).
 
 ---
 
-## Entregable
+## 3 · Entregable
 
 | Entregas | Qué |
 |---|---|

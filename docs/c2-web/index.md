@@ -3,7 +3,7 @@
 **Objetivo de la clase:** saltarse un login con **SQLi**, extraer una base de datos con **UNION**,
 robar una cookie con **XSS** y abusar de una **API** mal protegida (**JWT / IDOR**).
 
-## Estructura (2 h)
+## 1 · Estructura (2 h)
 
 | Tramo | Tiempo | Contenido |
 |---|---|---|
@@ -12,7 +12,7 @@ robar una cookie con **XSS** y abusar de una **API** mal protegida (**JWT / IDOR
 | **CTF2 · intermedio** | 45 min | **OWASP WebGoat** · JWT/IDOR/SQLi/XSS |
 | **Tarea** | casa | **picoCTF — Cookies** (Easy) · mini-writeup |
 
-## Retos
+## 2 · Retos
 
 <div class="grid cards" markdown>
 
@@ -45,11 +45,11 @@ robar una cookie con **XSS** y abusar de una **API** mal protegida (**JWT / IDOR
     admin): refuerza *input del cliente = no confiable* y prepara el terreno de JWT/IDOR. Se entrega un
     **mini-writeup**. *(Cualquier web Easy de picoGym sirve si prefieres otra — p. ej. `SQLiLite`.)*
 
-## Temas
+## 3 · Temas
 
 **SQLi · XSS · APIs (JWT / IDOR).**
 
-## Lectura previa (~2 h)
+## 4 · Lectura previa (~2 h)
 
 Los *learning paths* de PortSwigger Web Security Academy (teoría + labs guiados):
 
@@ -58,7 +58,7 @@ Los *learning paths* de PortSwigger Web Security Academy (teoría + labs guiados
 - [Access control / IDOR](https://portswigger.net/web-security/access-control)
 - [JWT attacks](https://portswigger.net/web-security/jwt)
 
-## Herramientas
+## 5 · Herramientas
 
 Burp Suite Community · `curl` · `sqlmap` · DevTools del navegador (F12). Para JWT, la extensión
 **JWT Editor** de Burp; para crackear, `hashcat` o `john`.

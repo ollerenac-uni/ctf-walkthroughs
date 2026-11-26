@@ -117,7 +117,7 @@ nmap -sC -sV -oN scan.txt 10.129.247.82
 
 `-sV` detecta la versión de cada servicio, `-sC` ejecuta los scripts por defecto y `-oN` guarda la
 salida en `scan.txt`. El detalle de cada opción está en
-[Conceptos necesarios](conceptos.md#conectar-al-box-y-escanear-puertos-nmap).
+[Conceptos necesarios](conceptos.md#5-conectar-al-box-y-escanear-puertos-nmap).
 
 Líneas relevantes del resultado:
 

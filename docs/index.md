@@ -8,7 +8,7 @@ una CTF por su cadena de deducciones.
     Cada CTF vive en su propia sección (menú de arriba). Dentro, el **Setup** (cómo recibes tu
     plataforma de ataque) se separa del **juego deductivo**, organizado por **tácticas MITRE ATT&CK**.
 
-## Walkthroughs publicados
+## 1 · Walkthroughs publicados
 
 <div class="grid cards" markdown>
 
@@ -27,7 +27,7 @@ una CTF por su cadena de deducciones.
 
 </div>
 
-## Ejercicios CTF
+## 2 · Ejercicios CTF
 
 | Clase | Categoría | Enfoque | Estado |
 |---|---|---|---|

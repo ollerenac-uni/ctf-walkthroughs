@@ -8,7 +8,7 @@ Juice Shop.
     Cuenta gratis en **PortSwigger Web Security Academy** y **Burp Suite Community** (para los fáciles
     basta el navegador). Cada lab abre una instancia propia con su URL temporal.
 
-## SQLi · bypass de login
+## 1 · SQLi: bypass de login
 
 *(~5 min)*
 
@@ -20,7 +20,7 @@ Juice Shop.
 - **Stretch:** [UNION attack, retrieving data from other tables](https://portswigger.net/web-security/sql-injection/union-attacks/lab-retrieve-data-from-other-tables) — leer otra tabla.
 - **Alt:** picoCTF *SQLiLite* / *More SQLi* · Juice Shop *Login Admin*.
 
-## XSS · reflejado
+## 2 · XSS: reflejado
 
 *(~5 min)*
 
@@ -31,7 +31,7 @@ Juice Shop.
 - **Éxito:** salta el `alert`.
 - **Alt:** Juice Shop *DOM XSS* (buscador) · PortSwigger *Stored XSS into HTML context…*.
 
-## JWT · clave débil
+## 3 · JWT: clave débil
 
 *(~7 min)*
 
@@ -43,7 +43,7 @@ Juice Shop.
 - **Éxito:** acceso al panel de administración.
 - **Alt:** picoCTF *JaWT Scratchpad* · Juice Shop *Forged Signed JWT*.
 
-## IDOR · referencia directa
+## 4 · IDOR: referencia directa
 
 *(~5 min)*
 

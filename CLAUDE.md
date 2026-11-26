@@ -23,6 +23,12 @@ usan las páginas de Layover: `## 0.1 · La VPN`, `## 1.2 · Enfoque`. Si una
 subsección tiene apartados propios, se numeran un nivel más: `### 0.1.1 · ...`.
 El título de la página (`#`) no lleva número de subsección.
 
+Las páginas que no son una etapa (índices, conceptos, tarea, páginas de C2) numeran
+desde 1: `## 1 · ...`, `### 1.1 · ...`. Si el título ya tenía un separador `·`, se
+cambia por dos puntos: `## 3 · SQLi: Login Admin`.
+
+Al renumerar cambian las anclas de los títulos: revisa los enlaces `pagina.md#ancla`.
+
 ## Estilo de redacción (obligatorio)
 
 Español, registro neutro y sobrio, tono técnico. El objetivo es que el texto no

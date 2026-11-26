@@ -10,7 +10,7 @@ demás se apoya.
     táctica, búscalo aquí. Lo marcado con 🔒 corresponde a la parte no publicada ([Tarea](tarea.md)):
     solo se describe el concepto, no el procedimiento.
 
-## ¿Qué es un CTF?
+## 1 · ¿Qué es un CTF?
 
 **Capture The Flag**: un juego de seguridad donde resuelves retos y, al lograrlo, obtienes una
 **flag** (una cadena, p. ej. `HTB{...}`, o el contenido de un archivo `user.txt`) que **demuestra**
@@ -33,7 +33,7 @@ explotación → credenciales → lateral → privesc) hasta el control total. S
     equipo). Lanzar estas técnicas contra sistemas ajenos es **ilegal**. El CTF es tu campo de tiro
     autorizado: ahí puedes romper sin consecuencias.
 
-## Plataformas de CTF (y cuáles son gratis)
+## 2 · Plataformas de CTF (y cuáles son gratis)
 
 | Plataforma | Tipo | Gratis |
 |---|---|---|
@@ -69,7 +69,7 @@ En esta clase usamos **HackTheBox** porque Layover vive ahí. Para practicar por
 
     Los enlaces de YouTube pueden cambiar o dejar de estar disponibles con el tiempo.
 
-## HackTheBox: cómo moverte y encontrar Layover
+## 3 · HackTheBox: cómo moverte y encontrar Layover
 
 HTB ([hackthebox.com](https://www.hackthebox.com/)) es una plataforma de laboratorios. Lo mínimo para
 ubicarte:
@@ -92,9 +92,9 @@ ubicarte:
     Si reinicias la máquina (*respawn*), HTB suele **rotar la IP**. Si de repente "no llega", lo
     primero es confirmar en el panel que sigues apuntando a la IP correcta.
 
-## Conectar con el lab: la VPN
+## 4 · Conectar con el lab: la VPN
 
-### Qué es y cómo funciona
+### 4.1 · Qué es y cómo funciona
 
 Una **VPN** (*Virtual Private Network*) crea un **túnel cifrado** entre tu máquina y la red del
 laboratorio, de modo que tu equipo se comporta como si estuviera *dentro* de esa red. HTB la usa para
@@ -107,7 +107,7 @@ Mecánicamente, al conectar con tu `.ovpn`:
 - El cliente **instala rutas**: *"para llegar a `10.129.0.0/16`, manda el tráfico por `tun0`"*.
 - Desde ahí, un `ping 10.129.x.x` sale por el túnel y alcanza tu máquina objetivo.
 
-### Herramientas según tu sistema
+### 4.2 · Herramientas según tu sistema
 
 | Sistema | Herramienta | Cómo |
 |---|---|---|
@@ -133,7 +133,7 @@ sudo openvpn tu_pack.ovpn
     ping -c3 <IP-del-box>    # ¿responde?
     ```
 
-### Errores típicos (y qué significan)
+### 4.3 · Errores típicos (y qué significan)
 
 | Síntoma | Causa probable | Arreglo |
 |---|---|---|
@@ -145,7 +145,7 @@ sudo openvpn tu_pack.ovpn
 El caso del **túnel zombi** —el más frustrante, y el que vivimos en esta máquina— está documentado
 paso a paso (síntoma → diagnóstico → arreglo) en **[Etapa 0 · Setup](etapa0-setup.md)**.
 
-## Conectar al box y escanear puertos (`nmap`)
+## 5 · Conectar al box y escanear puertos (`nmap`)
 
 Con la VPN activa y la máquina iniciada, el primer paso es **enumerar**: saber qué servicios expone
 el objetivo antes de intentar entrar. La herramienta habitual es nmap.
@@ -182,7 +182,7 @@ nmap -sC -sV -oN scan.txt 10.129.x.x
       <img src="../assets/nmap-scan.svg" alt="nmap clasifica un puerto como abierto, cerrado o filtrado según la respuesta">
     </figure>
 
-### Leer el resultado: servicios comunes
+### 5.1 · Leer el resultado: servicios comunes
 
 Un escaneo te dice **qué habla** la máquina. Los que verás una y otra vez:
 
@@ -210,7 +210,7 @@ credenciales en mano, SSH se rechaza y acabas entrando por **RDP** — el *cómo
     - Sala guiada gratis: [Nmap en TryHackMe](https://tryhackme.com/room/furthernmap).
     - Referencia completa de opciones: [guía de referencia de Nmap](https://nmap.org/book/man.html).
 
-## Prerrequisitos (nivelación)
+## 6 · Prerrequisitos (nivelación)
 
 Lo mínimo para no perderte. Si algo de esto es nuevo, repásalo primero.
 
@@ -218,7 +218,7 @@ Lo mínimo para no perderte. Si algo de esto es nuevo, repásalo primero.
 - **Redes, lo básico:** IP, subred, gateway, rutas; qué es un puerto y un servicio.
 - **HTTP:** petición/respuesta, métodos (`GET`/`POST`), formularios, cabeceras, cookies.
 
-## Mapa de conceptos del reto
+## 7 · Mapa de conceptos del reto
 
 | Concepto | Qué es (en una línea) | Dónde aparece |
 |---|---|---|
@@ -233,7 +233,7 @@ Lo mínimo para no perderte. Si algo de esto es nuevo, repásalo primero.
 | **HTTP en claro** | tráfico sin TLS → credenciales legibles si alguien se loguea | [2 · Network Sniffing](02-monitoreo.md) |
 | **`tshark` / campos de Wireshark** | la CLI de Wireshark; disecar un paquete por campos (`http.file_data`) | [2 · Network Sniffing](02-monitoreo.md) |
 
-## Conceptos de la parte no publicada 🔒
+## 8 · Conceptos de la parte no publicada 🔒
 
 Lo que **explorarás en la [Tarea](tarea.md)**. A nivel de idea, para que sepas qué terreno pisarás
 —sin el *cómo*—:

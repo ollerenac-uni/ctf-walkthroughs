@@ -9,13 +9,13 @@ deducir, probar, concluir y repetir.
     (el juego deductivo, que empieza con un shell en el workstation). Cada página es una
     **táctica MITRE ATT&CK**: un *objetivo* al que se puede llegar por varias *técnicas*.
 
-## La cadena completa
+## 1 · La cadena completa
 
 <figure>
   <img src="assets/kill-chain.svg" alt="Cadena de ataque por táctica MITRE">
 </figure>
 
-## Datos de la máquina
+## 2 · Datos de la máquina
 
 | Campo | Valor |
 |---|---|
@@ -27,7 +27,7 @@ deducir, probar, concluir y repetir.
 | Red objetivo | WiFi abierta `10.13.37.0/24` |
 | Flags | User (SSH `aporter`) · Root (CUPS) |
 
-## Índice de tácticas
+## 3 · Índice de tácticas
 
 - **0 · [Setup](etapa0-setup.md)** — VPN, servicios expuestos y acceso por RDP
 - **1 · [Discovery](01-discovery.md)** — descubrir la red `10.13.37.0/24`
