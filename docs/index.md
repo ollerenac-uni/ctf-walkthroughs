@@ -12,7 +12,7 @@ Cada entrada documenta una CTF por su **cadena de deducciones**.
 
 <div class="grid cards" markdown>
 
--   :material-server-network: **[Layover](layover/index.md)** · Máquina HackTheBox
+-   :material-server-network: **[Layover](layover/index.md)** · C1 · Máquina HackTheBox
 
     ---
 
@@ -31,6 +31,7 @@ Cada entrada documenta una CTF por su **cadena de deducciones**.
 
 | Clase | Categoría | Enfoque | Estado |
 |---|---|---|---|
+| C1 | **[Introducción](layover/index.md)** | CTF, VPN, nmap, recon, network sniffing · *Layover (HTB)* | ✅ Setup → Táctica 2 · 🧩 tarea |
 | C2 | **[Web](c2-web/index.md)** | SQLi, XSS, APIs (JWT/IDOR) | 🛠 conceptos, mini-labs y CTFs fijados |
 | C3 | **Criptografía** | RSA con fallas, AES ECB, hashes | 🔜 próximamente |
 | C4 | **Forense** | PCAP, memoria (Volatility), estego | 🔜 próximamente |

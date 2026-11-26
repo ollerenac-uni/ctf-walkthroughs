@@ -1,13 +1,167 @@
-# Conceptos necesarios · Layover
+# Conceptos necesarios · Layover (C1 · Introducción a CTFs)
 
-Antes (o mientras) resuelves Layover, conviene tener claros estos conceptos. **No es la solución**:
-es el *fondo* que hace que cada paso tenga sentido. Cada fila enlaza a dónde aparece en el
-walkthrough.
+Esta es la clase **introductoria** del curso. Antes de resolver tu primer boot2root —**Layover**, en
+HackTheBox— conviene tener claro **qué es un CTF**, **dónde se juega** y, sobre todo, **cómo conectas
+tu máquina de ataque al laboratorio**. No es la solución del reto: es el terreno sobre el que todo lo
+demás se apoya.
 
 !!! info "Cómo usar esta página"
-    Si un término te suena a chino al leer una táctica, vuelve aquí. Lo marcado con 🔒 pertenece a la
-    parte que **no está publicada** (es tu [Tarea](tarea.md)): lo dejamos a nivel de *concepto*, sin
-    revelar el camino.
+    Léela de arriba abajo la primera vez (es tu *onboarding*). Después vuelve a ella como
+    **referencia**: si un término te suena a chino en una táctica, búscalo aquí. Lo marcado con 🔒
+    pertenece a la parte **no publicada** (es tu [Tarea](tarea.md)): se queda a nivel de *concepto*.
+
+## ¿Qué es un CTF?
+
+**Capture The Flag**: un juego de seguridad donde resuelves retos y, al lograrlo, obtienes una
+**flag** (una cadena, p. ej. `HTB{...}`, o el contenido de un archivo `user.txt`) que **demuestra**
+que lo conseguiste. La flag es la *prueba*; el verdadero premio es el **razonamiento** del camino.
+
+Tres formatos que te encontrarás:
+
+| Formato | En qué consiste | Ejemplo |
+|---|---|---|
+| **Jeopardy** | retos sueltos por categoría (Web, Cripto, Pwn, Forense, RE…), cada uno con su flag | picoCTF, CTFs de competición |
+| **Boot2root** | una máquina completa que comprometes de principio a fin: de un punto de entrada hasta `root`/`Administrator` | **HTB Layover** (esta clase) |
+| **Attack/Defense** | por equipos: defiendes tus servicios mientras atacas los del rival | CTFs presenciales avanzados |
+
+Layover es **boot2root**: entras con pocas pistas y vas encadenando **tácticas** (recon → sniffing →
+explotación → credenciales → lateral → privesc) hasta el control total. Suele haber **dos flags**:
+`user.txt` (usuario sin privilegios) y `root.txt` (control total).
+
+!!! warning "Regla de oro — legalidad"
+    Solo atacas máquinas que te **autorizan** explícitamente (el laboratorio de HTB, tu propio
+    equipo). Lanzar estas técnicas contra sistemas ajenos es **ilegal**. El CTF es tu campo de tiro
+    autorizado: ahí puedes romper sin consecuencias.
+
+## Plataformas de CTF (y cuáles son gratis)
+
+| Plataforma | Tipo | Gratis |
+|---|---|---|
+| **picoCTF** | jeopardy, principiante | ✅ 100% gratis (picoGym siempre disponible) |
+| **HackTheBox** | boot2root + jeopardy | ✅ máquinas **activas** y *Starting Point* gratis; las **retiradas** (con walkthrough oficial) → **VIP** |
+| **TryHackMe** | guiado, principiante | ✅ mucho contenido gratis; *rooms* premium de pago |
+| **OverTheWire** | *wargames* de Linux/bash | ✅ gratis |
+| **Root-Me / VulnHub** | retos online / VMs descargables | ✅ gratis |
+| **PortSwigger Web Security Academy** | labs web guiados | ✅ gratis (teoría + labs) |
+
+En esta clase usamos **HackTheBox** porque Layover vive ahí. Para practicar por tu cuenta,
+**picoCTF** y **TryHackMe** son los más amables para empezar.
+
+## HackTheBox: cómo moverte y encontrar Layover
+
+HTB ([hackthebox.com](https://www.hackthebox.com/)) es una plataforma de laboratorios. Lo mínimo para
+ubicarte:
+
+1. **Crea cuenta** e inicia sesión.
+2. Entra a **Machines** (menú *Labs → Machines*): el catálogo de boot2root. Hay **activas** (puntúan)
+   y **retiradas** (con walkthrough oficial; requieren VIP).
+3. **Busca "Layover"** en el buscador de máquinas y abre su ficha.
+4. **Spawn / Join**: arranca tu instancia. HTB te asigna una **IP objetivo** (tipo `10.129.x.x`) —
+   apúntala, la necesitas para todo lo demás.
+5. **Connection pack**: en el panel **Connect / Access** descargas tu archivo **`.ovpn`** — es tu
+   llave para entrar a la red del lab (siguiente sección).
+
+!!! note "Alternativa sin VPN: Pwnbox"
+    HTB ofrece **Pwnbox**, una Kali en el navegador ya conectada al lab (sin montar VPN). Cómoda para
+    empezar, con límite de horas en cuentas gratis. Aquí enseñamos la vía local (VPN + tu propia Kali)
+    porque es la que usarás **fuera** de HTB.
+
+!!! tip "La IP cambia"
+    Si reinicias la máquina (*respawn*), HTB suele **rotar la IP**. Si de repente "no llega", lo
+    primero es confirmar en el panel que sigues apuntando a la IP correcta.
+
+## Conectar con el lab: la VPN
+
+### Qué es y cómo funciona
+
+Una **VPN** (*Virtual Private Network*) crea un **túnel cifrado** entre tu máquina y la red del
+laboratorio, de modo que tu equipo se comporta como si estuviera *dentro* de esa red. HTB la usa para
+que puedas alcanzar las IPs `10.129.x.x` (y `10.10.x.x`) del lab, que **no** existen en el internet
+público.
+
+Mecánicamente, al conectar con tu `.ovpn`:
+
+- Se levanta una **interfaz de red virtual** `tun0` (un "cable" virtual hacia HTB).
+- El cliente **instala rutas**: *"para llegar a `10.129.0.0/16`, manda el tráfico por `tun0`"*.
+- Desde ahí, un `ping 10.129.x.x` sale por el túnel y alcanza tu máquina objetivo.
+
+### Herramientas según tu sistema
+
+| Sistema | Herramienta | Cómo |
+|---|---|---|
+| **Linux** | `openvpn` (CLI) | `sudo openvpn tu_pack.ovpn` · o importar el `.ovpn` en NetworkManager |
+| **Windows** | **OpenVPN GUI** u **OpenVPN Connect** | importar el `.ovpn` y conectar desde la bandeja |
+| **macOS** | **Tunnelblick** u OpenVPN Connect | importar el `.ovpn` |
+| **Cualquiera** | **Pwnbox** (navegador) | sin instalar nada; HTB ya viene conectado |
+
+En Linux (lo que usaremos en clase):
+
+```bash
+sudo openvpn tu_pack.ovpn
+```
+
+!!! success "Marcador de éxito"
+    La VPN está **realmente** arriba cuando aparece la línea:
+    ```
+    Initialization Sequence Completed
+    ```
+    Verifica además que tienes interfaz y que llegas al objetivo:
+    ```bash
+    ip a | grep tun          # debe existir tun0 con una IP 10.10.x.x
+    ping -c3 <IP-del-box>    # ¿responde?
+    ```
+
+### Errores típicos (y qué significan)
+
+| Síntoma | Causa probable | Arreglo |
+|---|---|---|
+| `TLS handshake failed` | puerto/protocolo bloqueado (HTB usa **UDP 1337** por defecto) | usar el pack **TCP 443** (443 es HTTPS: casi ninguna red lo bloquea) |
+| Dice `Completed` pero **no llega** al box | ruta "robada" por un **túnel zombi** de otra sesión, o dos VPN a la vez | matar toda VPN y dejar **una**; HTB admite **una sola sesión** por cuenta |
+| `Completed` pero el box no responde | máquina **apagada** o con **IP nueva** tras *respawn* | revisar el panel de HTB |
+| `Permission denied` al conectar | falta `sudo` | `openvpn` necesita privilegios para crear `tun0` |
+
+El caso del **túnel zombi** —el más frustrante, y el que vivimos en esta máquina— está documentado
+paso a paso (síntoma → diagnóstico → arreglo) en **[Etapa 0 · Setup](etapa0-setup.md)**.
+
+## Conectar al box y escanear puertos (`nmap`)
+
+Con la VPN arriba y la máquina *spawneada*, el primer reflejo **no** es entrar: es **enumerar**.
+¿Qué puertas tiene esta casa?
+
+```bash
+ping -c3 10.129.x.x                     # ¿está viva?
+nmap -sC -sV -oN scan.txt 10.129.x.x    # servicios + scripts por defecto, guardando la salida
+```
+
+Pieza por pieza (se construye, no se memoriza):
+
+- **`-sV`** → detecta la **versión** de cada servicio (clave para buscar su CVE más tarde).
+- **`-sC`** → corre los **scripts por defecto** de nmap (información extra barata).
+- **`-oN scan.txt`** → **guarda** la salida (documenta siempre lo que ves).
+- **`-p-`** *(opcional)* → escanea **los 65535 puertos**, no solo los 1000 comunes: más lento, más completo.
+- **`-Pn`** *(opcional)* → **no** hagas ping previo (úsalo si el host ignora ICMP pero sabes que está vivo).
+
+### Leer el resultado: servicios comunes
+
+Un escaneo te dice **qué habla** la máquina. Los que verás una y otra vez:
+
+| Puerto | Servicio | Qué es | Cómo conectas |
+|---|---|---|---|
+| **22** | **SSH** | shell remota por línea de comandos | `ssh usuario@IP` |
+| **3389** | **RDP** (`ms-wbt-server`) | escritorio remoto gráfico (Windows / `xrdp`) | `xfreerdp /u:... /v:IP` |
+| **80** | **HTTP** | web **sin** cifrar | navegador · `curl http://IP` |
+| **443** | **HTTPS** | web **cifrada** con TLS | navegador · `curl -k https://IP` |
+
+En **Layover**, el escaneo inicial del box revela exactamente **22 (SSH)** y **3389 (RDP)**. Con
+credenciales en mano, SSH se rechaza y acabas entrando por **RDP** — el *cómo* y el *porqué* están en
+**[Etapa 0 · Setup](etapa0-setup.md)**.
+
+!!! tip "Nombres de host (`/etc/hosts`)"
+    Muchos retos usan dominios internos (p. ej. `international.htb`) que el DNS público no resuelve.
+    Cuando un servicio redirige a un nombre así, lo mapeas tú a la IP en `/etc/hosts`:
+    ```
+    10.129.x.x   international.htb portal.international.htb
+    ```
 
 ## Prerrequisitos (nivelación)
 
@@ -21,6 +175,7 @@ Lo mínimo para no perderte. Si algo de esto es nuevo, repásalo primero.
 
 | Concepto | Qué es (en una línea) | Dónde aparece |
 |---|---|---|
+| **Escaneo de puertos (`nmap`)** | descubrir qué servicios expone un host | [Etapa 0 · Setup](etapa0-setup.md) |
 | **VPN / `tun`** | túnel que enruta tu tráfico hacia la red del lab | [Etapa 0 · Setup](etapa0-setup.md) |
 | **SSH vs RDP** | dos formas de acceso remoto; una autentica por clave/PAM, otra da escritorio | [Etapa 0 · Setup](etapa0-setup.md) |
 | **Enumeración del host** | *¿quién soy, qué permisos tengo, dónde estoy?* (`id`, `sudo -l`, `ip`) | [1 · Discovery](01-discovery.md) |
@@ -50,4 +205,4 @@ Lo que **explorarás en la [Tarea](tarea.md)**. A nivel de idea, para que sepas 
 
 ---
 
-¿Listo? Entra al walkthrough: **[Etapa 0 · Setup](index.md)**.
+¿Listo? Entra al walkthrough: **[Etapa 0 · Setup](etapa0-setup.md)**.
