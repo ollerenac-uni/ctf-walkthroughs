@@ -1,0 +1,1379 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Colección de walkthroughs de CTF centrados en el razonamiento, por tácticas MITRE ATT&CK.">
+      
+      
+      
+        <link rel="canonical" href="https://ollerenac-uni.github.io/ctf-walkthroughs/layover/02-monitoreo/">
+      
+      
+        <link rel="prev" href="../01-discovery/">
+      
+      
+        <link rel="next" href="../tarea/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>2 · Network Sniffing - CTF Walkthroughs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=JetBrains+Mono:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"JetBrains Mono";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2-network-sniffing-t1040" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="CTF Walkthroughs" class="md-header__button md-logo" aria-label="CTF Walkthroughs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CTF Walkthroughs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2 · Network Sniffing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  C1 · Intro
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../c2-web/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  C2 · Web
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CTF Walkthroughs" class="md-nav__button md-logo" aria-label="CTF Walkthroughs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CTF Walkthroughs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C1 · Intro
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C1 · Intro
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conceptos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conceptos necesarios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../etapa0-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Etapa 0 · Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tácticas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tácticas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1 · Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2 · Network Sniffing
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2 · Network Sniffing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21-motivacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 · Motivación
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-managed-vs-monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 · Managed vs Monitor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-procedimiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 · Procedimiento
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 · Conclusión
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-rutas-alternativas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 · Rutas alternativas
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tarea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tarea · Tu blog del walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../c2-web/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C2 · Web
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C2 · Web
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c2-web/conceptos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conceptos (30 min)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c2-web/mini-labs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mini-labs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c2-web/ctf1-juice-shop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF1 · Juice Shop
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c2-web/ctf2-webgoat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF2 · WebGoat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21-motivacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 · Motivación
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-managed-vs-monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 · Managed vs Monitor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-procedimiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 · Procedimiento
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 · Conclusión
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-rutas-alternativas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 · Rutas alternativas
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="2-network-sniffing-t1040">2 · Network Sniffing  (T1040)<a class="headerlink" href="#2-network-sniffing-t1040" title="Permanent link">&para;</a></h1>
+<div class="admonition info">
+<p class="admonition-title">Terminología: monitoreo, no interceptación</p>
+<p>Aunque el nombre (de MITRE) sea "Network Sniffing", mecánicamente es <strong>monitoreo pasivo</strong>: el
+modo monitor <strong>solo escucha</strong> el canal. <strong>No</strong> tocamos ni suplantamos ninguna MAC, <strong>no</strong>
+inyectamos nada. "Sniffing" aquí = <em>oír</em>, no <em>interceptar</em>.</p>
+</div>
+<p><strong>Objetivo:</strong> obtener credenciales de alguien que use la red (concluimos: <code>jenny / Fl1ghtDeck2026!</code>).</p>
+<h2 id="21-motivacion">2.1 · Motivación<a class="headerlink" href="#21-motivacion" title="Permanent link">&para;</a></h2>
+<p>Premisas que <strong>sí</strong> teníamos de antemano:</p>
+<ol>
+<li><strong>¿Por qué el box da dos interfaces WiFi?</strong> Con <code>wlan2</code> ya te mantienes conectado a la red;
+   <code>wlan3</code> (simulada, libre) sobra para eso. La segunda tarjeta sirve para <strong>escuchar el canal</strong> sin
+   perder tu conexión. Por eso la máquina da dos.</li>
+<li>Estás en el grupo <strong><code>wireshark</code></strong> y tienes <strong><code>sudo</code></strong> (+ <code>tshark</code> preinstalado) → el box te dio
+   los permisos necesarios para capturar tráfico.</li>
+<li>La red es <strong>WiFi abierta</strong> (sin cifrado): cualquiera en el canal ve el tráfico de todos.</li>
+<li>No tenemos credenciales del portal, hay que conseguirlas de algún lado.</li>
+</ol>
+<p>→ <strong>Hipótesis</strong> (no certeza): <em>"si alguien más usa esta red abierta, puedo leer lo que manda."</em>
+Monitoreamos justamente para <strong>comprobarlo</strong>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Lo que averiguamos al analizar la captura (no se sabía antes)</p>
+<ul>
+<li>que hay un <strong>bot</strong> que se loguea periódicamente a <code>portal.international.htb/miles/login.php</code>, y</li>
+<li>que lo hace por <strong>HTTP en claro</strong> (sin TLS).</li>
+</ul>
+<p>El <em>bot + HTTP</em> es el <strong>hallazgo</strong> del monitoreo, <strong>no</strong> la razón para monitorear.</p>
+</div>
+<h2 id="22-managed-vs-monitor">2.2 · Managed vs Monitor<a class="headerlink" href="#22-managed-vs-monitor" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Managed</strong> (modo normal): la tarjeta te entrega <strong>solo</strong> las tramas dirigidas a <strong>tu</strong> MAC. Inútil para espiar.</li>
+<li><strong>Monitor</strong>: la tarjeta te entrega <strong>todas</strong> las tramas del canal, de cualquier emisor. Ese es el punto.</li>
+</ul>
+<h2 id="23-procedimiento">2.3 · Procedimiento<a class="headerlink" href="#23-procedimiento" title="Permanent link">&para;</a></h2>
+<p><strong>Capturar — <code>wlan3</code> en modo monitor</strong></p>
+<p>El modo monitor solo sirve si estás <strong>en el mismo canal</strong> que la red objetivo (si no, no oyes nada):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>iw<span class="w"> </span>dev<span class="w"> </span>wlan2<span class="w"> </span>info<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>channel<span class="w">      </span><span class="c1"># ¿en qué canal está la red?</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>wlan3<span class="w"> </span>down
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>iw<span class="w"> </span>dev<span class="w"> </span>wlan3<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="nb">type</span><span class="w"> </span>monitor
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>wlan3<span class="w"> </span>up
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>iw<span class="w"> </span>dev<span class="w"> </span>wlan3<span class="w"> </span><span class="nb">set</span><span class="w"> </span>channel<span class="w"> </span>&lt;N&gt;<span class="w">          </span><span class="c1"># el mismo canal que wlan2</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>tshark<span class="w"> </span>-i<span class="w"> </span>wlan3<span class="w"> </span>-w<span class="w"> </span>air.pcap<span class="w">           </span><span class="c1"># captura cruda (unos minutos)</span>
+</code></pre></div>
+<details class="question">
+<summary>¿Por qué <code>tshark</code> y no Wireshark o <code>tcpdump</code>? (clic)</summary>
+<ul>
+<li><strong><code>tcpdump</code></strong> → genial para <strong>capturar</strong> (ligero, está en todas partes), pero flojo para
+  <strong>analizar</strong>: no diseca bien la capa de aplicación, ni trae jerarquía de protocolos ni los
+  filtros de display de Wireshark.</li>
+<li><strong>Wireshark</strong> → el mejor analizador… pero es <strong>GUI</strong>: en un box headless / por RDP es incómodo,
+  no es scriptable y aquí ni siquiera está instalado.</li>
+<li><strong><code>tshark</code></strong> → es <strong>Wireshark en línea de comandos</strong>: los mismos disectores y filtros potentes
+  (<code>-Y</code>, <code>-z</code>, <code>-T fields</code>) pero en terminal → <strong>scriptable, headless, ligero</strong>. Lo mejor de los
+  dos. Y el box ya lo trae (+ el grupo <code>wireshark</code> te da permiso de captura).</li>
+</ul>
+</details>
+<p><strong>Analizar el <code>.pcap</code> — tres preguntas</strong></p>
+<p><em>1) ¿Quién trafica?</em> (qué estaciones están activas)</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>tshark<span class="w"> </span>-r<span class="w"> </span>air.pcap<span class="w"> </span>-q<span class="w"> </span>-z<span class="w"> </span>endpoints,wlan<span class="w">   </span><span class="c1"># MACs 802.11 activas en el aire</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>tshark<span class="w"> </span>-r<span class="w"> </span>air.pcap<span class="w"> </span>-q<span class="w"> </span>-z<span class="w"> </span>conv,ip<span class="w">          </span><span class="c1"># conversaciones IP: quién habla con quién</span>
+</code></pre></div>
+<details class="note">
+<summary>Output: <code>endpoints,wlan</code> — MACs activas (clic)</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>IEEE 802.11 Endpoints
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>                       |  Packets | |  Bytes | | Tx Pkts | | Rx Pkts |
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>02:00:00:00:00:00          1422      179130      1385          37
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>Broadcast                  1385      177280         0        1385
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>02:00:00:00:02:00           181       28439       146          35
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>c2:95:6e:e8:cc:83           147       26739        35         112
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>02:00:00:00:01:00            81       32466        45          36
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>Xensource_60:a3:1e           78       32316        36          42
+</code></pre></div>
+<ul>
+<li><strong><code>02:00:00:00:00:00</code></strong> → 1385 Tx <strong>todas a Broadcast</strong> = las mismas <strong>1385 <code>wlan.mgt</code></strong>
+  (beacons) del <code>io,phs</code> → es el <strong>AP</strong> emitiendo beacons. El que más "habla", pero <strong>ruido</strong>.</li>
+<li><strong><code>02:00:00:00:02:00</code></strong> → <strong>tu propia <code>wlan2</code></strong> (MAC idéntica a la de tu <code>ip a</code>).</li>
+<li><strong><code>02:00:00:00:01:00</code></strong> (81) y <strong><code>Xensource_60:a3:1e</code></strong> (78) → <strong>otras dos estaciones</strong>; el OUI
+  <em>Xensource</em> = <code>00:16:3e</code> marca un host tipo Xen/LXD.</li>
+<li><code>c2:95:6e:e8:cc:83</code> (147) → estación con <strong>MAC aleatorizada</strong> (localmente administrada: el
+  primer octeto <code>c2</code> lleva el bit "local").</li>
+</ul>
+</details>
+<details class="note">
+<summary>Output: <code>conv,ip</code> — conversaciones IP (clic)</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>IPv4 Conversations
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>10.13.37.182  &lt;-&gt;  10.13.37.1     139 frames   26 kB     (dura 139 s)
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>10.13.37.132  &lt;-&gt;  10.13.37.10     66 frames   31 kB     (empieza a los 24 s)
+</code></pre></div>
+<ul>
+<li><strong><code>10.13.37.182 &lt;-&gt; 10.13.37.1</code></strong> → <strong>tú</strong> (<code>wlan2</code> = .182, de tu <code>ip a</code>) con el <strong>gateway</strong>
+  (.1): <strong>139 tramas</strong> repartidas a lo largo de <strong>139 s</strong>. Es tu propio tráfico.</li>
+<li><strong><code>10.13.37.132 &lt;-&gt; 10.13.37.10</code></strong> → <strong>otro cliente (<code>.132</code>, que no eres tú) hablando con
+  <code>.10</code></strong>; y <strong>arranca a los 24 s</strong>, no desde el inicio. <code>.10</code> es el host del portal (lo confirma
+  el <code>http.host</code> de más abajo). → <strong>Esta es la conversación que importa.</strong></li>
+</ul>
+</details>
+<p><em>2) ¿Qué protocolos hay?</em> (la jerarquía lo resume de un vistazo)</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>tshark<span class="w"> </span>-r<span class="w"> </span>air.pcap<span class="w"> </span>-q<span class="w"> </span>-z<span class="w"> </span>io,phs<span class="w">           </span><span class="c1"># protocol hierarchy statistics</span>
+</code></pre></div>
+<details class="note">
+<summary>Output: <code>io,phs</code> — jerarquía de protocolos (clic)</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>wlan                       frames:1649
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  wlan.mgt                 frames:1385     ← gestión 802.11 (beacons): el 84% del total
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  llc                      frames:227
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    ip                     frames:205
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>      udp → dns            frames:96       ← resolución de nombres
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>      tcp                  frames:109
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>        http               frames:12       ← ¡HTTP! (sin TLS)
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>          urlencoded-form  frames:3        ← cuerpos de formulario (aquí van user/pass)
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>          data-text-lines  frames:6
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>    arp                    frames:20       ← solo 20 ARP
+</code></pre></div>
+<ul>
+<li><strong><code>wlan.mgt</code> = 1385</strong> (de 1649) → los <strong>beacons dominan</strong> la captura, como en cualquier WiFi
+  real. Es el ruido que esperabas.</li>
+<li><strong><code>arp</code> = 20</strong> → ARP es <strong>escaso</strong> en esta red pequeña: nada de inundación.</li>
+<li><strong><code>http</code> = 12</strong>, y dentro <strong><code>urlencoded-form</code> = 3</strong>: <strong>3 envíos de
+  formulario</strong> por HTTP. Esos son los logins.</li>
+</ul>
+</details>
+<p>→ El objetivo se concreta: hay <strong>HTTP sin TLS</strong> con <strong>formularios <code>POST</code></strong>.</p>
+<p><em>3) Momento deductivo: ¿dónde viajan las credenciales?</em></p>
+<div class="admonition question">
+<p class="admonition-title">¿Qué protocolos transportan credenciales en claro?</p>
+<p>Las credenciales de aplicación viajan <strong>legibles</strong> en protocolos <strong>sin cifrar</strong>: <strong>HTTP</strong>
+(formulario de login / Basic auth), <strong>FTP</strong> (<code>USER</code>/<code>PASS</code>), <strong>Telnet</strong>, <strong>SMTP/POP3/IMAP</strong> sin
+STARTTLS, <strong>SNMP</strong>, <strong>LDAP</strong>… todo lo que <strong>no</strong> vaya envuelto en TLS.</p>
+<p>Y ya sabemos dos cosas de antes: <strong>la página tiene login</strong> y el portal se sirve por <strong>HTTP</strong> (lo
+vimos en la página de bienvenida). → Lo que buscamos es un <strong><code>POST</code> HTTP</strong> con el formulario.</p>
+</div>
+<p><strong>Extraer las credenciales</strong></p>
+<p><em>Paso 1 — ¿qué peticiones hubo y a dónde?</em></p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>tshark<span class="w"> </span>-r<span class="w"> </span>air.pcap<span class="w"> </span>-Y<span class="w"> </span>http.request<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">       </span>-T<span class="w"> </span>fields<span class="w"> </span>-e<span class="w"> </span>ip.src<span class="w"> </span>-e<span class="w"> </span>http.request.method<span class="w"> </span>-e<span class="w"> </span>http.host<span class="w"> </span>-e<span class="w"> </span>http.request.uri
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>10.13.37.132  POST  portal.international.htb  /miles/login.php
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>10.13.37.182  GET   wifi.international.htb    /
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>10.13.37.132  POST  portal.international.htb  /miles/login.php
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>10.13.37.182  GET   wifi.international.htb    /
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>10.13.37.132  POST  portal.international.htb  /miles/login.php
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>10.13.37.182  GET   wifi.international.htb    /
+</code></pre></div></p>
+<ul>
+<li><strong><code>.132</code> → 3 × <code>POST</code></strong> a <code>/miles/login.php</code>, <strong>sin <code>GET</code> previo</strong> → postea directo, en bucle.</li>
+<li><strong><code>.182</code> (tú) → <code>GET</code> a <code>wifi.international.htb/</code></strong> → es <strong>tu</strong> carga de la página de bienvenida,
+  no el login. Nada que ver con las credenciales.</li>
+</ul>
+<p>→ El objetivo son esos <strong>3 POST de <code>.132</code></strong>.</p>
+<p><em>Paso 2 — ¿puedes ver el HTML del formulario?</em> (depende de la captura)</p>
+<p>Vuelca los cuerpos HTTP a archivos y mira qué salió:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>tshark<span class="w"> </span>-r<span class="w"> </span>air.pcap<span class="w"> </span>--export-objects<span class="w"> </span>http,./http_obj
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>ls<span class="w"> </span>./http_obj/
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>%2f   %2f(1)   %2f(2)            #  2150 B → respuestas a tu GET de wifi.international.htb/
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>login(1).php  login(3).php …     #  7589 B → respuestas del portal al POST (página post-login)
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>login.php  login(2).php …        #    39 B → ¡los CUERPOS de los POST! (Content-Length: 39)
+</code></pre></div></p>
+<p>Dos lecturas:</p>
+<ul>
+<li><strong>No está el HTML del formulario de login.</strong> El bot nunca hizo <code>GET /miles/login.php</code>, así que su
+  <code>&lt;form&gt;</code> no viajó por el aire → <code>grep '&lt;form'</code> <strong>no lo encuentra</strong>. Tu grep vacío estaba en lo cierto.</li>
+<li><strong>Pero los ficheros de 39 B son el cuerpo del POST</strong> → atajo directo a las credenciales:
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>cat<span class="w"> </span>./http_obj/login.php<span class="w">        </span><span class="c1"># el de 39 bytes</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="c1"># username=jenny&amp;password=Fl1ghtDeck2026!</span>
+</code></pre></div></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">El grep vacío te dice algo</p>
+<p>Que no haya <code>&lt;form&gt;</code> no es un fallo: <strong>el cliente posteó directo</strong> (lo confirma el <code>User-Agent</code> del
+Paso 3). Cuando no hay HTML, los nombres de los campos los lees del <strong>propio cuerpo del POST</strong>,
+que es autoexplicativo (<code>username=…&amp;password=…</code>). El HTML es un atajo <em>cuando está</em>.</p>
+</div>
+<p><em>Paso 3 — ¿dónde están exactamente las credenciales? → en el cuerpo del POST</em></p>
+<p>Disecciona <strong>un</strong> POST a fondo:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>tshark<span class="w"> </span>-r<span class="w"> </span>air.pcap<span class="w"> </span>-Y<span class="w"> </span><span class="s1">'http.request.method == "POST"'</span><span class="w"> </span>-O<span class="w"> </span>http
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>POST /miles/login.php HTTP/1.1
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>Host: portal.international.htb
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>User-Agent: curl/8.5.0                 ← ¡el "bot" es curl! → postea directo, sin form
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>Content-Length: 39
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>Content-Type: application/x-www-form-urlencoded
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>    File Data: 39 bytes                ← AQUÍ está el cuerpo = las credenciales
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>HTML Form URL Encoded: application/x-www-form-urlencoded
+</code></pre></div></p>
+<ul>
+<li><strong>¿Dónde están?</strong> En el <strong>cuerpo del POST</strong>: eso que sale como <strong><code>File Data: 39 bytes</code></strong> bajo
+  <code>HTML Form URL Encoded</code>. Ese campo es <strong><code>http.file_data</code></strong>. <code>-O http</code> confirma que <strong>existe</strong>
+  (39 bytes url-encoded) pero <strong>no lo imprime</strong> → por eso hay que extraerlo (Paso 4).</li>
+<li><strong>¿Un POST cualquiera?</strong> No: son <strong>3 POST idénticos</strong> a <code>/miles/login.php</code>, cuerpo de 39 B cada
+  uno → el bot (<code>curl</code>) en bucle. Los tres llevan <strong>lo mismo</strong>; cualquiera vale.</li>
+<li><strong><code>User-Agent: curl/8.5.0</code></strong> = prueba dura de que es un <strong>script</strong>, no un navegador → por eso no
+  hubo <code>GET</code> ni HTML del formulario.</li>
+</ul>
+<details class="question">
+<summary>¿Qué es <code>http.file_data</code> y de dónde sale? (clic)</summary>
+<p>Son <strong>dos capas</strong> distintas; no las confundas:</p>
+<ul>
+<li><strong>El concepto (HTTP):</strong> una petición es <em>línea de petición + cabeceras + (opcional) cuerpo</em>. Aquí
+  las <strong>cabeceras se autodocumentan</strong>: <code>Content-Length: 39</code> dice que <strong>hay</strong> un cuerpo de 39 B, y
+  <code>Content-Type: application/x-www-form-urlencoded</code> dice <strong>cómo</strong> está codificado. El cuerpo es lo
+  que envió el formulario. Esto lo define la <strong>especificación de HTTP</strong>.</li>
+<li><strong>El nombre del campo (Wireshark):</strong> <code>http.file_data</code> <strong>no</strong> es un término de HTTP → es la
+  <strong>etiqueta que tshark/Wireshark</strong> le ponen a ese cuerpo en su disección. Pertenece al
+  <em>namespace de Wireshark</em>, no al protocolo.</li>
+</ul>
+<p><strong>¿Hace falta irse a internet?</strong> No para entenderlo (el propio <code>-O http</code> te lo enseña), pero si
+quieres la <strong>fuente autoritativa de cada capa</strong>:</p>
+<ul>
+<li>el <strong>campo</strong> → pregúntaselo a la herramienta: <code>tshark -G fields | grep http.file_data</code> (su
+  catálogo oficial de campos), o la <em>Wireshark Display Filter Reference</em>.</li>
+<li>el <strong>concepto</strong> (cuerpo y cabeceras) → la spec de HTTP (<strong>RFC 9110</strong>).</li>
+</ul>
+<p>Mismo principio que con <code>modinfo</code> / los registros: <strong>el valor vive en un namespace con dueño →
+pregúntale al dueño.</strong></p>
+</details>
+<p><em>Paso 4 — extraer y decodificar</em></p>
+<p>Primero saca el cuerpo crudo. Sale en <strong>hex</strong>, y hay <strong>3 líneas idénticas</strong> (los 3 POST del bot):</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>tshark<span class="w"> </span>-r<span class="w"> </span>air.pcap<span class="w"> </span>-Y<span class="w"> </span><span class="s1">'http.request.method == "POST"'</span><span class="w"> </span>-T<span class="w"> </span>fields<span class="w"> </span>-e<span class="w"> </span>http.file_data
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>757365726e616d653d6a656e6e792670617373776f72643d466c316768744465636b3230323621
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>757365726e616d653d6a656e6e792670617373776f72643d466c316768744465636b3230323621
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>757365726e616d653d6a656e6e792670617373776f72643d466c316768744465636b3230323621
+</code></pre></div></p>
+<p>Ahora decodifica <strong>uno</strong> (los tres son iguales):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>tshark<span class="w"> </span>-r<span class="w"> </span>air.pcap<span class="w"> </span>-Y<span class="w"> </span><span class="s1">'http.request.method == "POST"'</span><span class="w"> </span>-T<span class="w"> </span>fields<span class="w"> </span>-e<span class="w"> </span>http.file_data<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">       </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>xxd<span class="w"> </span>-r<span class="w"> </span>-p
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="c1"># username=jenny&amp;password=Fl1ghtDeck2026!</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">¿Por qué <code>head -1</code>?</p>
+<p>Ves las <strong>3</strong> líneas de hex arriba (los 3 POST idénticos). Sin <code>head -1</code>, <code>xxd -r -p</code> las
+concatenaría y verías la credencial repetida 3×. Con <code>head -1</code> decodificas solo el primero.</p>
+</div>
+<details class="question">
+<summary>¿Por qué <code>xxd -r -p</code>? (el hex y su vuelta) — clic</summary>
+<p><code>-T fields -e http.file_data</code> <strong>no</strong> imprime texto: <code>http.file_data</code> es un campo de <strong>bytes</strong>, y
+tshark los representa como una <strong>cadena hexadecimal continua</strong> →
+<code>757365726e616d653d6a656e6e79…</code>. Para leerla hay que convertir ese hex de vuelta a texto:</p>
+<ul>
+<li><strong><code>xxd</code></strong> por defecto hace un <em>hexdump</em>: <strong>bytes → hex</strong>.</li>
+<li><strong><code>-r</code></strong> = <strong>reverse</strong>: lo contrario, <strong>hex → bytes</strong>.</li>
+<li><strong><code>-p</code></strong> = <strong>plain</strong> (postscript): una <strong>tira continua de hex, sin offsets de dirección ni
+  columna ASCII</strong>. Es justo el formato que suelta tshark; <strong>sin <code>-p</code></strong>, <code>xxd -r</code> esperaría el
+  formato clásico (con direcciones) y no decodificaría bien.</li>
+</ul>
+<p><code>xxd -r -p</code> = <em>"toma esta tira de hex plana y devuélvemela como bytes"</em> →
+<code>username=jenny&amp;password=Fl1ghtDeck2026!</code>.</p>
+<p>Atajo: <code>tshark … -e http.file_data | xxd -r -p</code> es la forma habitual; también podrías añadir
+<code>| tr '&amp;' '\n'</code> para ver cada campo en su línea.</p>
+</details>
+<h2 id="24-conclusion">2.4 · Conclusión<a class="headerlink" href="#24-conclusion" title="Permanent link">&para;</a></h2>
+<p><strong><code>jenny / Fl1ghtDeck2026!</code></strong>: resultó ser usuaria del Control Panel de Craft.</p>
+<h2 id="25-rutas-alternativas">2.5 · Rutas alternativas<a class="headerlink" href="#25-rutas-alternativas" title="Permanent link">&para;</a></h2>
+<p><code>bettercap</code>, <code>airodump-ng</code> + <code>hcxdumptool</code>, <code>kismet</code>. Todas llegan a lo mismo: capturar el login
+HTTP del bot. Cambia la <em>técnica</em>, no la <em>conclusión</em>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../01-discovery/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: 1 · Discovery">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                1 · Discovery
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../tarea/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: Tarea · Tu blog del walkthrough">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                Tarea · Tu blog del walkthrough
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

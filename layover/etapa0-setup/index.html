@@ -1,0 +1,1228 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Colección de walkthroughs de CTF centrados en el razonamiento, por tácticas MITRE ATT&CK.">
+      
+      
+      
+        <link rel="canonical" href="https://ollerenac-uni.github.io/ctf-walkthroughs/layover/etapa0-setup/">
+      
+      
+        <link rel="prev" href="../conceptos/">
+      
+      
+        <link rel="next" href="../01-discovery/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Etapa 0 · Setup - CTF Walkthroughs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=JetBrains+Mono:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"JetBrains Mono";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#etapa-0-setup" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="CTF Walkthroughs" class="md-header__button md-logo" aria-label="CTF Walkthroughs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CTF Walkthroughs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Etapa 0 · Setup
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  C1 · Intro
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../c2-web/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  C2 · Web
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CTF Walkthroughs" class="md-nav__button md-logo" aria-label="CTF Walkthroughs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CTF Walkthroughs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C1 · Intro
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C1 · Intro
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conceptos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conceptos necesarios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Etapa 0 · Setup
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Etapa 0 · Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#01-la-vpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.1 · La VPN
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#02-los-dos-servicios-expuestos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.2 · Los dos servicios expuestos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#03-el-comando-xfreerdp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.3 · El comando xfreerdp
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tácticas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tácticas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1 · Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-monitoreo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2 · Network Sniffing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tarea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tarea · Tu blog del walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../c2-web/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C2 · Web
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C2 · Web
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c2-web/conceptos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conceptos (30 min)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c2-web/mini-labs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mini-labs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c2-web/ctf1-juice-shop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF1 · Juice Shop
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c2-web/ctf2-webgoat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF2 · WebGoat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#01-la-vpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.1 · La VPN
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#02-los-dos-servicios-expuestos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.2 · Los dos servicios expuestos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#03-el-comando-xfreerdp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.3 · El comando xfreerdp
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="etapa-0-setup">Etapa 0 · Setup<a class="headerlink" href="#etapa-0-setup" title="Permanent link">&para;</a></h1>
+<p>En esta etapa no hay deducción: la máquina te lo entrega. Cubre cómo llegas a tener un shell en el
+workstation: la VPN, los servicios expuestos y el comando de entrada. El juego deductivo empieza
+después, en <a href="../01-discovery/">Discovery</a>.</p>
+<hr />
+<h2 id="01-la-vpn">0.1 · La VPN<a class="headerlink" href="#01-la-vpn" title="Permanent link">&para;</a></h2>
+<p>OpenVPN levanta la interfaz <code>tun0</code> y <strong>enruta</strong> tu tráfico hacia la red del laboratorio. Sin
+esto, tus paquetes nunca alcanzan <code>10.129.x.x</code>. No es atacar nada: es conectar tu máquina a la red.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sudo<span class="w"> </span>openvpn<span class="w"> </span>machines_us-4.ovpn
+</code></pre></div>
+<details class="success" open="open">
+<summary>Marcador de éxito</summary>
+<p>La VPN está arriba <strong>solo</strong> cuando aparece la línea:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Initialization Sequence Completed
+</code></pre></div>
+Mientras no esté, no estás conectado aunque el proceso siga vivo. Verifica siempre:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ip<span class="w"> </span>a<span class="w">            </span><span class="c1"># interfaz tun0 con IP 10.10.x.x</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>ping<span class="w"> </span>-c3<span class="w"> </span><span class="m">10</span>.129.247.82
+</code></pre></div></p>
+</details>
+<details class="note">
+<summary>Incidencia real de esta sesión</summary>
+<p>El primer <code>.ovpn</code> se quedaba en <code>TLS handshake failed</code> por el camino <strong>UDP 1337</strong>. Se
+resolvió cambiando a otro servidor / a <strong>TCP 443</strong> (443 es HTTPS: ninguna red lo bloquea).
+Detalle en <code>logs/vpn_connectivity.md</code>.</p>
+</details>
+<details class="bug">
+<summary>Diagnóstico real: la VPN dice <em>Completed</em> pero no llego a la máquina</summary>
+<p><strong>Síntoma.</strong> La VPN conecta sin error (<code>Initialization Sequence Completed</code>), pero RDP falla:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>xfreerdp ... /v:10.129.247.82 ...
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>[ERROR][com.freerdp.core] - freerdp_tcp_connect: ERRCONNECT_CONNECT_FAILED [0x00020006]
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>[ERROR][com.freerdp.core] - failed to connect to 10.129.247.82
+</code></pre></div>
+<p><strong>Trampa mental.</strong> El log de OpenVPN está impecable, incluso instala la ruta correcta:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>PUSH_REPLY,... route 10.129.0.0 255.255.0.0 ...
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>net_route_v4_add: 10.129.0.0/16 via 10.10.16.1 dev tun1
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Initialization Sequence Completed
+</code></pre></div>
+La tentación es culpar a la VPN, pero no es el problema: el túnel está arriba. Hay que bajar un
+nivel y mirar el <strong>enrutamiento</strong>.</p>
+<p><strong>El reflejo de diagnóstico</strong> (de fuera hacia dentro):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pgrep<span class="w"> </span>-a<span class="w"> </span>openvpn<span class="w">            </span><span class="c1"># ¿cuántas VPN hay corriendo?</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>ip<span class="w"> </span>-br<span class="w"> </span>link<span class="w"> </span>show<span class="w"> </span><span class="nb">type</span><span class="w"> </span>tun<span class="w">   </span><span class="c1"># ¿hay túneles colgados (tun0, tun1, ...)?</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>ip<span class="w"> </span>route<span class="w"> </span>get<span class="w"> </span><span class="m">10</span>.129.247.82<span class="w">  </span><span class="c1"># ¿por QUÉ túnel sale el tráfico a la máquina?</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>ping<span class="w"> </span>-c3<span class="w"> </span><span class="m">10</span>.129.247.82<span class="w">      </span><span class="c1"># ¿llega el host?</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>nc<span class="w"> </span>-zv<span class="w"> </span><span class="m">10</span>.129.247.82<span class="w"> </span><span class="m">3389</span><span class="w">   </span><span class="c1"># ¿está arriba el puerto RDP?</span>
+</code></pre></div>
+<p><strong>Lo que encontramos:</strong> dos OpenVPN vivos a la vez, de servidores <strong>distintos</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>openvpn machines_us-5.ovpn   → tun0   (zombi de una sesión anterior, ~4 h)
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>openvpn machines_us-4.ovpn   → tun1   (el nuevo, el de Layover)
+</code></pre></div>
+<p>Las dos instalaron la <strong>misma</strong> ruta a <code>10.129.0.0/16</code>, y solo una puede ganar:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ip route get 10.129.247.82
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>→ 10.129.247.82 via 10.10.16.1 dev tun0   ← ¡sale por el VIEJO (us-5)!
+</code></pre></div>
+<p>Tus paquetes RDP se iban por el túnel equivocado, hacia un servidor que <strong>no</strong> tiene enrutada tu
+máquina → <code>ping</code> 0/3, puerto <code>3389</code> cerrado, <code>CONNECT_FAILED</code>.</p>
+<p><strong>La causa (dos cosas a la vez):</strong></p>
+<ol>
+<li><strong>Técnica:</strong> a un mismo destino (<code>10.129.0.0/16</code>) solo puede apuntar <strong>una</strong> ruta efectiva; el
+   túnel zombi la robó.</li>
+<li><strong>De HTB:</strong> solo admite <strong>una</strong> sesión VPN activa por cuenta.</li>
+</ol>
+<p><strong>El arreglo — dejar UNA sola VPN limpia:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>sudo<span class="w"> </span>pkill<span class="w"> </span>-f<span class="w"> </span>openvpn<span class="w">               </span><span class="c1"># 1) matar TODAS las VPN</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>ip<span class="w"> </span>-br<span class="w"> </span>link<span class="w"> </span>show<span class="w"> </span><span class="nb">type</span><span class="w"> </span>tun<span class="w">           </span><span class="c1">#    verificar: tun0/tun1 deben desaparecer</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>pgrep<span class="w"> </span>-a<span class="w"> </span>openvpn<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"sin openvpn: OK"</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>sudo<span class="w"> </span>openvpn<span class="w"> </span>.../machines_us-4.ovpn<span class="w"> </span><span class="c1"># 2) reconectar SOLO la de Layover</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>ping<span class="w"> </span>-c3<span class="w"> </span><span class="m">10</span>.129.247.82<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>nc<span class="w"> </span>-zv<span class="w"> </span><span class="m">10</span>.129.247.82<span class="w"> </span><span class="m">3389</span><span class="w">   </span><span class="c1"># 3) re-test antes de RDP</span>
+</code></pre></div>
+<p>Con una sola VPN, la ruta a <code>10.129.x</code> apunta al servidor correcto y la máquina aparece:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>64 bytes from 10.129.247.82: icmp_seq=1 ttl=63 time=99.4 ms   ← ping OK
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>3389 ABIERTO                                                 ← RDP escuchando
+</code></pre></div>
+<p><strong>Lección:</strong> <em>antes</em> de conectar la VPN, comprueba que no haya otra colgada (<code>pgrep -a openvpn</code>,
+<code>ip -br link show type tun</code>). Un <strong>túnel zombi</strong> de una sesión previa es un clásico de
+"la VPN dice <em>Completed</em> pero no llego a la máquina". Y si tras limpiar sigue sin responder, el
+problema ya no es la red sino la <strong>máquina</strong>: apagada, o con <strong>IP nueva</strong> tras un respawn (HTB
+rota la IP). Verifícalo en el panel.</p>
+</details>
+<hr />
+<h2 id="02-los-dos-servicios-expuestos">0.2 · Los dos servicios expuestos<a class="headerlink" href="#02-los-dos-servicios-expuestos" title="Permanent link">&para;</a></h2>
+<p>Con la VPN activa, se escanea el box con nmap:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>nmap<span class="w"> </span>-sC<span class="w"> </span>-sV<span class="w"> </span>-oN<span class="w"> </span>scan.txt<span class="w"> </span><span class="m">10</span>.129.247.82
+</code></pre></div>
+<p><code>-sV</code> detecta la versión de cada servicio, <code>-sC</code> ejecuta los scripts por defecto y <code>-oN</code> guarda la
+salida en <code>scan.txt</code>. El detalle de cada opción está en
+<a href="../conceptos/#5-conectar-al-box-y-escanear-puertos-nmap">Conceptos necesarios</a>.</p>
+<p>Líneas relevantes del resultado:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>PORT     STATE SERVICE       VERSION
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>22/tcp   open  ssh           OpenSSH 9.6p1 (Ubuntu)
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>3389/tcp open  ms-wbt-server xrdp
+</code></pre></div>
+<p>Cada fila es un puerto. <code>STATE open</code> indica que hay un servicio escuchando, <code>SERVICE</code> es el
+protocolo que nmap reconoce y <code>VERSION</code> es el programa que lo atiende.</p>
+<ul>
+<li><strong>22 (SSH):</strong> acceso por línea de comandos.</li>
+<li><strong>3389 (RDP / xrdp):</strong> escritorio remoto gráfico. nmap lo nombra <code>ms-wbt-server</code>.</li>
+</ul>
+<p>Este escaneo revisa los 1000 puertos más comunes. Para confirmar que no hay otros servicios en
+puertos altos, se repite con <code>-p-</code>, que revisa los 65535.</p>
+<p>Con credenciales en mano, el reflejo es SSH. Pero el intento es <strong>rechazado</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ssh<span class="w"> </span>contractor@10.129.247.82
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="c1"># contractor@10.129.247.82: Permission denied (publickey,password).</span>
+</code></pre></div>
+<p>Ese es el <strong>mismo</strong> mensaje que verías con una contraseña incorrecta: no distingue "credencial
+mala" de "acceso denegado por política".</p>
+<p>Intentemos con otro servicio: RDP.</p>
+<hr />
+<h2 id="03-el-comando-xfreerdp">0.3 · El comando xfreerdp<a class="headerlink" href="#03-el-comando-xfreerdp" title="Permanent link">&para;</a></h2>
+<p>El comando con el que entramos:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>xfreerdp<span class="w"> </span>/u:contractor<span class="w"> </span>/p:<span class="s1">'Contractor2026!'</span><span class="w"> </span>/v:10.129.247.82<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">         </span>/cert:ignore<span class="w"> </span>+clipboard<span class="w"> </span>/dynamic-resolution
+</code></pre></div>
+<p>Pieza por pieza:</p>
+<ul>
+<li><code>xfreerdp</code> — el cliente RDP de FreeRDP (abre el escritorio remoto).</li>
+<li><code>/u:contractor</code> — <strong>usuario</strong> con el que te autenticas.</li>
+<li><code>/p:'Contractor2026!'</code> — <strong>contraseña</strong>; comillas simples porque el <code>!</code> es especial para el shell.</li>
+<li><code>/v:10.129.247.82</code> — <strong>víctima / destino</strong> (<code>IP[:puerto]</code>; <code>:3389</code> es el default, por eso se omite).</li>
+<li><code>/cert:ignore</code> — xrdp usa un <strong>certificado autofirmado</strong>; sin esto el cliente se detiene a preguntar.</li>
+<li><code>+clipboard</code> — portapapeles compartido host⇄remoto (pegar comandos/creds cómodamente).</li>
+<li><code>/dynamic-resolution</code> — la ventana se adapta al redimensionar (opcional).</li>
+</ul>
+<details class="tip">
+<summary>Convención <code>/</code> vs <code>+</code> (clic para ver)</summary>
+<p>En FreeRDP, <code>/opcion:valor</code> <strong>configura</strong> algo y <code>+opcion</code> / <code>-opcion</code> <strong>activa / desactiva</strong>
+una función. Por eso es <code>+clipboard</code> (activar) y <code>/cert:ignore</code> (configurar).</p>
+</details>
+<details class="question">
+<summary>Opcional: ¿por qué SSH rechazaba la conexión? (curiosidad, no es clave)</summary>
+<p>Ya dentro por RDP, inspeccionamos la config de SSH desde la terminal:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>grep<span class="w"> </span>-ri<span class="w"> </span>passwordauthentication<span class="w"> </span>/etc/ssh/
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="c1"># /etc/ssh/sshd_config.d/60-cloudimg-settings.conf:PasswordAuthentication no</span>
+</code></pre></div>
+<p>Un <strong>drop-in</strong> (<code>/etc/ssh/sshd_config.d/60-cloudimg-settings.conf</code>) con <code>PasswordAuthentication
+no</code> desactiva el login por contraseña vía SSH. En cambio, <code>xrdp</code> autentica vía <strong>PAM</strong>, que <em>no</em>
+se ve afectado por esa directiva → por eso RDP sí abría.</p>
+<p><figure>
+  <img src="../assets/puertos.svg" alt="SSH bloqueado por el drop-in, RDP abierto vía PAM">
+</figure></p>
+<p><strong>Lección:</strong> cuando SSH rechaza una contraseña que <em>sabes</em> correcta, revisa <code>sshd_config</code> <strong>y</strong>
+<code>sshd_config.d/</code>. Un override en un drop-in es fácil de pasar por alto.</p>
+</details>
+<figure>
+  <img src="../assets/airside-desktop.png" alt="Escritorio XFCE de airside-ws01 vía FreeRDP">
+  <figcaption>Sesión RDP establecida: el escritorio XFCE de <code>airside-ws01</code> como
+  <code>contractor</code>.</figcaption>
+</figure>
+
+<hr />
+<p><strong>Siguiente:</strong> <a href="../01-discovery/">Táctica 1 · Discovery</a>: descubrir la red del objetivo.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../conceptos/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Conceptos necesarios">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                Conceptos necesarios
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../01-discovery/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: 1 · Discovery">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                1 · Discovery
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

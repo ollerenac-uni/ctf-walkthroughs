@@ -1,0 +1,1737 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Colección de walkthroughs de CTF centrados en el razonamiento, por tácticas MITRE ATT&CK.">
+      
+      
+      
+        <link rel="canonical" href="https://ollerenac-uni.github.io/ctf-walkthroughs/layover/conceptos/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../etapa0-setup/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Conceptos necesarios - CTF Walkthroughs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=JetBrains+Mono:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"JetBrains Mono";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#conceptos-necesarios-layover-c1-introduccion-a-ctfs" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="CTF Walkthroughs" class="md-header__button md-logo" aria-label="CTF Walkthroughs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CTF Walkthroughs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Conceptos necesarios
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  C1 · Intro
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../c2-web/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  C2 · Web
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CTF Walkthroughs" class="md-nav__button md-logo" aria-label="CTF Walkthroughs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CTF Walkthroughs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C1 · Intro
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C1 · Intro
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conceptos necesarios
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conceptos necesarios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-que-es-un-ctf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 · ¿Qué es un CTF?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-plataformas-de-ctf-y-cuales-son-gratis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 · Plataformas de CTF (y cuáles son gratis)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-hackthebox-como-moverte-y-encontrar-layover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 · HackTheBox: cómo moverte y encontrar Layover
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-conectar-con-el-lab-la-vpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4 · Conectar con el lab: la VPN
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4 · Conectar con el lab: la VPN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-que-es-y-como-funciona" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 · Qué es y cómo funciona
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-herramientas-segun-tu-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 · Herramientas según tu sistema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-errores-tipicos-y-que-significan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 · Errores típicos (y qué significan)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-conectar-al-box-y-escanear-puertos-nmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 · Conectar al box y escanear puertos (nmap)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5 · Conectar al box y escanear puertos (nmap)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-leer-el-resultado-servicios-comunes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 · Leer el resultado: servicios comunes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-prerrequisitos-nivelacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6 · Prerrequisitos (nivelación)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-mapa-de-conceptos-del-reto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7 · Mapa de conceptos del reto
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-conceptos-de-la-parte-no-publicada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8 · Conceptos de la parte no publicada
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../etapa0-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Etapa 0 · Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tácticas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tácticas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1 · Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-monitoreo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2 · Network Sniffing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tarea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tarea · Tu blog del walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../c2-web/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C2 · Web
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C2 · Web
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c2-web/conceptos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conceptos (30 min)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c2-web/mini-labs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mini-labs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c2-web/ctf1-juice-shop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF1 · Juice Shop
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c2-web/ctf2-webgoat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF2 · WebGoat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-que-es-un-ctf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 · ¿Qué es un CTF?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-plataformas-de-ctf-y-cuales-son-gratis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 · Plataformas de CTF (y cuáles son gratis)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-hackthebox-como-moverte-y-encontrar-layover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 · HackTheBox: cómo moverte y encontrar Layover
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-conectar-con-el-lab-la-vpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4 · Conectar con el lab: la VPN
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4 · Conectar con el lab: la VPN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-que-es-y-como-funciona" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 · Qué es y cómo funciona
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-herramientas-segun-tu-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 · Herramientas según tu sistema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-errores-tipicos-y-que-significan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 · Errores típicos (y qué significan)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-conectar-al-box-y-escanear-puertos-nmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 · Conectar al box y escanear puertos (nmap)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5 · Conectar al box y escanear puertos (nmap)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-leer-el-resultado-servicios-comunes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 · Leer el resultado: servicios comunes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-prerrequisitos-nivelacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6 · Prerrequisitos (nivelación)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-mapa-de-conceptos-del-reto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7 · Mapa de conceptos del reto
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-conceptos-de-la-parte-no-publicada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8 · Conceptos de la parte no publicada
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="conceptos-necesarios-layover-c1-introduccion-a-ctfs">Conceptos necesarios · Layover (C1 · Introducción a CTFs)<a class="headerlink" href="#conceptos-necesarios-layover-c1-introduccion-a-ctfs" title="Permanent link">&para;</a></h1>
+<p>Esta es la clase <strong>introductoria</strong> del curso. Antes de resolver tu primer boot2root (<strong>Layover</strong>, en
+HackTheBox) conviene tener claro qué es un CTF, dónde se juega y, sobre todo, cómo conectas tu
+máquina de ataque al laboratorio. No es la solución del reto: es la base sobre la que se apoya todo
+lo demás.</p>
+<div class="admonition info">
+<p class="admonition-title">Cómo usar esta página</p>
+<p>La primera vez, léela completa. Después úsala como referencia: si no entiendes un término en una
+táctica, búscalo aquí. La parte no publicada (<a href="../tarea/">Tarea</a>) se describe solo a nivel de
+concepto, no de procedimiento.</p>
+</div>
+<h2 id="1-que-es-un-ctf">1 · ¿Qué es un CTF?<a class="headerlink" href="#1-que-es-un-ctf" title="Permanent link">&para;</a></h2>
+<p><strong>Capture The Flag</strong>: un juego de seguridad donde resuelves retos y, al lograrlo, obtienes una
+<strong>flag</strong> (una cadena, p. ej. <code>HTB{...}</code>, o el contenido de un archivo <code>user.txt</code>) que demuestra que
+lo conseguiste. La flag es la prueba; lo que importa es el razonamiento del camino.</p>
+<p>Tres formatos que te encontrarás:</p>
+<table>
+<thead>
+<tr>
+<th>Formato</th>
+<th>En qué consiste</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Jeopardy</strong></td>
+<td>retos sueltos por categoría (Web, Cripto, Pwn, Forense, RE…), cada uno con su flag</td>
+<td>picoCTF, CTFs de competición</td>
+</tr>
+<tr>
+<td><strong>Boot2root</strong></td>
+<td>una máquina completa que comprometes de principio a fin: de un punto de entrada hasta <code>root</code>/<code>Administrator</code></td>
+<td><strong>HTB Layover</strong> (esta clase)</td>
+</tr>
+<tr>
+<td><strong>Attack/Defense</strong></td>
+<td>por equipos: defiendes tus servicios mientras atacas los del rival</td>
+<td>CTFs presenciales avanzados</td>
+</tr>
+</tbody>
+</table>
+<p>Layover es <strong>boot2root</strong>: entras con pocas pistas y vas encadenando <strong>tácticas</strong> (recon → sniffing →
+explotación → credenciales → lateral → privesc) hasta el control total. Suele haber <strong>dos flags</strong>:
+<code>user.txt</code> (usuario sin privilegios) y <code>root.txt</code> (control total).</p>
+<div class="admonition warning">
+<p class="admonition-title">Legalidad</p>
+<p>Solo atacas máquinas que te <strong>autorizan</strong> explícitamente (el laboratorio de HTB, tu propio
+equipo). Lanzar estas técnicas contra sistemas ajenos es <strong>ilegal</strong>. El CTF es el entorno
+autorizado para practicarlas.</p>
+</div>
+<h2 id="2-plataformas-de-ctf-y-cuales-son-gratis">2 · Plataformas de CTF (y cuáles son gratis)<a class="headerlink" href="#2-plataformas-de-ctf-y-cuales-son-gratis" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Plataforma</th>
+<th>Tipo</th>
+<th>Gratis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><a href="https://picoctf.org/">picoCTF</a></strong></td>
+<td>jeopardy, principiante</td>
+<td>100% gratis (<a href="https://play.picoctf.org/practice">picoGym</a> siempre disponible)</td>
+</tr>
+<tr>
+<td><strong><a href="https://www.hackthebox.com/">HackTheBox</a></strong></td>
+<td>boot2root + jeopardy</td>
+<td>máquinas <strong>activas</strong> y <em>Starting Point</em> gratis; las <strong>retiradas</strong> (con walkthrough oficial) → <strong>VIP</strong></td>
+</tr>
+<tr>
+<td><strong><a href="https://tryhackme.com/">TryHackMe</a></strong></td>
+<td>guiado, principiante</td>
+<td>mucho contenido gratis; <em>rooms</em> premium de pago</td>
+</tr>
+<tr>
+<td><strong><a href="https://overthewire.org/wargames/">OverTheWire</a></strong></td>
+<td><em>wargames</em> de Linux/bash</td>
+<td>gratis</td>
+</tr>
+<tr>
+<td><strong><a href="https://www.root-me.org/">Root-Me</a></strong></td>
+<td>retos online (navegador / SSH)</td>
+<td>gratis</td>
+</tr>
+<tr>
+<td><strong><a href="https://www.vulnhub.com/">VulnHub</a></strong></td>
+<td>VMs vulnerables para descargar (<code>.ova</code>)</td>
+<td>gratis; necesitas un hipervisor</td>
+</tr>
+<tr>
+<td><strong><a href="https://portswigger.net/web-security">PortSwigger Web Security Academy</a></strong></td>
+<td>labs web guiados</td>
+<td>gratis (teoría + labs)</td>
+</tr>
+</tbody>
+</table>
+<p>En esta clase usamos <strong>HackTheBox</strong> porque Layover vive ahí. Para practicar por tu cuenta,
+<strong>picoCTF</strong> y <strong>TryHackMe</strong> son los más amables para empezar.</p>
+<div class="admonition note">
+<p class="admonition-title">Dos formas de acceder al objetivo</p>
+<p>En casi todas (picoCTF, HackTheBox, TryHackMe, Root-Me, PortSwigger) el objetivo está <strong>alojado</strong>:
+conectas por navegador, por VPN o por SSH. VulnHub funciona distinto: descargas la máquina como
+archivo <strong><code>.ova</code></strong> y la ejecutas en tu propio equipo. Para eso necesitas un <strong>hipervisor</strong>
+(VirtualBox o VMware; KVM/QEMU en Linux). En VirtualBox se importa con <em>Archivo → Importar servicio
+virtualizado</em>. Suele convenir poner su red en modo <em>host-only</em> para no exponer una VM vulnerable.</p>
+</div>
+<details class="tip">
+<summary>Videos: instalar un hipervisor y abrir un <code>.ova</code></summary>
+<p><strong>VirtualBox</strong> (gratis, código abierto):</p>
+<ul>
+<li>Instalarlo: <a href="https://www.youtube.com/watch?v=BfmClJx8lXo">Cómo instalar VirtualBox paso a paso</a></li>
+<li>Abrir un <code>.ova</code>: <a href="https://www.youtube.com/watch?v=mAJoJ9rjTJM">Cómo instalar un archivo .OVA en VirtualBox</a></li>
+</ul>
+<p><strong>VMware Workstation Pro</strong> (gratis para uso personal; descárgalo del sitio oficial de Broadcom.
+Evita los videos que ofrezcan "activadores" o versiones "FULL": eso es software pirateado):</p>
+<ul>
+<li>Instalarlo: <a href="https://www.youtube.com/watch?v=Ry7elcmogPo">Descargar e instalar VMware Workstation Pro, gratis y legal</a></li>
+<li>Abrir un <code>.ova</code>: <a href="https://www.youtube.com/watch?v=V9G-8mZGOL0">Cómo instalar un archivo .OVA en VMware</a></li>
+</ul>
+<p>Los enlaces de YouTube pueden cambiar o dejar de estar disponibles con el tiempo.</p>
+</details>
+<h2 id="3-hackthebox-como-moverte-y-encontrar-layover">3 · HackTheBox: cómo moverte y encontrar Layover<a class="headerlink" href="#3-hackthebox-como-moverte-y-encontrar-layover" title="Permanent link">&para;</a></h2>
+<p>HTB (<a href="https://www.hackthebox.com/">hackthebox.com</a>) es una plataforma de laboratorios. Lo mínimo para
+ubicarte:</p>
+<ol>
+<li><strong>Crea cuenta</strong> e inicia sesión.</li>
+<li>Entra a <strong>Machines</strong> (menú <em>Labs → Machines</em>): el catálogo de boot2root. Hay <strong>activas</strong> (puntúan)
+   y <strong>retiradas</strong> (con walkthrough oficial; requieren VIP).</li>
+<li><strong>Busca "Layover"</strong> en el buscador de máquinas y abre su ficha.</li>
+<li><strong>Spawn / Join</strong>: arranca tu instancia. HTB te asigna una <strong>IP objetivo</strong> (tipo <code>10.129.x.x</code>).
+   Apúntala, la necesitas para todo lo demás.</li>
+<li><strong>Connection pack</strong>: en el panel <strong>Connect / Access</strong> descargas tu archivo <strong><code>.ovpn</code></strong>: es tu
+   llave para entrar a la red del lab (siguiente sección).</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Alternativa sin VPN: Pwnbox</p>
+<p>HTB ofrece <strong>Pwnbox</strong>, una Kali en el navegador ya conectada al lab (sin montar VPN). Cómoda para
+empezar, con límite de horas en cuentas gratis. Aquí enseñamos la vía local (VPN + tu propia Kali)
+porque es la que usarás <strong>fuera</strong> de HTB.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">La IP cambia</p>
+<p>Si reinicias la máquina (<em>respawn</em>), HTB suele <strong>rotar la IP</strong>. Si de repente "no llega", lo
+primero es confirmar en el panel que sigues apuntando a la IP correcta.</p>
+</div>
+<h2 id="4-conectar-con-el-lab-la-vpn">4 · Conectar con el lab: la VPN<a class="headerlink" href="#4-conectar-con-el-lab-la-vpn" title="Permanent link">&para;</a></h2>
+<h3 id="41-que-es-y-como-funciona">4.1 · Qué es y cómo funciona<a class="headerlink" href="#41-que-es-y-como-funciona" title="Permanent link">&para;</a></h3>
+<p>Una <strong>VPN</strong> (<em>Virtual Private Network</em>) crea un <strong>túnel cifrado</strong> entre tu máquina y la red del
+laboratorio, de modo que tu equipo se comporta como si estuviera <em>dentro</em> de esa red. HTB la usa para
+que puedas alcanzar las IPs <code>10.129.x.x</code> (y <code>10.10.x.x</code>) del lab, que <strong>no</strong> existen en el internet
+público.</p>
+<p>Mecánicamente, al conectar con tu <code>.ovpn</code>:</p>
+<ul>
+<li>Se levanta una <strong>interfaz de red virtual</strong> <code>tun0</code> hacia HTB.</li>
+<li>El cliente <strong>instala rutas</strong>: <em>"para llegar a <code>10.129.0.0/16</code>, manda el tráfico por <code>tun0</code>"</em>.</li>
+<li>Desde ahí, un <code>ping 10.129.x.x</code> sale por el túnel y alcanza tu máquina objetivo.</li>
+</ul>
+<h3 id="42-herramientas-segun-tu-sistema">4.2 · Herramientas según tu sistema<a class="headerlink" href="#42-herramientas-segun-tu-sistema" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Sistema</th>
+<th>Herramienta</th>
+<th>Cómo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Linux</strong></td>
+<td><code>openvpn</code> (CLI)</td>
+<td><code>sudo openvpn tu_pack.ovpn</code> · o importar el <code>.ovpn</code> en NetworkManager</td>
+</tr>
+<tr>
+<td><strong>Windows</strong></td>
+<td><strong>OpenVPN GUI</strong> u <strong>OpenVPN Connect</strong></td>
+<td>importar el <code>.ovpn</code> y conectar desde la bandeja</td>
+</tr>
+<tr>
+<td><strong>macOS</strong></td>
+<td><strong>Tunnelblick</strong> u OpenVPN Connect</td>
+<td>importar el <code>.ovpn</code></td>
+</tr>
+<tr>
+<td><strong>Cualquiera</strong></td>
+<td><strong>Pwnbox</strong> (navegador)</td>
+<td>sin instalar nada; HTB ya viene conectado</td>
+</tr>
+</tbody>
+</table>
+<p>En Linux (lo que usaremos en clase):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sudo<span class="w"> </span>openvpn<span class="w"> </span>tu_pack.ovpn
+</code></pre></div>
+<div class="admonition success">
+<p class="admonition-title">Marcador de éxito</p>
+<p>La VPN está <strong>realmente</strong> arriba cuando aparece la línea:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Initialization Sequence Completed
+</code></pre></div>
+Verifica además que tienes interfaz y que llegas al objetivo:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ip<span class="w"> </span>a<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>tun<span class="w">          </span><span class="c1"># debe existir tun0 con una IP 10.10.x.x</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>ping<span class="w"> </span>-c3<span class="w"> </span>&lt;IP-del-box&gt;<span class="w">    </span><span class="c1"># ¿responde?</span>
+</code></pre></div></p>
+</div>
+<h3 id="43-errores-tipicos-y-que-significan">4.3 · Errores típicos (y qué significan)<a class="headerlink" href="#43-errores-tipicos-y-que-significan" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Síntoma</th>
+<th>Causa probable</th>
+<th>Arreglo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TLS handshake failed</code></td>
+<td>puerto/protocolo bloqueado (HTB usa <strong>UDP 1337</strong> por defecto)</td>
+<td>usar el pack <strong>TCP 443</strong> (443 es HTTPS: casi ninguna red lo bloquea)</td>
+</tr>
+<tr>
+<td>Dice <code>Completed</code> pero <strong>no llega</strong> al box</td>
+<td>ruta "robada" por un <strong>túnel zombi</strong> de otra sesión, o dos VPN a la vez</td>
+<td>matar toda VPN y dejar <strong>una</strong>; HTB admite <strong>una sola sesión</strong> por cuenta</td>
+</tr>
+<tr>
+<td><code>Completed</code> pero el box no responde</td>
+<td>máquina <strong>apagada</strong> o con <strong>IP nueva</strong> tras <em>respawn</em></td>
+<td>revisar el panel de HTB</td>
+</tr>
+<tr>
+<td><code>Permission denied</code> al conectar</td>
+<td>falta <code>sudo</code></td>
+<td><code>openvpn</code> necesita privilegios para crear <code>tun0</code></td>
+</tr>
+</tbody>
+</table>
+<p>El caso del <strong>túnel zombi</strong>, que vivimos en esta máquina, está documentado paso a paso (síntoma,
+diagnóstico y arreglo) en <strong><a href="../etapa0-setup/">Etapa 0 · Setup</a></strong>.</p>
+<h2 id="5-conectar-al-box-y-escanear-puertos-nmap">5 · Conectar al box y escanear puertos (<code>nmap</code>)<a class="headerlink" href="#5-conectar-al-box-y-escanear-puertos-nmap" title="Permanent link">&para;</a></h2>
+<p>Con la VPN activa y la máquina iniciada, el primer paso es <strong>enumerar</strong>: saber qué servicios expone
+el objetivo antes de intentar entrar. La herramienta habitual es nmap.</p>
+<figure>
+  <img src="../assets/nmap-sondas.png" alt="Nmap envía sondas a los puertos del equipo objetivo y, a partir de las respuestas, deduce equipos encendidos, puertos abiertos, servicio y versión, y sistema operativo estimado">
+  <figcaption>Fuente: <a href="https://esgeeks.com/como-usar-nmap-con-comandos/">EsGeeks, «Cómo usar Nmap: comandos para escanear tu red y puertos»</a>.</figcaption>
+</figure>
+
+<p>nmap envía sondas (paquetes) a los puertos del equipo objetivo y analiza las respuestas. De ellas
+deduce cuatro cosas:</p>
+<table>
+<thead>
+<tr>
+<th>Qué deduce</th>
+<th>Cómo lo sabe</th>
+<th>Opción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Equipos encendidos</td>
+<td>el equipo responde a alguna sonda</td>
+<td><code>-sn</code> (solo descubre equipos, no escanea puertos)</td>
+</tr>
+<tr>
+<td>Puertos abiertos</td>
+<td>el puerto acepta la conexión</td>
+<td>por defecto revisa los 1000 más comunes; <code>-p-</code> revisa los 65535</td>
+</tr>
+<tr>
+<td>Servicio y versión</td>
+<td>compara lo que contesta el servicio con su base de firmas</td>
+<td><code>-sV</code></td>
+</tr>
+<tr>
+<td>Sistema operativo estimado</td>
+<td>compara detalles de las respuestas TCP/IP con huellas conocidas</td>
+<td><code>-O</code> (requiere root)</td>
+</tr>
+</tbody>
+</table>
+<p>El escaneo que usarás casi siempre al empezar una máquina:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ping<span class="w"> </span>-c3<span class="w"> </span><span class="m">10</span>.129.x.x<span class="w">                     </span><span class="c1"># comprobar que responde</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>nmap<span class="w"> </span>-sC<span class="w"> </span>-sV<span class="w"> </span>-oN<span class="w"> </span>scan.txt<span class="w"> </span><span class="m">10</span>.129.x.x
+</code></pre></div>
+<ul>
+<li><code>-sV</code>: detecta la versión de cada servicio. Sirve después para buscar sus vulnerabilidades conocidas.</li>
+<li><code>-sC</code>: ejecuta los scripts por defecto de nmap, que añaden información de cada servicio.</li>
+<li><code>-oN scan.txt</code>: guarda la salida en un archivo.</li>
+<li><code>-Pn</code>: omite la comprobación previa de equipo encendido. Úsala si el equipo no responde al ping.</li>
+</ul>
+<details class="note">
+<summary>Cómo decide nmap el estado de un puerto</summary>
+<p><figure>
+  <img src="../assets/nmap-scan.svg" alt="nmap clasifica un puerto como abierto, cerrado o filtrado según la respuesta">
+</figure></p>
+</details>
+<h3 id="51-leer-el-resultado-servicios-comunes">5.1 · Leer el resultado: servicios comunes<a class="headerlink" href="#51-leer-el-resultado-servicios-comunes" title="Permanent link">&para;</a></h3>
+<p>Un escaneo te dice <strong>qué habla</strong> la máquina. Los que verás una y otra vez:</p>
+<table>
+<thead>
+<tr>
+<th>Puerto</th>
+<th>Servicio</th>
+<th>Qué es</th>
+<th>Cómo conectas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>22</strong></td>
+<td><strong>SSH</strong></td>
+<td>shell remota por línea de comandos</td>
+<td><code>ssh usuario@IP</code></td>
+</tr>
+<tr>
+<td><strong>3389</strong></td>
+<td><strong>RDP</strong> (<code>ms-wbt-server</code>)</td>
+<td>escritorio remoto gráfico (Windows / <code>xrdp</code>)</td>
+<td><code>xfreerdp /u:... /v:IP</code></td>
+</tr>
+<tr>
+<td><strong>80</strong></td>
+<td><strong>HTTP</strong></td>
+<td>web <strong>sin</strong> cifrar</td>
+<td>navegador · <code>curl http://IP</code></td>
+</tr>
+<tr>
+<td><strong>443</strong></td>
+<td><strong>HTTPS</strong></td>
+<td>web <strong>cifrada</strong> con TLS</td>
+<td>navegador · <code>curl -k https://IP</code></td>
+</tr>
+</tbody>
+</table>
+<p>En <strong>Layover</strong>, el escaneo inicial del box revela exactamente <strong>22 (SSH)</strong> y <strong>3389 (RDP)</strong>. Con
+credenciales en mano, SSH se rechaza y acabas entrando por <strong>RDP</strong>. El cómo y el porqué están en
+<strong><a href="../etapa0-setup/">Etapa 0 · Setup</a></strong>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Nombres de host (<code>/etc/hosts</code>)</p>
+<p>Muchos retos usan dominios internos (p. ej. <code>international.htb</code>) que el DNS público no resuelve.
+Cuando un servicio redirige a un nombre así, lo mapeas tú a la IP en <code>/etc/hosts</code>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>10.129.x.x   international.htb portal.international.htb
+</code></pre></div></p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Practicar y profundizar en nmap</p>
+<ul>
+<li>Objetivo que puedes escanear legalmente: <strong><code>scanme.nmap.org</code></strong>. El proyecto Nmap autoriza
+  escanearlo (solo con nmap, sin exploits ni DoS). Pruébalo con <code>nmap -sV scanme.nmap.org</code>.</li>
+<li>Sala guiada gratis: <a href="https://tryhackme.com/room/furthernmap">Nmap en TryHackMe</a>.</li>
+<li>Referencia completa de opciones: <a href="https://nmap.org/book/man.html">guía de referencia de Nmap</a>.</li>
+</ul>
+</div>
+<h2 id="6-prerrequisitos-nivelacion">6 · Prerrequisitos (nivelación)<a class="headerlink" href="#6-prerrequisitos-nivelacion" title="Permanent link">&para;</a></h2>
+<p>Lo mínimo para no perderte. Si algo de esto es nuevo, repásalo primero.</p>
+<ul>
+<li><strong>Terminal de Linux:</strong> moverte, leer archivos, encadenar comandos y redirigir salida (<code>2&gt;/dev/null</code>).</li>
+<li><strong>Redes, lo básico:</strong> IP, subred, gateway, rutas; qué es un puerto y un servicio.</li>
+<li><strong>HTTP:</strong> petición/respuesta, métodos (<code>GET</code>/<code>POST</code>), formularios, cabeceras, cookies.</li>
+</ul>
+<h2 id="7-mapa-de-conceptos-del-reto">7 · Mapa de conceptos del reto<a class="headerlink" href="#7-mapa-de-conceptos-del-reto" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Qué es (en una línea)</th>
+<th>Dónde aparece</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Escaneo de puertos (<code>nmap</code>)</strong></td>
+<td>descubrir qué servicios expone un host</td>
+<td><a href="../etapa0-setup/">Etapa 0 · Setup</a></td>
+</tr>
+<tr>
+<td><strong>VPN / <code>tun</code></strong></td>
+<td>túnel que enruta tu tráfico hacia la red del lab</td>
+<td><a href="../etapa0-setup/">Etapa 0 · Setup</a></td>
+</tr>
+<tr>
+<td><strong>SSH vs RDP</strong></td>
+<td>dos formas de acceso remoto; una autentica por clave/PAM, otra da escritorio</td>
+<td><a href="../etapa0-setup/">Etapa 0 · Setup</a></td>
+</tr>
+<tr>
+<td><strong>Enumeración del host</strong></td>
+<td><em>¿quién soy, qué permisos tengo, dónde estoy?</em> (<code>id</code>, <code>sudo -l</code>, <code>ip</code>)</td>
+<td><a href="../01-discovery/">1 · Discovery</a></td>
+</tr>
+<tr>
+<td><strong>Interfaces WiFi simuladas</strong></td>
+<td>tarjetas de red creadas por software (<code>mac80211_hwsim</code>)</td>
+<td><a href="../01-discovery/">1 · Discovery</a></td>
+</tr>
+<tr>
+<td><strong>Managed vs Monitor</strong></td>
+<td>el modo <em>monitor</em> deja oír <strong>todo</strong> el canal, no solo lo tuyo</td>
+<td><a href="../02-monitoreo/">2 · Network Sniffing</a></td>
+</tr>
+<tr>
+<td><strong>WiFi abierta</strong></td>
+<td>sin cifrado → cualquiera en el canal ve el tráfico de todos</td>
+<td><a href="../02-monitoreo/">2 · Network Sniffing</a></td>
+</tr>
+<tr>
+<td><strong>Sniffing pasivo</strong></td>
+<td><em>escuchar</em> el aire sin inyectar ni suplantar nada</td>
+<td><a href="../02-monitoreo/">2 · Network Sniffing</a></td>
+</tr>
+<tr>
+<td><strong>HTTP en claro</strong></td>
+<td>tráfico sin TLS → credenciales legibles si alguien se loguea</td>
+<td><a href="../02-monitoreo/">2 · Network Sniffing</a></td>
+</tr>
+<tr>
+<td><strong><code>tshark</code> / campos de Wireshark</strong></td>
+<td>la CLI de Wireshark; disecar un paquete por campos (<code>http.file_data</code>)</td>
+<td><a href="../02-monitoreo/">2 · Network Sniffing</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="8-conceptos-de-la-parte-no-publicada">8 · Conceptos de la parte no publicada<a class="headerlink" href="#8-conceptos-de-la-parte-no-publicada" title="Permanent link">&para;</a></h2>
+<p>Lo que <strong>explorarás en la <a href="../tarea/">Tarea</a></strong>. A nivel de idea, sin el procedimiento:</p>
+<ul>
+<li><strong>Fingerprinting de aplicaciones web</strong>: identificar qué software y qué versión corre, y de ahí
+  buscar su fallo conocido (CVE) en la fuente correcta.</li>
+<li><strong>Ejecución de código</strong>: pasar de "tengo sesión en una app" a "ejecuto comandos en el servidor".</li>
+<li><strong>Criptografía aplicada</strong>: distinguir un valor <strong>cifrado</strong> (reversible con su llave) de un
+  <strong>hash</strong> (no lo es); recuperar secretos de la configuración de una app.</li>
+<li><strong>Movimiento lateral</strong>: reutilizar una credencial recuperada para volverte un usuario real.</li>
+<li><strong>Escalada de privilegios</strong>: abusar algo que ya corre con privilegios para llegar a <code>root</code>.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Dónde reforzar cada tema</p>
+<p>Estos conceptos son justo las <strong>categorías del curso</strong> (Web, Cripto, Forense, Pwn…). El plan de
+clases los trata uno por uno; esta máquina los mezcla todos en una sola cadena.</p>
+</div>
+<hr />
+<p>Entra al walkthrough: <strong><a href="../etapa0-setup/">Etapa 0 · Setup</a></strong>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Layover">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                Layover
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../etapa0-setup/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: Etapa 0 · Setup">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                Etapa 0 · Setup
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1400 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Colección de walkthroughs de CTF centrados en el razonamiento, por tácticas MITRE ATT&CK.">
+      
+      
+      
+        <link rel="canonical" href="https://ollerenac-uni.github.io/ctf-walkthroughs/layover/01-discovery/">
+      
+      
+        <link rel="prev" href="../etapa0-setup/">
+      
+      
+        <link rel="next" href="../02-monitoreo/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>1 · Discovery - CTF Walkthroughs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=JetBrains+Mono:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"JetBrains Mono";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-discovery-t1016-t1046" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="CTF Walkthroughs" class="md-header__button md-logo" aria-label="CTF Walkthroughs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CTF Walkthroughs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1 · Discovery
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  C1 · Intro
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../c2-web/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  C2 · Web
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CTF Walkthroughs" class="md-nav__button md-logo" aria-label="CTF Walkthroughs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CTF Walkthroughs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C1 · Intro
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C1 · Intro
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conceptos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conceptos necesarios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../etapa0-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Etapa 0 · Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tácticas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tácticas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1 · Discovery
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1 · Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#11-orientacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 · Orientación
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-enfoque" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 · Enfoque
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-procedimiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 · Procedimiento
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 · Conclusión
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-root-en-el-workstation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 · Root en el workstation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-rutas-alternativas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6 · Rutas alternativas
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-monitoreo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2 · Network Sniffing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tarea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tarea · Tu blog del walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../c2-web/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C2 · Web
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C2 · Web
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c2-web/conceptos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conceptos (30 min)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c2-web/mini-labs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mini-labs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c2-web/ctf1-juice-shop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF1 · Juice Shop
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c2-web/ctf2-webgoat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF2 · WebGoat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#11-orientacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 · Orientación
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-enfoque" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 · Enfoque
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-procedimiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 · Procedimiento
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 · Conclusión
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-root-en-el-workstation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 · Root en el workstation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-rutas-alternativas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6 · Rutas alternativas
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="1-discovery-t1016-t1046">1 · Discovery  (T1016 / T1046)<a class="headerlink" href="#1-discovery-t1016-t1046" title="Permanent link">&para;</a></h1>
+<p><strong>Objetivo:</strong> descubrir que existe la red WiFi <code>10.13.37.0/24</code> y qué hosts viven en ella.</p>
+<h2 id="11-orientacion">1.1 · Orientación<a class="headerlink" href="#11-orientacion" title="Permanent link">&para;</a></h2>
+<p>Acabas de ganar un shell en una máquina de la que no sabes nada. Antes de mirar la red, oriéntate.
+Tres preguntas, lo mínimo imprescindible:</p>
+<p><strong>¿Qué host es este?</strong> (sistema y kernel)</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>hostname<span class="w">             </span><span class="c1"># airside-ws01 → hay más "estaciones"</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>lsb_release<span class="w"> </span>-a<span class="w">       </span><span class="c1"># distro y versión</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>cat<span class="w"> </span>/etc/os-release<span class="w">  </span><span class="c1"># lo mismo, si no está lsb_release</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>uname<span class="w"> </span>-a<span class="w">             </span><span class="c1"># kernel → relevante para privesc</span>
+</code></pre></div>
+<p><strong>¿Quién soy?</strong> (privilegios y grupos)</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>id<span class="w">                   </span><span class="c1"># uid, gid y grupos de un vistazo</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>groups<span class="w">               </span><span class="c1"># grupo `wireshark`: relevante para capturar tráfico</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>sudo<span class="w"> </span>-l<span class="w">              </span><span class="c1"># ¿qué puedo ejecutar como root?</span>
+</code></pre></div>
+<details class="note">
+<summary>Analizar el output de <code>id</code> (clic)</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uid=1001(contractor) gid=1001(contractor) groups=1001(contractor),27(sudo),111(netdev),121(wireshark)
+</code></pre></div>
+<p>Formato <code>número(nombre)</code>: el <strong>número</strong> lo usa el kernel; el <strong>nombre</strong> es la etiqueta de <code>/etc/group</code>.</p>
+<ul>
+<li><strong><code>uid=1001(contractor)</code></strong> → quién eres. <code>uid=0</code> sería root; los humanos suelen ir desde 1000.</li>
+<li><strong><code>gid=1001(contractor)</code></strong> → tu grupo <strong>principal</strong> (dueño por defecto de los archivos que creas).</li>
+<li><strong><code>groups=...</code></strong> → <strong>todos</strong> tus grupos = tu superficie de ataque. Los que importan:<ul>
+<li><code>27(sudo)</code> → ejecutar como <strong>root</strong> con <code>sudo</code>.</li>
+<li><code>111(netdev)</code> → gestionar <strong>interfaces de red</strong> sin ser root.</li>
+<li><code>121(wireshark)</code> → <strong>capturar tráfico de red</strong> sin ser root.</li>
+</ul>
+</li>
+</ul>
+<p>Que un usuario normal pueda <strong>capturar tráfico</strong> y <strong>tocar interfaces de red</strong> sin root es poco
+común → capacidades a tener muy presentes.</p>
+</details>
+<details class="note">
+<summary>Analizar el output de <code>sudo -l</code> (clic)</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Matching Defaults entries for contractor on airside-ws01:
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    env_reset, mail_badpass, secure_path=/usr/local/sbin:...:/snap/bin, use_pty
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>User contractor may run the following commands on airside-ws01:
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    (ALL : ALL) ALL
+</code></pre></div>
+<p><code>sudo -l</code> lista <strong>qué puedes ejecutar con sudo</strong>. La línea que importa es la última:</p>
+<ul>
+<li><strong><code>(ALL : ALL) ALL</code></strong> se lee <code>(usuarios : grupos) comandos</code>:<ul>
+<li>1.º <code>ALL</code> → como <strong>cualquier usuario</strong> (incluido root).</li>
+<li>2.º <code>ALL</code> → como <strong>cualquier grupo</strong>.</li>
+<li>3.º <code>ALL</code> → <strong>cualquier comando</strong>, sin restricción.</li>
+</ul>
+</li>
+<li>Traducción: <strong>sudo total</strong> → <code>sudo -i</code> da un shell root inmediato.</li>
+<li>Los <em>Defaults</em> de arriba (<code>env_reset</code>, <code>secure_path</code>, <code>use_pty</code>…) son políticas de seguridad; <strong>no</strong> limitan <em>qué</em> puedes correr.</li>
+</ul>
+<p>Root aquí es <strong>parte de la plataforma que te entregan</strong>, no una escalada que hayas ganado.</p>
+</details>
+<p><strong>¿Dónde estoy?</strong> (interfaces y rutas). Aquí ya empieza el discovery de red.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ip<span class="w"> </span>a<span class="w">                 </span><span class="c1"># interfaces e IPs</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>ip<span class="w"> </span>route<span class="w">             </span><span class="c1"># qué redes alcanzo</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>arp<span class="w"> </span>-a<span class="w">               </span><span class="c1"># vecinos ya conocidos</span>
+</code></pre></div>
+<details class="note">
+<summary>Analizar el output de <code>ip a</code> (clic)</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>1:  lo    &lt;LOOPBACK,UP&gt;            inet 127.0.0.1/8
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>6:  wlan2 &lt;NO-CARRIER,...,UP&gt; DOWN link/ether 02:00:00:00:02:00   (sin IP)
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>7:  wlan3 &lt;NO-CARRIER,...,UP&gt; DOWN link/ether 02:00:00:00:03:00   (sin IP)
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>10: eth0@if11 &lt;...,UP,LOWER_UP&gt; UP link/ether 00:16:3e:83:ea:41
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    inet 10.159.143.45/24 scope global dynamic eth0
+</code></pre></div>
+<ul>
+<li><strong><code>lo</code></strong> → loopback (127.0.0.1). Irrelevante.</li>
+<li><strong><code>eth0</code> es la ÚNICA con IP</strong>: <code>10.159.143.45/24</code> → estás en la red <strong>10.159.143.0/24</strong>.</li>
+<li><strong><code>eth0@if11</code> + <code>link-netnsid 0</code></strong> → es un <strong>veth</strong> (par virtual) → estás dentro de un <strong>contenedor</strong>.</li>
+<li><strong>MAC <code>00:16:3e:…</code></strong> (eth0 y el gateway) → OUI de <strong>Xen/LXD</strong> → confirma contenedor LXD.</li>
+<li><strong><code>wlan2</code> y <code>wlan3</code>: <code>DOWN</code>, <code>NO-CARRIER</code>, sin IP</strong> → hay <strong>dos adaptadores WiFi</strong> pero <strong>no asociados</strong> a ninguna red aún.</li>
+<li><strong>MACs WiFi <code>02:00:00:00:0X:00</code></strong> → secuenciales y "<code>02:</code>" (localmente administradas) = <strong>adaptadores simulados</strong> (<code>mac80211_hwsim</code>), no hardware real.</li>
+<li><strong>Deducción:</strong> tienes <strong>dos adaptadores WiFi simulados pero caídos</strong>. El siguiente paso natural es <strong>levantarlos y ver qué hay en el aire</strong>.</li>
+</ul>
+</details>
+<details class="note">
+<summary>Analizar el output de <code>ip route</code> (clic)</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>default via 10.159.143.1 dev eth0 proto dhcp src 10.159.143.45
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>10.159.143.0/24 dev eth0 proto kernel scope link src 10.159.143.45
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>10.159.143.1 dev eth0 proto dhcp scope link src 10.159.143.45
+</code></pre></div>
+<ul>
+<li><strong>Todo va por <code>eth0</code></strong> → la única red que alcanzas ahora es <strong>10.159.143.0/24</strong>.</li>
+<li><strong><code>default via 10.159.143.1</code></strong> → tu salida es el gateway <code>.1</code>.</li>
+<li><strong><code>proto dhcp</code></strong> → <code>eth0</code> se configuró por <strong>DHCP</strong>, no estático.</li>
+</ul>
+</details>
+<details class="note">
+<summary>Analizar el output de <code>arp -a</code> (clic)</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>_gateway.lxd (10.159.143.1) at 00:16:3e:ca:62:2e [ether] on eth0
+</code></pre></div>
+<ul>
+<li><strong>Un solo vecino conocido</strong>: el gateway <code>10.159.143.1</code>.</li>
+<li><strong><code>_gateway.lxd</code></strong> → el sufijo <strong><code>.lxd</code></strong> confirma entorno <strong>LXD</strong> (contenedores).</li>
+<li><strong>MAC <code>00:16:3e:…</code></strong> → otra vez el OUI de Xen/LXD.</li>
+<li><strong>Nada más en la tabla</strong> → en la red de infraestructura no hay otros hosts interesantes; el juego está en la WiFi (que aún debes conectar).</li>
+</ul>
+</details>
+<details class="tip">
+<summary>¿Hasta dónde llega 'conocer el hardware'? (clic)</summary>
+<p>Perfilar CPU/RAM/disco suele ser <strong>exagerado</strong> en un CTF. La única pieza de "hardware" que
+importa aquí son las <strong>interfaces de red</strong>. Por si quieres explorar esa parte:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>lspci<span class="w">                </span><span class="c1"># dispositivos PCI (verás los adaptadores WiFi)</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>ethtool<span class="w"> </span>-i<span class="w"> </span>wlan2<span class="w">     </span><span class="c1"># driver de la interfaz → mac80211_hwsim</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>hwsim<span class="w">   </span><span class="c1"># confirma que las WiFi son simuladas</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>iw<span class="w"> </span>dev<span class="w">               </span><span class="c1"># interfaces inalámbricas y su modo</span>
+</code></pre></div>
+<p><code>mac80211_hwsim</code> = WiFi <strong>simulada</strong>. Eso es lo relevante; CPU, RAM y disco no aportan aquí.</p>
+</details>
+<p>Dos cosas a retener de esta orientación: estás en el grupo <strong><code>wireshark</code></strong> (puedes capturar tráfico)
+y la máquina <strong>no tiene internet</strong> →</p>
+<details class="danger" open="open">
+<summary>Restricción del entorno (clave)</summary>
+<p><code>airside-ws01</code> <strong>no tiene salida a internet</strong> (<code>apt</code> devuelve <code>Ign:</code>). → <strong>no se puede instalar
+nada</strong>: ni <code>nmap</code>, ni <code>netdiscover</code>, ni <code>ffuf</code>. Hay que usar solo lo que ya está instalado.</p>
+<p>¿Y qué hay "presente"? Dos formas de averiguarlo:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">compgen</span><span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">command</span><span class="w"> </span>-v<span class="w"> </span>curl<span class="w"> </span>wget<span class="w"> </span>python3<span class="w"> </span>nc<span class="w"> </span>ncat<span class="w"> </span>socat<span class="w"> </span>ssh<span class="w"> </span>scp<span class="w"> </span>nmap<span class="w"> </span>tcpdump<span class="w"> </span>tshark<span class="w"> </span>gobuster<span class="w"> </span>ffuf<span class="w"> </span>git
+</code></pre></div></p>
+<ul>
+<li><code>compgen -c</code> → <strong>todos</strong> los comandos que el shell puede ejecutar.</li>
+<li><code>command -v &lt;lista&gt;</code> → <strong>busca aplicaciones concretas</strong> e imprime solo las que existen. Aquí
+  confirma que están <code>curl wget python3 nc ssh scp tcpdump tshark git</code> y que <strong>faltan</strong>
+  <code>nmap gobuster ffuf</code> → por eso toca usar solo lo instalado o pivotar.</li>
+</ul>
+</details>
+<h2 id="12-enfoque">1.2 · Enfoque<a class="headerlink" href="#12-enfoque" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><em>"No tengo escáneres. ¿Qué sabe la máquina de la red <strong>sin preguntarle a nadie</strong>?"</em></p>
+</blockquote>
+<p>La propia máquina ya está <strong>conectada</strong> a la red objetivo. Su configuración te lo revela gratis.</p>
+<h2 id="13-procedimiento">1.3 · Procedimiento<a class="headerlink" href="#13-procedimiento" title="Permanent link">&para;</a></h2>
+<p><strong>Estado inicial — enumeramos lo que hay:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ip<span class="w"> </span>a<span class="w">            </span><span class="c1"># interfaces e IPs</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>ip<span class="w"> </span>route<span class="w">        </span><span class="c1"># redes alcanzables</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>arp<span class="w"> </span>-a<span class="w">          </span><span class="c1"># vecinos conocidos</span>
+</code></pre></div>
+<ul>
+<li>La <strong>única interfaz con IP</strong> es <strong><code>eth0</code> (<code>10.159.143.45/24</code>)</strong> → estás en la red de
+  infraestructura <code>10.159.143.0/24</code>. <code>arp -a</code> solo muestra su gateway; nada más.</li>
+<li><strong><code>wlan2</code> y <code>wlan3</code> están <code>DOWN</code> (apagadas), sin IP.</strong> Hay dos adaptadores WiFi (simulados,
+  <code>mac80211_hwsim</code>) pero <strong>no conectados</strong> a ninguna red. La bandeja del sistema lo confirma:</li>
+</ul>
+<figure>
+  <img src="../assets/wifi-off.png" alt="Bandeja del sistema con la WiFi apagada" style="width:auto;max-width:280px">
+  <figcaption>Bandeja del sistema: la WiFi está apagada (estado inicial).</figcaption>
+</figure>
+
+<p><strong>Levantar la WiFi</strong> — las interfaces están caídas, así que subimos <code>wlan2</code> y escaneamos qué hay:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>wlan2<span class="w"> </span>up
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>iw<span class="w"> </span>dev<span class="w"> </span>wlan2<span class="w"> </span>scan<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>SSID
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1">#   SSID: HTB International WiFi      ← hay una red a la vista</span>
+</code></pre></div>
+<p>Intentamos asociarla a mano. Los errores dicen algo:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>iw<span class="w"> </span>dev<span class="w"> </span>wlan2<span class="w"> </span>connect<span class="w"> </span><span class="s2">"HTB International WiFi"</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="c1"># command failed: Operation already in progress (-114)</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>dhclient<span class="w"> </span>wlan2
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Command 'dhclient' not found</span>
+</code></pre></div>
+<ul>
+<li><strong><code>Operation already in progress (-114)</code></strong> → un <strong>gestor de conexión del sistema</strong> ya está
+  asociando <code>wlan2</code> a la red abierta por su cuenta; no hay que hacerlo a mano.</li>
+<li><strong><code>dhclient</code> no está</strong> (y sin internet no se puede instalar) → tampoco necesitas pedir DHCP
+  manualmente: ese mismo gestor obtiene la IP.</li>
+</ul>
+<p>En resumen: bastó con subir la interfaz. El sistema la asocia a la red abierta y toma el lease solo.
+Lo confirma el <code>ip a</code> de abajo.</p>
+<p>Ahora la WiFi aparece <strong>conectada</strong> a una red:</p>
+<figure>
+  <img src="../assets/wifi-on.png" alt="Bandeja del sistema con la WiFi conectada" style="width:auto;max-width:280px">
+  <figcaption>Bandeja del sistema: WiFi conectada.</figcaption>
+</figure>
+
+<p><strong>La página de bienvenida revela el objetivo.</strong> Al conectar con esa red, <code>wifi.international.htb</code> abre una página automáticamente:</p>
+<figure>
+  <img src="../assets/captive-portal.png" alt="Página de bienvenida de HTB International WiFi">
+  <figcaption>La página que aparece automáticamente al conectar: confirma la conexión y revela el portal Miles.</figcaption>
+</figure>
+
+<blockquote>
+<p><em>"You are now connected to HTB International WiFi … the HTB Airways Miles employee portal is
+reachable on this passenger network at <code>http://portal.international.htb/miles/</code>."</em></p>
+</blockquote>
+<ul>
+<li><strong>SSID:</strong> <code>HTB International WiFi</code> (abierta, para "pasajeros").</li>
+<li><strong>Página de bienvenida:</strong> <code>wifi.international.htb</code>.</li>
+<li><strong>Objetivo revelado por la propia página:</strong> <strong><code>portal.international.htb/miles/</code></strong>.</li>
+</ul>
+<p><code>ip a</code> confirma el resultado: <code>wlan2</code> pasó de caída a <strong><code>UP</code></strong> con IP en el segmento WiFi:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>6: wlan2: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP group default qlen 1000
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>    link/ether 02:00:00:00:02:00 brd ff:ff:ff:ff:ff:ff
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    inet 10.13.37.182/24 brd 10.13.37.255 scope global dynamic noprefixroute wlan2
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>       valid_lft 41778sec preferred_lft 41778sec
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    inet6 fe80::a9cf:a989:ceb6:e9d8/64 scope link noprefixroute
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>7: wlan3: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc noqueue state DOWN group default qlen 1000
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>    link/ether 02:00:00:00:03:00 brd ff:ff:ff:ff:ff:ff
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>10: eth0@if11: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP group default qlen 1000
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>    link/ether 00:16:3e:83:ea:41 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>    inet 10.159.143.45/24 metric 100 brd 10.159.143.255 scope global dynamic eth0
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>       valid_lft 3100sec preferred_lft 3100sec
+</code></pre></div>
+<ul>
+<li><strong><code>wlan2</code></strong>: de <code>DOWN</code> a <strong><code>UP</code></strong>, con <strong><code>10.13.37.182/24</code></strong> por DHCP → ya estás dentro de <code>10.13.37.0/24</code>.</li>
+<li><strong><code>wlan3</code></strong>: sigue caída → disponible.</li>
+<li><strong><code>eth0</code></strong>: sin cambios (la red de infra).</li>
+</ul>
+<p>Ya en el segmento WiFi, podrías <strong>enumerarlo</strong> (el portal, otros hosts) antes de nada. Pero hay una
+observación que abre una vía mejor:</p>
+<div class="admonition question">
+<p class="admonition-title">Conjetura: el puente hacia la captura de tráfico</p>
+<ul>
+<li>La WiFi es <strong>abierta</strong> (sin cifrado) → cualquiera en el canal ve el tráfico de todos.</li>
+<li>El portal se sirve por <strong>HTTP</strong> (la propia página de bienvenida es <code>http://</code>, sin TLS) y <strong>pide iniciar sesión</strong>.</li>
+<li><strong>Si</strong> otros usuarios se conectan a esta misma red y se loguean…</li>
+<li><strong>¿…podríamos capturar su tráfico inalámbrico y leer esas credenciales?</strong></li>
+</ul>
+<p>Es una <strong>hipótesis</strong>, no un hecho: hay que montar la captura y comprobarlo. Eso es justo lo que
+exploramos a continuación.</p>
+</div>
+<h2 id="14-conclusion">1.4 · Conclusión<a class="headerlink" href="#14-conclusion" title="Permanent link">&para;</a></h2>
+<p>Tras asociarte a la WiFi abierta estás dentro de <strong><code>10.13.37.0/24</code></strong>, y la <strong>página de bienvenida te ha
+revelado el objetivo</strong>: <code>portal.international.htb/miles/</code> (el portal Miles de HTB Airways).</p>
+<figure>
+  <img src="../assets/network-map.svg" alt="Mapa de red desde airside-ws01">
+  <figcaption>Topología resultante: infra por `eth0`, y el segmento WiFi `10.13.37.0/24` con el portal.</figcaption>
+</figure>
+
+<h2 id="15-root-en-el-workstation">1.5 · Root en el workstation<a class="headerlink" href="#15-root-en-el-workstation" title="Permanent link">&para;</a></h2>
+<p>Antes de capturar tráfico necesitamos privilegios. El workstation nos los <strong>regala</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>sudo<span class="w"> </span>-l<span class="w">          </span><span class="c1"># (ALL : ALL) ALL</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>sudo<span class="w"> </span>-i<span class="w">          </span><span class="c1"># uid=0(root)</span>
+</code></pre></div>
+<details class="danger" open="open">
+<summary>Esto no es el privesc del reto</summary>
+<p>El workstation te concede <strong>sudo total de entrada</strong>: root aquí es <strong>parte de la plataforma que
+te entregan</strong>, no un objetivo que hayas tenido que ganar. Tenerlo te permitirá hacer cosas que
+requieren privilegios en los pasos siguientes. No lo confundas con una escalada conseguida por ti.</p>
+</details>
+<h2 id="16-rutas-alternativas">1.6 · Rutas alternativas<a class="headerlink" href="#16-rutas-alternativas" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>ip neigh</code> / <code>cat /proc/net/arp</code> — equivalentes a <code>arp -a</code>.</li>
+<li><code>ip route</code> — qué redes alcanza la máquina.</li>
+<li><code>/etc/hosts</code>, config DHCP, <code>resolv.conf</code> — dominio <code>international.htb</code>.</li>
+<li><code>iw dev</code> + <code>/sys/class/net/*/phy80211/</code> — confirmar que son interfaces simuladas.</li>
+<li><code>tcpdump -i wlan2</code> unos segundos — ver qué direcciones aparecen solas.</li>
+<li><code>netdiscover</code> <strong>no</strong> se usó y <strong>no se puede instalar</strong> aquí → queda como ejercicio teórico.</li>
+</ul>
+<details class="note">
+<summary>Captura</summary>
+<p><em>(Espacio para la salida de <code>ip a</code> resaltando <code>wlan2</code> con su IP <code>10.13.37.182/24</code>.)</em></p>
+</details>
+<p><strong>Siguiente:</strong> <a href="../02-monitoreo/">Táctica 2 · Network Sniffing</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../etapa0-setup/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Etapa 0 · Setup">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                Etapa 0 · Setup
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../02-monitoreo/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: 2 · Network Sniffing">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                2 · Network Sniffing
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>
