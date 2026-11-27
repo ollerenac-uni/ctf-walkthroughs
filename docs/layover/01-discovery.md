@@ -24,7 +24,7 @@ groups               # grupo `wireshark`: relevante para capturar tráfico
 sudo -l              # ¿qué puedo ejecutar como root?
 ```
 
-??? note "🔍 Analizar el output de `id` (clic)"
+??? note "Analizar el output de `id` (clic)"
     ```text
     uid=1001(contractor) gid=1001(contractor) groups=1001(contractor),27(sudo),111(netdev),121(wireshark)
     ```
@@ -34,14 +34,14 @@ sudo -l              # ¿qué puedo ejecutar como root?
     - **`uid=1001(contractor)`** → quién eres. `uid=0` sería root; los humanos suelen ir desde 1000.
     - **`gid=1001(contractor)`** → tu grupo **principal** (dueño por defecto de los archivos que creas).
     - **`groups=...`** → **todos** tus grupos = tu superficie de ataque. Los que importan:
-        - `27(sudo)` → 🔴 ejecutar como **root** con `sudo`.
+        - `27(sudo)` → ejecutar como **root** con `sudo`.
         - `111(netdev)` → gestionar **interfaces de red** sin ser root.
         - `121(wireshark)` → **capturar tráfico de red** sin ser root.
 
     Que un usuario normal pueda **capturar tráfico** y **tocar interfaces de red** sin root es poco
     común → capacidades a tener muy presentes.
 
-??? note "🔍 Analizar el output de `sudo -l` (clic)"
+??? note "Analizar el output de `sudo -l` (clic)"
     ```text
     Matching Defaults entries for contractor on airside-ws01:
         env_reset, mail_badpass, secure_path=/usr/local/sbin:...:/snap/bin, use_pty
@@ -59,7 +59,7 @@ sudo -l              # ¿qué puedo ejecutar como root?
     - Traducción: **sudo total** → `sudo -i` da un shell root inmediato.
     - Los *Defaults* de arriba (`env_reset`, `secure_path`, `use_pty`…) son políticas de seguridad; **no** limitan *qué* puedes correr.
 
-    ⚠️ Root aquí es **parte de la plataforma que te entregan**, no una escalada que hayas ganado.
+    Root aquí es **parte de la plataforma que te entregan**, no una escalada que hayas ganado.
 
 **¿Dónde estoy?** (interfaces y rutas). Aquí ya empieza el discovery de red.
 
@@ -69,7 +69,7 @@ ip route             # qué redes alcanzo
 arp -a               # vecinos ya conocidos
 ```
 
-??? note "🔍 Analizar el output de `ip a` (clic)"
+??? note "Analizar el output de `ip a` (clic)"
     ```text
     1:  lo    <LOOPBACK,UP>            inet 127.0.0.1/8
     6:  wlan2 <NO-CARRIER,...,UP> DOWN link/ether 02:00:00:00:02:00   (sin IP)
@@ -86,7 +86,7 @@ arp -a               # vecinos ya conocidos
     - **MACs WiFi `02:00:00:00:0X:00`** → secuenciales y "`02:`" (localmente administradas) = **adaptadores simulados** (`mac80211_hwsim`), no hardware real.
     - **Deducción:** tienes **dos adaptadores WiFi simulados pero caídos**. El siguiente paso natural es **levantarlos y ver qué hay en el aire**.
 
-??? note "🔍 Analizar el output de `ip route` (clic)"
+??? note "Analizar el output de `ip route` (clic)"
     ```text
     default via 10.159.143.1 dev eth0 proto dhcp src 10.159.143.45
     10.159.143.0/24 dev eth0 proto kernel scope link src 10.159.143.45
@@ -97,7 +97,7 @@ arp -a               # vecinos ya conocidos
     - **`default via 10.159.143.1`** → tu salida es el gateway `.1`.
     - **`proto dhcp`** → `eth0` se configuró por **DHCP**, no estático.
 
-??? note "🔍 Analizar el output de `arp -a` (clic)"
+??? note "Analizar el output de `arp -a` (clic)"
     ```text
     _gateway.lxd (10.159.143.1) at 00:16:3e:ca:62:2e [ether] on eth0
     ```
@@ -278,7 +278,7 @@ sudo -i          # uid=0(root)
 - `tcpdump -i wlan2` unos segundos — ver qué direcciones aparecen solas.
 - `netdiscover` **no** se usó y **no se puede instalar** aquí → queda como ejercicio teórico.
 
-??? note "📸 Captura"
+??? note "Captura"
     *(Espacio para la salida de `ip a` resaltando `wlan2` con su IP `10.13.37.182/24`.)*
 
 **Siguiente:** [Táctica 2 · Network Sniffing](02-monitoreo.md)

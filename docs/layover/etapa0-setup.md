@@ -96,7 +96,7 @@ sudo openvpn machines_us-4.ovpn
 
     ```
     64 bytes from 10.129.247.82: icmp_seq=1 ttl=63 time=99.4 ms   ← ping OK
-    3389 ABIERTO ✓                                                 ← RDP escuchando
+    3389 ABIERTO                                                 ← RDP escuchando
     ```
 
     **Lección:** *antes* de conectar la VPN, comprueba que no haya otra colgada (`pgrep -a openvpn`,

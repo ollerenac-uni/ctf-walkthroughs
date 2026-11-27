@@ -12,7 +12,7 @@ una CTF por su cadena de deducciones.
 
 <div class="grid cards" markdown>
 
--   :material-server-network: **[Layover](layover/index.md)** · C1 · Máquina HackTheBox
+-   **[Layover](layover/index.md)** · C1 · Máquina HackTheBox
 
     ---
 
@@ -22,8 +22,8 @@ una CTF por su cadena de deducciones.
 
     **Estado:** Setup → Táctica 2 · Tarea (montar tu propio blog + resolver 3–6)
 
-    [:material-book-open-variant: Conceptos necesarios](layover/conceptos.md) ·
-    [:material-play: Walkthrough](layover/index.md)
+    [Conceptos necesarios](layover/conceptos.md) ·
+    [Walkthrough](layover/index.md)
 
 </div>
 

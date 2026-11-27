@@ -7,8 +7,8 @@ lo demás.
 
 !!! info "Cómo usar esta página"
     La primera vez, léela completa. Después úsala como referencia: si no entiendes un término en una
-    táctica, búscalo aquí. Lo marcado con 🔒 corresponde a la parte no publicada ([Tarea](tarea.md)):
-    solo se describe el concepto, no el procedimiento.
+    táctica, búscalo aquí. La parte no publicada ([Tarea](tarea.md)) se describe solo a nivel de
+    concepto, no de procedimiento.
 
 ## 1 · ¿Qué es un CTF?
 
@@ -233,17 +233,17 @@ Lo mínimo para no perderte. Si algo de esto es nuevo, repásalo primero.
 | **HTTP en claro** | tráfico sin TLS → credenciales legibles si alguien se loguea | [2 · Network Sniffing](02-monitoreo.md) |
 | **`tshark` / campos de Wireshark** | la CLI de Wireshark; disecar un paquete por campos (`http.file_data`) | [2 · Network Sniffing](02-monitoreo.md) |
 
-## 8 · Conceptos de la parte no publicada 🔒
+## 8 · Conceptos de la parte no publicada
 
 Lo que **explorarás en la [Tarea](tarea.md)**. A nivel de idea, sin el procedimiento:
 
-- **Fingerprinting de aplicaciones web** 🔒: identificar qué software y qué versión corre, y de ahí
+- **Fingerprinting de aplicaciones web**: identificar qué software y qué versión corre, y de ahí
   buscar su fallo conocido (CVE) en la fuente correcta.
-- **Ejecución de código** 🔒: pasar de "tengo sesión en una app" a "ejecuto comandos en el servidor".
-- **Criptografía aplicada** 🔒: distinguir un valor **cifrado** (reversible con su llave) de un
+- **Ejecución de código**: pasar de "tengo sesión en una app" a "ejecuto comandos en el servidor".
+- **Criptografía aplicada**: distinguir un valor **cifrado** (reversible con su llave) de un
   **hash** (no lo es); recuperar secretos de la configuración de una app.
-- **Movimiento lateral** 🔒: reutilizar una credencial recuperada para volverte un usuario real.
-- **Escalada de privilegios** 🔒: abusar algo que ya corre con privilegios para llegar a `root`.
+- **Movimiento lateral**: reutilizar una credencial recuperada para volverte un usuario real.
+- **Escalada de privilegios**: abusar algo que ya corre con privilegios para llegar a `root`.
 
 !!! tip "Dónde reforzar cada tema"
     Estos conceptos son justo las **categorías del curso** (Web, Cripto, Forense, Pwn…). El plan de

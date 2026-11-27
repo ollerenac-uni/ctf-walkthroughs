@@ -28,7 +28,7 @@ root        53  systemd-journald             │ núcleo del sistema: root, pero
 root       114  systemd-udevd                │ NO reciben tu input → descártalos
 root       305  systemd-logind               ┘
 root       280  /usr/sbin/cron -f            ← root; valdría SI hubiera un cron escribible
-root       281  /usr/sbin/cupsd -f           ← root; escucha en :631 → le hablas   ★
+root       281  /usr/sbin/cupsd -f           ← root; escucha en :631 → le hablas   
 root       330  udisksd                      ← root; servicio D-Bus (otra superficie)
 root       343  sshd -D                      ← root, pero endurecido
 root       291  php-fpm: master              ┐ root, pero solo lanzan workers www-data;
@@ -38,7 +38,7 @@ mysql      507  mariadbd                     ┘
 ```
 
 De todos, el que cumple **root + te escucha + superficie amplia (con historial de CVEs)** es
-**`cupsd`** (★). Los demás son del núcleo, están endurecidos o no corren como root.
+**`cupsd`**. Los demás son del núcleo, están endurecidos o no corren como root.
 
 **2) ¿Está activo?**
 
@@ -97,7 +97,7 @@ dpkg -s cups-daemon | grep Version   # → Version: 2.4.16-...
 Correr `linpeas` para ver qué otros vectores marca (SUID, cron, capabilities, kernel) y comprobar si
 CUPS era la única vía o solo la primera.
 
-!!! note "📸 Captura"
+!!! note "Captura"
     *(Espacio para `id` mostrando `uid=0(root)` y la root flag.)*
 
 ---

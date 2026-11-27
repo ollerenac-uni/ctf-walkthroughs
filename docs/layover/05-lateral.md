@@ -53,6 +53,6 @@ b1356da67fd527c82e43fcc6b2a2b519
   *trust-on-first-use*). Dices `yes` y la guarda en `~/.ssh/known_hosts`.
 - **El prompt cambia a `aporter@portal`** → ya eres usuario real, y el hostname **`portal`** confirma
   que es el servidor web.
-- **🚩 USER FLAG:** `b1356da67fd527c82e43fcc6b2a2b519`.
+- **USER FLAG:** `b1356da67fd527c82e43fcc6b2a2b519`.
 
 **Siguiente:** [Táctica 6 · Privilege Escalation](06-privesc.md)

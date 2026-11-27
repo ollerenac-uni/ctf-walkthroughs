@@ -1,6 +1,6 @@
 # CTF1 · OWASP Juice Shop
 
-La app deliberadamente vulnerable de OWASP. En esta clase (Easy, ~45 min) resolvemos el tier **1–2⭐**
+La app deliberadamente vulnerable de OWASP. En esta clase (Easy, ~45 min) resolvemos el nivel **1–2**
 que toca las familias del día: **SQLi**, **XSS** e **IDOR** (y vemos por qué el JWT se deja para
 [CTF2](index.md)). Todo lo que sigue está hecho sobre una **instancia real**.
 
@@ -22,7 +22,7 @@ http://localhost:3000/#/score-board
 ```
 
 Encontrarlo ya cuenta como reto, y te da el **mapa**: categorías (Injection, XSS, Broken Access
-Control…) y dificultad en ⭐.
+Control…) y su dificultad.
 
 <figure>
   <img src="../assets/js-score-board.jpg" alt="Score Board de Juice Shop con las categorías de retos">
@@ -107,13 +107,13 @@ Reto **View Basket** resuelto (arriba se ven las cuatro familias ya marcadas).
 
 ## 6 · JWT
 
-Juice Shop **sí** tiene retos de JWT, pero son **forjar un token firmado con RSA** (4–5⭐):
-demasiado para la franja Easy. El token que recibiste al loguearte **es** un JWT — su explotación a
-fondo (clave débil, `alg:none`, re-firmado) la trabajamos en **[CTF2 · WebGoat](ctf2-webgoat.md)**.
+Juice Shop **sí** tiene retos de JWT, pero son **forjar un token firmado con RSA** (nivel 4–5):
+demasiado para la franja Easy. El token que recibiste al loguearte es un JWT; su explotación a fondo
+(clave débil, `alg:none`, re-firmado) la trabajamos en **[CTF2 · WebGoat](ctf2-webgoat.md)**.
 
 ## 7 · Mapa familia → reto
 
-| Familia | Reto Juice Shop | ⭐ |
+| Familia | Reto Juice Shop | Nivel |
 |---|---|:--:|
 | *(orientación)* | Score Board | 1 |
 | **SQLi** | Login Admin | 2 |

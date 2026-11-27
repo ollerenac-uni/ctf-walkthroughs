@@ -52,10 +52,9 @@ suene a IA. Reglas:
 - Evita el guion largo (—) como pausa dramática; usa punto, coma o dos puntos.
 - Evita la cadencia de "regla de tres" (tres adjetivos o cláusulas seguidas).
 - Frases cortas y declarativas. Si una oración pasa de unas 25 palabras, pártela.
-- No cierres secciones con frases-resumen inspiradoras ni con emoji decorativo. El
-  emoji funcional (p. ej. 🔒 para marcar contenido no publicado) sí se permite. Las
-  columnas de estado y las tablas usan texto, no emoji de estado (nada de ✅, 🔜,
-  🧩, 🛠, 🎯).
+- Sin emoji ni iconos decorativos, incluidos los shortcodes `:material-*:`. Usa
+  texto. Las flechas (`→`, `←`) sí se permiten como notación técnica. No cierres
+  secciones con frases-resumen inspiradoras.
 
 Ninguna regla elimina el tono por completo: revisa el resultado antes de dar algo
 por terminado.

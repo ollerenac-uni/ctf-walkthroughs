@@ -8,7 +8,7 @@ robar una cookie con **XSS** y abusar de una **API** mal protegida (**JWT / IDOR
 | Tramo | Tiempo | Contenido |
 |---|---|---|
 | **Conceptos (embudo)** | 30 min | [Conceptos](conceptos.md) + [mini-labs](mini-labs.md) de apoyo |
-| **CTF1 · Easy** | 45 min | **OWASP Juice Shop** (1–2⭐) · SQLi/XSS/JWT/IDOR |
+| **CTF1 · Easy** | 45 min | **OWASP Juice Shop** (nivel 1–2) · SQLi/XSS/JWT/IDOR |
 | **CTF2 · intermedio** | 45 min | **OWASP WebGoat** · JWT/IDOR/SQLi/XSS |
 | **Tarea** | casa | **picoCTF — Cookies** (Easy) · mini-writeup |
 
@@ -16,18 +16,18 @@ robar una cookie con **XSS** y abusar de una **API** mal protegida (**JWT / IDOR
 
 <div class="grid cards" markdown>
 
--   :material-fruit-citrus: **CTF1 · [OWASP Juice Shop](https://owasp.org/www-project-juice-shop/)** · Easy
+-   **CTF1 · [OWASP Juice Shop](https://owasp.org/www-project-juice-shop/)** · Easy
 
     ---
 
     App OWASP deliberadamente vulnerable; cubre **las cuatro familias** de la clase. En clase se juega
-    el tier **1–2⭐**: SQLi de login, XSS en el buscador, IDOR de la cesta y un primer JWT.
+    el nivel **1–2**: SQLi de login, XSS en el buscador, IDOR de la cesta y un primer JWT.
 
     **Cubre:** SQLi · XSS · JWT · IDOR
     **Plataforma:** self-host (Docker), con modo CTF.
     **Walkthrough:** [resolverlo paso a paso](ctf1-juice-shop.md)
 
--   :material-shield-bug: **CTF2 · [OWASP WebGoat](https://owasp.org/www-project-webgoat/)** · intermedio
+-   **CTF2 · [OWASP WebGoat](https://owasp.org/www-project-webgoat/)** · intermedio
 
     ---
 
